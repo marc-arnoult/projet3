@@ -10,11 +10,10 @@ class IndexController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $title = 'marc';
-        return $this->render($request, compact('title'));
+        return $this->render($request);
     }
-    public function byeAction(Request $request, $name)
+    public function byeAction(Request $request)
     {
-        return $this->render($request, $name);
+        return $this->render($request);
     }
 }
