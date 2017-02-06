@@ -1,0 +1,21 @@
+{
+    "name": "marc/smoky",
+    "description": "FrameworkPhp",
+    "authors": [
+        {
+            "name": "marc",
+            "email": "marc.arnoult@hotmail.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "": "src/"
+        }
+    },
+    "require": {
+        "symfony/http-foundation": "^3.2",
+        "symfony/routing": "^3.2",
+        "symfony/http-kernel": "^3.2"
+    }
+}

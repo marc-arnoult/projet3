@@ -1,0 +1,1 @@
+Bonne nuit <?php echo htmlspecialchars(isset($name) ? $name . ', a demain !' : '', ENT_QUOTES, 'UTF-8') ?>
