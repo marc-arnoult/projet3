@@ -1,0 +1,7 @@
+web:
+ image: pablofmorales/apache-php7
+ ports:
+  - "8080:80"
+  - "8443:443"
+ volumes:
+  - $PWD:/var/www/html

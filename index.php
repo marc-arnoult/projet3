@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . './../app/autoload.php';
+require_once __DIR__ . '/app/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
 $request = Request::createFromGlobals();
-$routes  = include __DIR__ . './../app/Routes/routes.php';
+$routes  = include __DIR__ . '/app/Routes/routes.php';
 
 $context = new RequestContext();
 $context->fromRequest($request);
