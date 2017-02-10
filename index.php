@@ -2,12 +2,9 @@
 require_once __DIR__ . '/app/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Controller\{ControllerResolver, ArgumentResolver};
 
 $request = Request::createFromGlobals();
 $routes  = include __DIR__ . '/app/Routes/routes.php';
@@ -15,6 +12,14 @@ $routes  = include __DIR__ . '/app/Routes/routes.php';
 $context = new RequestContext();
 $context->fromRequest($request);
 $matcher = new UrlMatcher($routes, $context);
+
+$db = new \Core\Database\Database();
+
+$pdo = $db->getPdo();
+
+$req = $pdo->query('SELECT * FROM user');
+
+var_dump($req->fetchAll(PDO::FETCH_OBJ));
 
 $controllerResolver = new ControllerResolver();
 $argumentResolver = new ArgumentResolver();

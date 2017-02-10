@@ -3,8 +3,7 @@
 namespace Core\Smoky;
 
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Controller\{ControllerResolver, ArgumentResolver};
 use Symfony\Component\HttpFoundation\Request;
 
 interface Smokyinterface

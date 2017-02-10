@@ -1,17 +1,19 @@
 <?php
 
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\{RouteCollection, Route};
 
 $routes = new RouteCollection();
 
-$routes->add('hello', new Route('/', array(
-    'name' => '',
+$routes->add('home', new Route('/', array(
     '_controller' => 'AppModule\\Controller\\IndexController::indexAction'
+), array(), array(), '', array(), array('GET')));
+
+$routes->add('articles', new Route('/articles', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::testAction'
 )));
-$routes->add('night', new Route('/bye/{name}', array(
-    'name' => 'anonyme',
-    '_controller' => 'AppModule\\Controller\\IndexController::byeAction'
+
+$routes->add('articles_list', new Route('/articles/{id}/{name}', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::showAction'
 )));
 
 return $routes;
