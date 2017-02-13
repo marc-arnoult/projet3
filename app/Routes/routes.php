@@ -8,12 +8,16 @@ $routes->add('home', new Route('/', array(
     '_controller' => 'AppModule\\Controller\\IndexController::indexAction'
 ), array(), array(), '', array(), array('GET')));
 
-$routes->add('articles', new Route('/articles', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::testAction'
+$routes->add('articles_list', new Route('/articles', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::indexAction'
 )));
 
-$routes->add('articles_list', new Route('/articles/{id}/{name}', array(
+$routes->add('article', new Route('/article/{id}', array(
     '_controller' => 'AppModule\\Controller\\ArticleController::showAction'
+)));
+
+$routes->add('/admin/home', new Route('/admin', array(
+    '_controller' => 'AppModule\\Controller\\AdminController::indexAction'
 )));
 
 return $routes;

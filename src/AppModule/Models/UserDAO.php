@@ -3,8 +3,11 @@
 namespace AppModule\Model;
 
 
+use Core\Database\Database;
+
 class UserDAO implements iDAO
 {
+    private $db;
 
     public function add(iModel $model)
     {
@@ -13,7 +16,7 @@ class UserDAO implements iDAO
 
     public function get($id) : User
     {
-        // TODO: Implement get() method.
+
     }
 
     public function getAll()

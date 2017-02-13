@@ -1,13 +1,14 @@
 <?php include_once 'layout/header.view.php'; ?>
+
     <section>
-        <h1>Bonjour, bienvenue sur mon blog</h1>
+        <h1>Bonjour, bienvenue sur le blog de </h1>
         <div class="bg-tiret">
             <span class="tiret"></span>
             <span class="tiret"></span>
         </div>
         <article>
             <div class="round">
-                <time>
+                <time datetime="">
                     11/22/11
                 </time>
             </div>

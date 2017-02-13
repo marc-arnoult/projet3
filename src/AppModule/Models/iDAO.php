@@ -3,13 +3,15 @@
 namespace AppModule\Model;
 
 
+use Core\Database\Database;
+
 interface iDAO
 {
     public function add(iModel $model);
 
     public function get($id);
 
-    public function getAll();
+    public static function getAll();
 
     public function update();
 

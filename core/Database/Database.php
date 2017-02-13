@@ -6,7 +6,6 @@ namespace Core\Database;
 
 class Database extends \PDO
 {
-    private $pdo;
 
     public function __construct($file = 'my_setting.ini')
     {
@@ -15,20 +14,11 @@ class Database extends \PDO
         $dns = $settings['database']['driver'] .
             ':host=' . $settings['database']['host'] .
             ((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
-            ';dbname=' . $settings['database']['schema'];
+            ';dbname=' . $settings['database']['schema'] .
+            ';charset=' . $settings['database']['charset'];
 
         parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
 
-        $this->pdo = $this;
     }
 
-    public function getPdo ()
-    {
-        if($this->pdo === null) {
-            $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName;charset=utf8", $this->username, $this->password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-            $this->pdo = $pdo;
-        }
-        return $this->pdo;
-    }
 }

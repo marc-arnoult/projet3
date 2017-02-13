@@ -10,16 +10,35 @@ body, html, ul {
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }*/
-
-header nav ul {
+header nav {
     display: flex;
-    justify-content:center;
     height: 70px;
     border-bottom: 1px solid #EBEBEB;
 }
-header nav div {
+header nav div:nth-child(1) {
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 100px;
+    background-color: #3c8dbc;
+}
+header nav div i {
+    transform: scale(2.3);
+    color: #FFFFFF;
+    transition: 0.4s;
+}
+header nav div i:hover {
+    transform: scale(2.7);
+}
+header nav div:nth-child(2) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header nav ul {
+    display: flex;
+    justify-content: center;
 }
 header nav ul li {
     position: relative;
@@ -32,7 +51,7 @@ header nav ul li a {
     text-decoration: none;
 }
 header nav ul a:hover {
-    color: #3EB3A5;
+    color: #3c8dbc;
     border-bottom: 3px solid #AFAFAF;
 }
 header nav ul img {
@@ -75,7 +94,7 @@ section article .round {
     font-size: 1.4rem;
     font-weight: bold;
     letter-spacing: 1px;
-    color: #3EB3A5;
+    color: #3c8dbc;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -91,19 +110,18 @@ section article h2 {
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 form input {
     margin: 2px 0 8px 0;
     width: 300px;
     border: none;
-    background-color: #e5e5e5;
+    background-color: #EBEBEB;
     height: 18px;
 }
 form input[type=submit]{
     color: #ffffff;
     font-size: 1rem;
-    background-color: #3EB3A5;
+    background-color: #3c8dbc;
     border-radius: 3px;
     margin-top: 10px;
     height: 32px;
@@ -112,7 +130,7 @@ section article a {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 800;
-    color: #3EB3A5;
+    color: #3c8dbc;
     margin-left: 120px;
 }
 section article a:hover {
@@ -146,10 +164,14 @@ hr {
 }
 .info i {
     margin-right: 2px;
-    color: #3EB3A5;
+    color: #3c8dbc;
     transform: scale(1.1);
 }
 @media screen and (max-width: 780px) {
+    header nav ul{
+        display: flex;
+        flex-direction: column;
+    }
     section {
         width: auto;
     }
