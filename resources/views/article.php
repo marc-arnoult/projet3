@@ -23,11 +23,13 @@
     </section>
 
     <section>
-        <form action="#">
+        <h3>* Commentaires *</h3>
+        <form action="/articles" method="post">
             Titre
-            <input type="text">
+            <input type="text" name="title">
             Commentaire
-            <textarea name="" rows="10"></textarea>
+            <textarea name="content" rows="10"></textarea>
+            <input type="submit">
         </form>
     </section>
 

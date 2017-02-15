@@ -3,25 +3,43 @@ namespace AppModule\Controller;
 
 use AppModule\Model\ArticleDAO;
 use Core\Controller\Controller;
-use Core\Database\Database;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ArticleController extends Controller
 {
 
     public function indexAction(Request $request)
     {
-        $db = new Database();
-        $articles = $db->query('SELECT * FROM articles LIMIT 0, 5')->fetch(\PDO::FETCH_OBJ);
+        $session = new Session();
+        $articleDAO = new ArticleDAO();
+        $articles = $articleDAO->getAll();
         $request->attributes->set('articles', $articles);
+        $request->setSession($session);
+
         return $this->render($request);
     }
-    public function showAction(Request $request)
+
+    public function showAction(Request $request, $id)
     {
-        $db = new Database();
-        $id = $request->get('id');
-        $articles = $db->query('SELECT * FROM articles LIMIT 0, 5')->fetch(\PDO::FETCH_OBJ);
+        $articleDAO = new ArticleDAO();
+        $articles = $articleDAO->get($id);
+
+        if(!$articles) {
+            header('Location: http://localhost:8000');
+            exit();
+        }
         $request->attributes->set('articles', $articles);
+
         return $this->render($request);
+    }
+
+    public function postAction(Request $request)
+    {
+        return new JsonResponse(array(
+            'title' => $request->get('title'),
+            'content' => $request->get('content')
+        ));
     }
 }

@@ -5,5 +5,5 @@ namespace AppModule\Model;
 
 interface iModel
 {
-    public function hydrate();
+    public function hydrate(array $array);
 }

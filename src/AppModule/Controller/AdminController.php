@@ -17,6 +17,9 @@ class AdminController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $session = new Session();
+        $session->start();
+        var_dump($session->get('name'));
         return $this->render($request);
     }
 

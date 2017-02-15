@@ -18,9 +18,24 @@ class User implements iModel
     private $role;
     private $createdAt;
 
-    public function hydrate()
+    public function __construct(array $data)
     {
-        // TODO: Implement hydrate() method.
+        $data['role'] = 'editor';
+        $this->hydrate($data);
+    }
+
+    public function hydrate(array $data)
+    {
+        foreach ($data as $key => $value)
+        {
+            $method = 'set'.ucfirst($key);
+
+            if (method_exists($this, $method))
+            {
+                $this->$method(htmlspecialchars($value));
+            }
+        }
+
     }
 
     /**

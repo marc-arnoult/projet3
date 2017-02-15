@@ -19,10 +19,16 @@
                         <li><a href="/articles">Articles</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
-                    <ul>
-                        <li><a href="#">Inscription</a></li>
-                        <li><a href="#">Connexion</a></li>
-                    </ul>
+                    <?php if (empty($request->getSession())): ?>
+                        <ul>
+                            <li><a href="/inscription">Inscription</a></li>
+                            <li><a href="#">Connexion</a></li>
+                        </ul>
+                    <?php else: ?>
+                        <ul>
+                            <li><a href="#">Salut</a></li>
+                        </ul>
+                    <?php endif; ?>
                 </div>
             </nav>
         </header>

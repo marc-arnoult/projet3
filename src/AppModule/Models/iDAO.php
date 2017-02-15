@@ -11,7 +11,7 @@ interface iDAO
 
     public function get($id);
 
-    public static function getAll();
+    public function getAll();
 
     public function update();
 

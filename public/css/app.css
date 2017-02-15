@@ -25,7 +25,7 @@ header nav div:nth-child(1) {
 header nav div i {
     transform: scale(2.3);
     color: #FFFFFF;
-    transition: 0.4s;
+    transition: 0.3s;
 }
 header nav div i:hover {
     transform: scale(2.7);
@@ -87,7 +87,7 @@ section .tiret {
 }
 section article {
     font-size: 1rem;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 section article .round {
     font-family: "DIN Condensed";
@@ -113,15 +113,16 @@ form {
 }
 form input {
     margin: 2px 0 8px 0;
+    border: 1px solid black;
     width: 300px;
-    border: none;
-    background-color: #EBEBEB;
     height: 18px;
+}
+form textarea {
+    border-color: black;
 }
 form input[type=submit]{
     color: #ffffff;
     font-size: 1rem;
-    background-color: #3c8dbc;
     border-radius: 3px;
     margin-top: 10px;
     height: 32px;

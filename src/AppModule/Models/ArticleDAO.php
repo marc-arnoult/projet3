@@ -13,22 +13,29 @@ use Core\Database\Database;
 
 class ArticleDAO implements iDAO
 {
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
 
     public function add(iModel $model)
     {
-        // TODO: Implement add() method.
     }
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        $db = new Database();
+        $data = $db->query("SELECT * FROM articles WHERE id = {$id}", \PDO::FETCH_OBJ);
+        return $data->fetch();
     }
 
-    public static function getAll()
+    public function getAll()
     {
         $db = new Database();
-        $data = $db->query('SELECT * FROM user', \PDO::FETCH_OBJ);
-        var_dump($data->fetch());
+        $data = $db->query('SELECT * FROM articles', \PDO::FETCH_OBJ);
+        return $data->fetchAll();
     }
 
     public function update()
