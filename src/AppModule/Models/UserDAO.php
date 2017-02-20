@@ -4,23 +4,34 @@ namespace AppModule\Model;
 
 
 use Core\Database\Database;
+use AppModule\Model\User;
 
-class UserDAO implements iDAO
+class UserDAO
 {
     public function add(iModel $model)
     {
-        $db = new Database();
-        $req = $db->prepare('INSERT INTO user (pseudo, password, email, role, created_at) VALUES (:pseudo, :password, :email, :role, NOW())');
-        $req->bindValue(':pseudo', $model->getPseudo());
-        $req->bindValue(':password', $model->getPassword());
-        $req->bindValue(':email', $model->getEmail());
-        $req->bindValue(':role', $model->getRole());
-        $req->execute();
+        try {
+            $db = new Database();
+            $req = $db->prepare('INSERT INTO user (pseudo, password, email, role, created_at) VALUES (:pseudo, :password, :email, :role, NOW())');
+            $req->bindValue(':pseudo', $model->getPseudo(), \PDO::PARAM_STR);
+            $req->bindValue(':password', $model->getPassword(), \PDO::PARAM_STR);
+            $req->bindValue(':email', $model->getEmail(), \PDO::PARAM_STR);
+            $req->bindValue(':role', $model->getRole(), \PDO::PARAM_STR);
+            return $req->execute();
+        } catch (\Exception $e) {
+            echo 'Erreur ' . $e;
+        }
     }
 
-    public function get($id)
+    public function get($pseudo, $password)
     {
-
+        $db = new Database();
+        $data = $db->prepare("SELECT * FROM user WHERE pseudo = :pseudo AND password = :password");
+        $data->bindValue(':pseudo', $pseudo);
+        $data->bindValue(':password', $password);
+        $data->execute();
+        $req = $data->fetch(\PDO::FETCH_ASSOC);
+        return $req;
     }
 
     public function getAll()

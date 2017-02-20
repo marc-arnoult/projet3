@@ -57,7 +57,7 @@ class User implements iModel
     /**
      * @return \DateTime
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreated_at()
     {
         return $this->createdAt;
     }
@@ -65,7 +65,7 @@ class User implements iModel
     /**
      * @param \DateTime $createdAt
      */
-    public function setCreatedAt(\DateTime $createdAt)
+    public function setCreated_at($createdAt)
     {
         $this->createdAt = $createdAt;
     }

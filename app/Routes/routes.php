@@ -25,12 +25,32 @@ $routes->add('/admin/home', new Route('/admin', array(
     '_controller' => 'AppModule\\Controller\\AdminController::indexAction'
 )));
 
-$routes->add('sign_up', new Route('/inscription', array(
-    '_controller' => 'AppModule\\Controller\\ConnectController::indexAction'
+$routes->add('sign_out', new Route('/deconnexion', array(
+    '_controller' => 'AppModule\\Controller\\AuthController::signOutAction'
 ), array(), array(), '', array(), array('GET')));
 
-$routes->add('', new Route('/inscription', array(
-    '_controller' => 'AppModule\\Controller\\ConnectController::signUpAction'
+/********************
+ *     SIGN UP      *
+ ********************/
+
+$routes->add('sign_up', new Route('/inscription', array(
+    '_controller' => 'AppModule\\Controller\\AuthController::signUpShowAction'
+), array(), array(), '', array(), array('GET')));
+
+$routes->add('#sign_up#', new Route('/inscription', array(
+    '_controller' => 'AppModule\\Controller\\AuthController::signUpAction'
+), array(), array(), '', array(), array('POST')));
+
+/********************
+ *     SIGN IN      *
+ ********************/
+
+$routes->add('sign_in', new Route('/connexion', array(
+    '_controller' => 'AppModule\\Controller\\AuthController::signInShowAction'
+), array(), array(), '', array(), array('GET')));
+
+$routes->add('#sign_in#', new Route('/connexion', array(
+    '_controller' => 'AppModule\\Controller\\AuthController::signInAction'
 ), array(), array(), '', array(), array('POST')));
 
 return $routes;

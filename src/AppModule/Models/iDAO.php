@@ -9,7 +9,7 @@ interface iDAO
 {
     public function add(iModel $model);
 
-    public function get($id);
+    public function get($arg);
 
     public function getAll();
 

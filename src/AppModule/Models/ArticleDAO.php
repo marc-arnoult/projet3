@@ -26,14 +26,14 @@ class ArticleDAO implements iDAO
 
     public function get($id)
     {
-        $db = new Database();
+        $db = $this->db;
         $data = $db->query("SELECT * FROM articles WHERE id = {$id}", \PDO::FETCH_OBJ);
         return $data->fetch();
     }
 
     public function getAll()
     {
-        $db = new Database();
+        $db = $this->db;
         $data = $db->query('SELECT * FROM articles', \PDO::FETCH_OBJ);
         return $data->fetchAll();
     }

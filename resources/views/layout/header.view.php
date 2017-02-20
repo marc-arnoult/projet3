@@ -19,14 +19,17 @@
                         <li><a href="/articles">Articles</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
-                    <?php if (empty($request->getSession())): ?>
+                    <?php
+                        $session = $request->getSession();
+                        if (!$session->get('user')):
+                    ?>
                         <ul>
                             <li><a href="/inscription">Inscription</a></li>
-                            <li><a href="#">Connexion</a></li>
+                            <li><a href="/connexion">Connexion</a></li>
                         </ul>
                     <?php else: ?>
                         <ul>
-                            <li><a href="#">Salut</a></li>
+                            <li><a href="/deconnexion">Deconnection</a></li>
                         </ul>
                     <?php endif; ?>
                 </div>

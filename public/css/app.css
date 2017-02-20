@@ -155,6 +155,7 @@ hr {
 .info {
     margin-top: 22px;
     margin-left: 120px;
+    margin-right: 15px;
     position: relative;
     top: 10px;
     font-size: 12px;
@@ -167,6 +168,14 @@ hr {
     margin-right: 2px;
     color: #3c8dbc;
     transform: scale(1.1);
+}
+.comment {
+    position: relative;
+    margin: 0 116px;
+}
+.comment textarea {
+    width: 600px;
+    height: 200px;
 }
 @media screen and (max-width: 780px) {
     header nav ul{

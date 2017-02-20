@@ -12,7 +12,7 @@
             </div>
             <div class="info"
             <span>
-                <i class="fa fa-comment-o" aria-hidden="true"></i>21 Comments
+                <i class="" aria-hidden="true"></i>
             </span>
             </div>
             <hr>
@@ -21,16 +21,18 @@
             <hr>
         </article>
     </section>
-
+    <?php var_dump($session->get('user')); ?>
     <section>
-        <h3>* Commentaires *</h3>
-        <form action="/articles" method="post">
-            Titre
-            <input type="text" name="title">
-            Commentaire
-            <textarea name="content" rows="10"></textarea>
-            <input type="submit">
-        </form>
+        <div class="comment">
+            <h3>* Commentaires *</h3>
+            <form action="/articles" method="post">
+                Titre
+                <input type="text" name="title">
+                Commentaire
+                <textarea name="content"></textarea>
+                <input type="submit">
+            </form>
+        </div>
     </section>
 
 <?php include_once 'layout/footer.view.php'; ?>

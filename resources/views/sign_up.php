@@ -18,8 +18,8 @@
     Pseudo :
     <input type="text" name="pseudo">
     Password :
-    <input type="text" name="password">
+    <input type="password" name="password">
     Email :
-    <input type="text" name="email">
+    <input type="email" name="email">
     <input type="submit" value="Valider">
 </form>

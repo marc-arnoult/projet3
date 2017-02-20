@@ -11,10 +11,25 @@ namespace AppModule\Model;
 
 class CommentDAO implements iDAO
 {
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
 
     public function add(iModel $model)
     {
-        // TODO: Implement add() method.
+        try {
+            $req = $this->db->prepare('INSERT INTO user (pseudo, password, email, role, created_at) VALUES (:pseudo, :password, :email, :role, NOW())');
+            $req->bindValue(':pseudo', $model->getPseudo(), \PDO::PARAM_STR);
+            $req->bindValue(':password', $model->getPassword(), \PDO::PARAM_STR);
+            $req->bindValue(':email', $model->getEmail(), \PDO::PARAM_STR);
+            $req->bindValue(':role', $model->getRole(), \PDO::PARAM_STR);
+            return $req->execute();
+        } catch (\Exception $e) {
+            echo 'Erreur ' . $e;
+        }
     }
 
     public function get($id)

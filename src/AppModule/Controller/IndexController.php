@@ -10,14 +10,16 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class IndexController extends Controller
 {
+
     public function indexAction(Request $request)
     {
         $session = new Session();
         $session->start();
-        $db = new Database();
-        $articles = $db->query('SELECT * FROM articles LIMIT 0, 5')->fetch(\PDO::FETCH_OBJ);
+        $articleDAO = new ArticleDAO();
+        $articles = $articleDAO->getAll();
         $request->attributes->set('articles', $articles);
         $request->setSession($session);
+        var_dump($session->all());
         return $this->render($request);
     }
 }
