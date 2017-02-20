@@ -27,6 +27,7 @@
             <h3>* Commentaires *</h3>
             <form action="/articles" method="post">
                 Titre
+                <input type="hidden" name="idart" value="<?= $articles->id; ?>">
                 <input type="text" name="title">
                 Commentaire
                 <textarea name="content"></textarea>

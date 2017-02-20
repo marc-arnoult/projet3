@@ -38,9 +38,6 @@ class ArticleController extends Controller
 
     public function postAction(Request $request)
     {
-        return new JsonResponse(array(
-            'title' => $request->get('title'),
-            'content' => $request->get('content')
-        ));
+        var_dump($request->request->all());
     }
 }
