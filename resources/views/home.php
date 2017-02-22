@@ -25,7 +25,6 @@
                 <h2><?= $article->title; ?></h2>
                 <p><?= substr($article->content, 0, 190) . '...'; ?></p>
                 <a href="/article/<?= $article->id; ?>">Read More</a>
-                <hr>
             </article>
         <?php endforeach; ?>
     </section>

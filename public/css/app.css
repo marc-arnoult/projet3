@@ -52,7 +52,6 @@ header nav ul li a {
 }
 header nav ul a:hover {
     color: #3c8dbc;
-    border-bottom: 3px solid #AFAFAF;
 }
 header nav ul img {
     position: absolute;
@@ -114,14 +113,15 @@ form {
 form input {
     margin: 2px 0 8px 0;
     border: 1px solid black;
-    width: 300px;
     height: 18px;
 }
 form textarea {
     border-color: black;
+    box-shadow: inset 0 0 4px 1px rgba(0,0,0,.2);;
 }
 form input[type=submit]{
     color: #ffffff;
+    background-color: #3c8dbc;
     font-size: 1rem;
     border-radius: 3px;
     margin-top: 10px;
@@ -160,22 +160,62 @@ hr {
     top: 10px;
     font-size: 12px;
 }
-
-.info span {
-    margin-left: 15px;
-}
 .info i {
     margin-right: 2px;
     color: #3c8dbc;
     transform: scale(1.1);
 }
-.comment {
+.comment-response {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     margin: 0 116px;
 }
-.comment textarea {
-    width: 600px;
-    height: 200px;
+.comment-response h3 {
+    flex-basis: auto;
+}
+.comment-response form {
+    width: 100%;
+}
+.comment-response textarea {
+    height: 100px;
+}
+.comment-response input[type="submit"] {
+    width: 200px;
+    margin-left: auto;
+}
+.comments {
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+}
+.open {
+    width: 85%;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    padding:5px;
+    margin-top:10px;
+    position: relative;
+    background-color: #f4f4f4;
+}
+.open h4, a {
+    display: inline-block;
+}
+.open h4 {
+    font-family: "Fira Code";
+    font-weight: 500;
+    margin-top: 6px;
+}
+.open a {
+    margin-left: 5px;
+    font-weight: 100;
+    font-family: Verdana;
+    font-size: 0.8em;
+}
+.open p {
+    margin: 3px 0;
+    font-size: 0.9em;
 }
 @media screen and (max-width: 780px) {
     header nav ul{
@@ -211,6 +251,15 @@ hr {
     section article a {
         margin: 16px 8%;
         align-self: flex-start;
+    }
+    .comment-response {
+        margin: 0 30px;
+    }
+    .comment-response textarea {
+        height: 100px;
+    }
+    .comment-response input[type="submit"] {
+        width: 166px;
     }
 }
 @keyframes leftToRight {

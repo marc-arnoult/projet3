@@ -19,7 +19,8 @@ class IndexController extends Controller
         $articles = $articleDAO->getAll();
         $request->attributes->set('articles', $articles);
         $request->setSession($session);
-        var_dump($session->all());
+        $test = $session->getFlashBag()->get('success');
+        var_dump($session->all(), $test);
         return $this->render($request);
     }
 }

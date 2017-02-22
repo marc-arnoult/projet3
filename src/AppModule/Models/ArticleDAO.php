@@ -20,8 +20,9 @@ class ArticleDAO implements iDAO
         $this->db = new Database();
     }
 
-    public function add(iModel $model)
+    public function add(iModel $article)
     {
+
     }
 
     public function get($id)
@@ -31,7 +32,7 @@ class ArticleDAO implements iDAO
         return $data->fetch();
     }
 
-    public function getAll()
+    public function getAll($cond = null)
     {
         $db = $this->db;
         $data = $db->query('SELECT * FROM articles', \PDO::FETCH_OBJ);

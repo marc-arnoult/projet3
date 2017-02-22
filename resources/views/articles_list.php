@@ -12,7 +12,13 @@
             </div>
             <div class="info"
                 <span>
-                    <i class="fa fa-comment-o" aria-hidden="true"></i>21 Comments
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    <?php
+                        $commentDAO = $request->get('commentDAO');
+                        $nb = $commentDAO->getCountComment($article->id)->nbComments;
+                        echo $nb;
+                    ?>
+                    commentaires
                 </span>
             </div>
             <hr>

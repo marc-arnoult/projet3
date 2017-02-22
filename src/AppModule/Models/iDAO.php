@@ -9,9 +9,9 @@ interface iDAO
 {
     public function add(iModel $model);
 
-    public function get($arg);
+    public function get($cond);
 
-    public function getAll();
+    public function getAll($cond);
 
     public function update();
 

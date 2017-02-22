@@ -26,6 +26,7 @@ class AuthController extends Controller
     {
         $data = $request->request->all();
         $user = new User($data);
+        var_dump($user);
         $userDAO = new UserDAO();
         $result = $userDAO->add($user);
         if($result) {
@@ -41,19 +42,25 @@ class AuthController extends Controller
     {
         $data = $request->request->all();
         $userDAO = new UserDAO();
-        $result = $userDAO->get($data['pseudo'], $data['password']);
+        $result = $userDAO->get($data['pseudo'], sha1($data['password']));
         if (!$result) {
             header('Location: /');
         }
+        var_dump($result);
         $user = new User($result);
         $session = new Session();
+        $session->getFlashBag()->set('success', array('test' => '001'));
         $session->set('user', $user);
+        if($user->getRole() === 'administrateur') {
+            header('Location: /admin');
+        }
+        var_dump($user->getRole());
     }
 
     public function signOutAction(Request $request)
     {
         $session = new Session();
         $session->clear();
-
+        header('Location: /');
     }
 }

@@ -1,4 +1,9 @@
-<?php include_once 'layout/header.view.php'; ?>
+<?php
+    include_once 'layout/header.view.php';
+    if($session->get('user')) {
+        $user = $session->get('user');
+    }
+?>
 
     <section>
         <article>
@@ -21,18 +26,26 @@
             <hr>
         </article>
     </section>
-    <?php var_dump($session->get('user')); ?>
     <section>
-        <div class="comment">
+        <div class="comment-response">
             <h3>* Commentaires *</h3>
-            <form action="/articles" method="post">
-                Titre
-                <input type="hidden" name="idart" value="<?= $articles->id; ?>">
-                <input type="text" name="title">
-                Commentaire
+            <?php if($session->get('user')) : ?>
+            <form action="/comments" method="post">
+                <input type="hidden" name="id_article" value="<?= $articles->id; ?>">
+                <label for="content">Commentaire :</label>
                 <textarea name="content"></textarea>
                 <input type="submit">
             </form>
+            <?php endif; ?>
+        </div>
+        <div class="comments">
+            <?php foreach($comments as $comment): ?>
+                <div class="open">
+                    <h4><?= $comment->pseudo; ?></h4>
+                    <a href="/comments">Répondre</a>
+                    <p><?= $comment->content; ?></p>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
 

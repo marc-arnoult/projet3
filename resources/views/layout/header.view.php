@@ -29,7 +29,7 @@
                         </ul>
                     <?php else: ?>
                         <ul>
-                            <li><a href="/deconnexion">Deconnection</a></li>
+                            <li><a href="/deconnexion">Deconnexion</a></li>
                         </ul>
                     <?php endif; ?>
                 </div>

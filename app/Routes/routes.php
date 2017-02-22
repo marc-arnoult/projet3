@@ -21,7 +21,7 @@ $routes->add('article', new Route('/article/{id}', array(
     '_controller' => 'AppModule\\Controller\\ArticleController::showAction'
 )));
 
-$routes->add('/admin/home', new Route('/admin', array(
+$routes->add('/admin/index', new Route('/admin', array(
     '_controller' => 'AppModule\\Controller\\AdminController::indexAction'
 )));
 

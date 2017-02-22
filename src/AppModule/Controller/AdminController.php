@@ -18,9 +18,13 @@ class AdminController extends Controller
     public function indexAction(Request $request)
     {
         $session = new Session();
-        $session->start();
-        var_dump($session->get('name'));
-        return $this->render($request);
+        $user = $session->get('user') ?? 'Anonyme';
+        if ($user->getRole() !== 'administrateur') {
+            echo 'Wrong';
+        } else {
+            $request->setSession($session);
+            return $this->render($request);
+        }
     }
 
 }

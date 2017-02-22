@@ -20,18 +20,19 @@ class User implements iModel
 
     public function __construct(array $data)
     {
-        $data['role'] = 'editor';
         $this->hydrate($data);
     }
 
     public function hydrate(array $data)
     {
+        if(!array_key_exists('role', $data)) {
+            $data['role'] = 'contributeur';
+        }
         foreach ($data as $key => $value)
         {
             $method = 'set'.ucfirst($key);
-
-            if (method_exists($this, $method))
-            {
+            var_dump($method);
+            if (method_exists($this, $method)) {
                 $this->$method(htmlspecialchars($value));
             }
         }
@@ -99,7 +100,7 @@ class User implements iModel
      */
     public function setPassword(string $password)
     {
-        $this->password = $password;
+        $this->password = sha1($password);
     }
 
     /**
