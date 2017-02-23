@@ -15,12 +15,18 @@ class IndexController extends Controller
     {
         $session = new Session();
         $session->start();
+
         $articleDAO = new ArticleDAO();
         $articles = $articleDAO->getAll();
         $request->attributes->set('articles', $articles);
         $request->setSession($session);
-        $test = $session->getFlashBag()->get('success');
-        var_dump($session->all(), $test);
+
+        $success = $session->getFlashBag()->get('success')['success'] ?? null;
+        $error = $session->getFlashBag()->get('error')['error'] ?? null;
+
+        $request->attributes->set('success', $success);
+        $request->attributes->set('error', $error);
+
         return $this->render($request);
     }
 }

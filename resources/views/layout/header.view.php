@@ -29,7 +29,8 @@
                         </ul>
                     <?php else: ?>
                         <ul>
-                            <li><a href="/deconnexion">Deconnexion</a></li>
+                            <span>Bonjour <?= $session->get('user')->getPseudo(); ?></span>
+                            <li><a href="/deconnexion" class="text-red">Deconnexion</a></li>
                         </ul>
                     <?php endif; ?>
                 </div>

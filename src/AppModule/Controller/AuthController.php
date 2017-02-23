@@ -25,9 +25,10 @@ class AuthController extends Controller
     public function signUpAction(Request $request)
     {
         $data = $request->request->all();
+
+        $userDAO = new UserDAO();
         $user = new User($data);
         var_dump($user);
-        $userDAO = new UserDAO();
         $result = $userDAO->add($user);
         if($result) {
             echo 'Utilisateur bien ajouté';
@@ -40,21 +41,37 @@ class AuthController extends Controller
 
     public function signInAction(Request $request)
     {
+        $session = new Session();
+
         $data = $request->request->all();
         $userDAO = new UserDAO();
         $result = $userDAO->get($data['pseudo'], sha1($data['password']));
+
         if (!$result) {
+            $session->getFlashBag()
+                ->set('error', array
+                ('error' => '<div class="alert alert-error">
+                                    <span class="alert-text">Mauvais pseudo ou mot de passe</span>
+                                    <span class="alert-remove">x</span>
+                                </div>'));
             header('Location: /');
         }
-        var_dump($result);
+
         $user = new User($result);
-        $session = new Session();
-        $session->getFlashBag()->set('success', array('test' => '001'));
         $session->set('user', $user);
+
         if($user->getRole() === 'administrateur') {
+            $session->getFlashBag()->set('success', array('success' => 'Vous êtes maintenant connecté en tant que administrateur'));
             header('Location: /admin');
         }
-        var_dump($user->getRole());
+
+        $session->getFlashBag()
+            ->set('success', array
+                 ('success' => '<div class="alert alert-success">
+                                    <span class="alert-text">Vous êtes maintenant connecté</span>
+                                    <span class="alert-remove">x</span>
+                                </div>'));
+        header('Location: /');
     }
 
     public function signOutAction(Request $request)

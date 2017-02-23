@@ -1,11 +1,29 @@
-<?php include_once 'layout/header.view.php'; ?>
+
+<?php
+    include_once 'layout/header.view.php';
+?>
 
     <section>
+        <?php
+            if($success) {
+                echo $success;
+            } elseif($error) {
+                echo $error;
+            }
+        ?>
+
         <h1>Bonjour, bienvenue sur mon blog</h1>
         <div class="bg-tiret">
-            <span class="tiret"></span>
-            <span class="tiret"></span>
+            <div class="tiret"></div>
+            <div class="tiret"></div>
         </div>
+        <aside class="social-networks">
+            <div class="social-networks columns">
+                <span>Twitter</span>
+                <span>Facebook</span>
+            </div>
+        </aside>
+
         <?php foreach ($articles as $article) : ?>
             <article>
                 <div class="round">
