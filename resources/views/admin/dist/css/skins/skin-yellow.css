@@ -11,9 +11,9 @@
 .skin-yellow .main-header .navbar .nav > li > a:hover,
 .skin-yellow .main-header .navbar .nav > li > a:active,
 .skin-yellow .main-header .navbar .nav > li > a:focus,
-.skin-yellow .main-header .navbar .nav .open > a,
-.skin-yellow .main-header .navbar .nav .open > a:hover,
-.skin-yellow .main-header .navbar .nav .open > a:focus,
+.skin-yellow .main-header .navbar .nav .reply > a,
+.skin-yellow .main-header .navbar .nav .reply > a:hover,
+.skin-yellow .main-header .navbar .nav .reply > a:focus,
 .skin-yellow .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;

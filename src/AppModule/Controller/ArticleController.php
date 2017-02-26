@@ -41,7 +41,6 @@ class ArticleController extends Controller
             header('Location: http://localhost:8000');
             exit();
         }
-
         $request->setSession($session);
         $request->attributes->set('articles', $articles);
         $request->attributes->set('comments', $comments);

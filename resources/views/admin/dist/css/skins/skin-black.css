@@ -23,9 +23,9 @@
 .skin-black .main-header .navbar .nav > li > a:hover,
 .skin-black .main-header .navbar .nav > li > a:active,
 .skin-black .main-header .navbar .nav > li > a:focus,
-.skin-black .main-header .navbar .nav .open > a,
-.skin-black .main-header .navbar .nav .open > a:hover,
-.skin-black .main-header .navbar .nav .open > a:focus,
+.skin-black .main-header .navbar .nav .reply > a,
+.skin-black .main-header .navbar .nav .reply > a:hover,
+.skin-black .main-header .navbar .nav .reply > a:focus,
 .skin-black .main-header .navbar .nav > .active > a {
   background: #ffffff;
   color: #999999;

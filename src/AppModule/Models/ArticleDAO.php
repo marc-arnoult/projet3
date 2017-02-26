@@ -35,7 +35,12 @@ class ArticleDAO implements iDAO
     public function getAll($cond = null)
     {
         $db = $this->db;
-        $data = $db->query('SELECT * FROM articles', \PDO::FETCH_OBJ);
+
+        if($cond) {
+            $data = $db->query("SELECT * FROM articles LIMIT $cond", \PDO::FETCH_OBJ);
+        } else {
+            $data = $db->query("SELECT * FROM articles", \PDO::FETCH_OBJ);
+        }
         return $data->fetchAll();
     }
 

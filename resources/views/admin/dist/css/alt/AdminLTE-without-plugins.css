@@ -1178,7 +1178,7 @@ a:focus {
 }
 /* Add fade animation to dropdown menus by appending
  the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
-.open:not(.dropup) > .animated-dropdown-menu {
+.reply:not(.dropup) > .animated-dropdown-menu {
   backface-visibility: visible !important;
   -webkit-animation: flipInX 0.7s both;
   -o-animation: flipInX 0.7s both;
@@ -1786,7 +1786,7 @@ a:focus {
   background: transparent;
   color: #97a0b3;
 }
-.open .btn-box-tool,
+.reply .btn-box-tool,
 .btn-box-tool:hover {
   color: #606c84;
 }
@@ -2571,8 +2571,8 @@ a:focus {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.nav-tabs-custom .dropdown.open > a:active,
-.nav-tabs-custom .dropdown.open > a:focus {
+.nav-tabs-custom .dropdown.reply > a:active,
+.nav-tabs-custom .dropdown.reply > a:focus {
   background: transparent;
   color: #999;
 }

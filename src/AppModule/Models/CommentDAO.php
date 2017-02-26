@@ -23,8 +23,11 @@ class CommentDAO implements iDAO
     public function add(iModel $model)
     {
         try {
-            $this->db->prepare('INSERT INTO comments (id_user, id_article, content, created_at, updated_at)
+            $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, created_at, updated_at)
                                 VALUES (:id_user, :id_article, :content, NOW(), NOW())');
+            $req->bindValue(':id_user', $model->getIdUser());
+            $req->bindValue(':id_article', $model->getIdArticle());
+            $req->bindValue(':content', $model->getContent());
             return $req->execute();
         } catch (\Exception $e) {
             echo 'Erreur ' . $e;
@@ -43,7 +46,8 @@ class CommentDAO implements iDAO
                 FROM comments  
                 LEFT JOIN user 
                 ON comments.id_user = user.id 
-                WHERE comments.id_article = $idArticle", \PDO::FETCH_OBJ);
+                WHERE comments.id_article = $idArticle
+                ORDER BY comments.created_at DESC", \PDO::FETCH_OBJ);
 
         return $data->fetchAll();
     }

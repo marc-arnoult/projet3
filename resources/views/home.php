@@ -3,7 +3,7 @@
     include_once 'layout/header.view.php';
 ?>
 
-    <section>
+    <section id="home-page">
         <?php
             if($success) {
                 echo $success;
@@ -19,32 +19,39 @@
         </div>
         <aside class="social-networks">
             <div class="social-networks columns">
-                <span>Twitter</span>
-                <span>Facebook</span>
+                <span><a href="#"><i class="fa fa-twitter-square fa-3x"></i></a></span>
+                <span><a href="#"><i class="fa fa-facebook-square fa-3x"></i></a></span>
             </div>
         </aside>
-
-        <?php foreach ($articles as $article) : ?>
-            <article>
-                <div class="round">
-                    <time>
+        <div class="article-container">
+            <?php foreach ($articles as $index => $article) : ?>
+                <article class="article">
+                    <div class="round">
+                        <time>
+                            <?php
+                            $date = new DateTime($article->created_at);
+                            echo $date->format('d M Y');
+                            ?>
+                        </time>
+                    </div>
+                    <div class="info"
+                    <span>
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
                         <?php
-                        $date = new DateTime($article->created_at);
-                        echo $date->format('d M Y');
+                        $commentDAO = $request->get('commentDAO');
+                        $nb = $commentDAO->getCountComment($article->id)->nbComments;
+                        echo $nb;
                         ?>
-                    </time>
-                </div>
-                <div class="info"
-                <span>
-                    <i class="fa fa-comment-o" aria-hidden="true"></i>21 Comments
-                </span>
-                </div>
-                <hr>
-                <h2><?= $article->title; ?></h2>
-                <p><?= substr($article->content, 0, 190) . '...'; ?></p>
-                <a href="/article/<?= $article->id; ?>">Read More</a>
-            </article>
-        <?php endforeach; ?>
+                        commentaires
+                    </span>
+                    </div>
+                    <hr>
+                    <h2><?= $article->title; ?></h2>
+                    <p><?= substr($article->content, 0, 190) . '...'; ?></p>
+                    <a href="/article/<?= $article->id; ?>">Read More</a>
+                </article>
+            <?php endforeach; ?>
+        </div>
     </section>
 
 <?php include_once 'layout/footer.view.php'; ?>

@@ -11,9 +11,9 @@
 .skin-blue .main-header .navbar .nav > li > a:hover,
 .skin-blue .main-header .navbar .nav > li > a:active,
 .skin-blue .main-header .navbar .nav > li > a:focus,
-.skin-blue .main-header .navbar .nav .open > a,
-.skin-blue .main-header .navbar .nav .open > a:hover,
-.skin-blue .main-header .navbar .nav .open > a:focus,
+.skin-blue .main-header .navbar .nav .reply > a,
+.skin-blue .main-header .navbar .nav .reply > a:hover,
+.skin-blue .main-header .navbar .nav .reply > a:focus,
 .skin-blue .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -150,9 +150,9 @@
 .skin-blue-light .main-header .navbar .nav > li > a:hover,
 .skin-blue-light .main-header .navbar .nav > li > a:active,
 .skin-blue-light .main-header .navbar .nav > li > a:focus,
-.skin-blue-light .main-header .navbar .nav .open > a,
-.skin-blue-light .main-header .navbar .nav .open > a:hover,
-.skin-blue-light .main-header .navbar .nav .open > a:focus,
+.skin-blue-light .main-header .navbar .nav .reply > a,
+.skin-blue-light .main-header .navbar .nav .reply > a:hover,
+.skin-blue-light .main-header .navbar .nav .reply > a:focus,
 .skin-blue-light .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -326,9 +326,9 @@
 .skin-black .main-header .navbar .nav > li > a:hover,
 .skin-black .main-header .navbar .nav > li > a:active,
 .skin-black .main-header .navbar .nav > li > a:focus,
-.skin-black .main-header .navbar .nav .open > a,
-.skin-black .main-header .navbar .nav .open > a:hover,
-.skin-black .main-header .navbar .nav .open > a:focus,
+.skin-black .main-header .navbar .nav .reply > a,
+.skin-black .main-header .navbar .nav .reply > a:hover,
+.skin-black .main-header .navbar .nav .reply > a:focus,
 .skin-black .main-header .navbar .nav > .active > a {
   background: #ffffff;
   color: #999999;
@@ -484,9 +484,9 @@
 .skin-black-light .main-header .navbar .nav > li > a:hover,
 .skin-black-light .main-header .navbar .nav > li > a:active,
 .skin-black-light .main-header .navbar .nav > li > a:focus,
-.skin-black-light .main-header .navbar .nav .open > a,
-.skin-black-light .main-header .navbar .nav .open > a:hover,
-.skin-black-light .main-header .navbar .nav .open > a:focus,
+.skin-black-light .main-header .navbar .nav .reply > a,
+.skin-black-light .main-header .navbar .nav .reply > a:hover,
+.skin-black-light .main-header .navbar .nav .reply > a:focus,
 .skin-black-light .main-header .navbar .nav > .active > a {
   background: #ffffff;
   color: #999999;
@@ -645,9 +645,9 @@
 .skin-green .main-header .navbar .nav > li > a:hover,
 .skin-green .main-header .navbar .nav > li > a:active,
 .skin-green .main-header .navbar .nav > li > a:focus,
-.skin-green .main-header .navbar .nav .open > a,
-.skin-green .main-header .navbar .nav .open > a:hover,
-.skin-green .main-header .navbar .nav .open > a:focus,
+.skin-green .main-header .navbar .nav .reply > a,
+.skin-green .main-header .navbar .nav .reply > a:hover,
+.skin-green .main-header .navbar .nav .reply > a:focus,
 .skin-green .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -776,9 +776,9 @@
 .skin-green-light .main-header .navbar .nav > li > a:hover,
 .skin-green-light .main-header .navbar .nav > li > a:active,
 .skin-green-light .main-header .navbar .nav > li > a:focus,
-.skin-green-light .main-header .navbar .nav .open > a,
-.skin-green-light .main-header .navbar .nav .open > a:hover,
-.skin-green-light .main-header .navbar .nav .open > a:focus,
+.skin-green-light .main-header .navbar .nav .reply > a,
+.skin-green-light .main-header .navbar .nav .reply > a:hover,
+.skin-green-light .main-header .navbar .nav .reply > a:focus,
 .skin-green-light .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -929,9 +929,9 @@
 .skin-red .main-header .navbar .nav > li > a:hover,
 .skin-red .main-header .navbar .nav > li > a:active,
 .skin-red .main-header .navbar .nav > li > a:focus,
-.skin-red .main-header .navbar .nav .open > a,
-.skin-red .main-header .navbar .nav .open > a:hover,
-.skin-red .main-header .navbar .nav .open > a:focus,
+.skin-red .main-header .navbar .nav .reply > a,
+.skin-red .main-header .navbar .nav .reply > a:hover,
+.skin-red .main-header .navbar .nav .reply > a:focus,
 .skin-red .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -1060,9 +1060,9 @@
 .skin-red-light .main-header .navbar .nav > li > a:hover,
 .skin-red-light .main-header .navbar .nav > li > a:active,
 .skin-red-light .main-header .navbar .nav > li > a:focus,
-.skin-red-light .main-header .navbar .nav .open > a,
-.skin-red-light .main-header .navbar .nav .open > a:hover,
-.skin-red-light .main-header .navbar .nav .open > a:focus,
+.skin-red-light .main-header .navbar .nav .reply > a,
+.skin-red-light .main-header .navbar .nav .reply > a:hover,
+.skin-red-light .main-header .navbar .nav .reply > a:focus,
 .skin-red-light .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -1213,9 +1213,9 @@
 .skin-yellow .main-header .navbar .nav > li > a:hover,
 .skin-yellow .main-header .navbar .nav > li > a:active,
 .skin-yellow .main-header .navbar .nav > li > a:focus,
-.skin-yellow .main-header .navbar .nav .open > a,
-.skin-yellow .main-header .navbar .nav .open > a:hover,
-.skin-yellow .main-header .navbar .nav .open > a:focus,
+.skin-yellow .main-header .navbar .nav .reply > a,
+.skin-yellow .main-header .navbar .nav .reply > a:hover,
+.skin-yellow .main-header .navbar .nav .reply > a:focus,
 .skin-yellow .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -1344,9 +1344,9 @@
 .skin-yellow-light .main-header .navbar .nav > li > a:hover,
 .skin-yellow-light .main-header .navbar .nav > li > a:active,
 .skin-yellow-light .main-header .navbar .nav > li > a:focus,
-.skin-yellow-light .main-header .navbar .nav .open > a,
-.skin-yellow-light .main-header .navbar .nav .open > a:hover,
-.skin-yellow-light .main-header .navbar .nav .open > a:focus,
+.skin-yellow-light .main-header .navbar .nav .reply > a,
+.skin-yellow-light .main-header .navbar .nav .reply > a:hover,
+.skin-yellow-light .main-header .navbar .nav .reply > a:focus,
 .skin-yellow-light .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -1497,9 +1497,9 @@
 .skin-purple .main-header .navbar .nav > li > a:hover,
 .skin-purple .main-header .navbar .nav > li > a:active,
 .skin-purple .main-header .navbar .nav > li > a:focus,
-.skin-purple .main-header .navbar .nav .open > a,
-.skin-purple .main-header .navbar .nav .open > a:hover,
-.skin-purple .main-header .navbar .nav .open > a:focus,
+.skin-purple .main-header .navbar .nav .reply > a,
+.skin-purple .main-header .navbar .nav .reply > a:hover,
+.skin-purple .main-header .navbar .nav .reply > a:focus,
 .skin-purple .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;
@@ -1628,9 +1628,9 @@
 .skin-purple-light .main-header .navbar .nav > li > a:hover,
 .skin-purple-light .main-header .navbar .nav > li > a:active,
 .skin-purple-light .main-header .navbar .nav > li > a:focus,
-.skin-purple-light .main-header .navbar .nav .open > a,
-.skin-purple-light .main-header .navbar .nav .open > a:hover,
-.skin-purple-light .main-header .navbar .nav .open > a:focus,
+.skin-purple-light .main-header .navbar .nav .reply > a,
+.skin-purple-light .main-header .navbar .nav .reply > a:hover,
+.skin-purple-light .main-header .navbar .nav .reply > a:focus,
 .skin-purple-light .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
   color: #f6f6f6;

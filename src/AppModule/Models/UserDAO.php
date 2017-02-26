@@ -8,6 +8,13 @@ use AppModule\Model\User;
 
 class UserDAO
 {
+    private $db;
+
+    function __construct()
+    {
+        $this->db = new Database();
+    }
+
     public function add(iModel $model)
     {
         try {
@@ -25,8 +32,7 @@ class UserDAO
 
     public function get($pseudo, $password)
     {
-        $db = new Database();
-        $data = $db->prepare("SELECT * FROM user WHERE pseudo = :pseudo AND password = :password");
+        $data = $this->db->prepare("SELECT id, pseudo, email, role, created_at FROM user WHERE pseudo = :pseudo AND password = :password");
         $data->bindValue(':pseudo', $pseudo);
         $data->bindValue(':password', $password);
         $data->execute();

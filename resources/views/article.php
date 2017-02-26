@@ -5,26 +5,26 @@
     }
 ?>
 
-    <section>
-        <article>
-            <div class="round">
-                <time>
-                    <?php
-                    $date = new DateTime($articles->created_at);
-                    echo $date->format('d M Y');
-                    ?>
-                </time>
-            </div>
-            <div class="info"
-            <span>
-                <i class="" aria-hidden="true"></i>
-            </span>
-            </div>
-            <hr>
-            <h2><?= $articles->title; ?></h2>
-            <p><?= $articles->content; ?></p>
-            <hr>
-        </article>
+    <section id="article-page">
+        <div class="article-container">
+            <article class="article">
+                <div class="round">
+                    <time>
+                        <?php
+                        $date = new DateTime($articles->created_at);
+                        echo $date->format('d M Y');
+                        ?>
+                    </time>
+                </div>
+                <div class="info"
+                    <span>
+                        <i class="" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2><?= $articles->title; ?></h2>
+                <p><?= $articles->content; ?></p>
+            </article>
+        </div>
     </section>
     <section>
         <div class="comment-response">
@@ -40,7 +40,7 @@
         </div>
         <div class="comments">
             <?php foreach($comments as $comment): ?>
-                <div class="open">
+                <div class="reply">
                     <h4><?= $comment->pseudo; ?></h4>
                     <a href="/comments">Répondre</a>
                     <p><?= $comment->content; ?></p>

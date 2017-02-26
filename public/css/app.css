@@ -28,7 +28,7 @@ header nav div i {
     transition: 0.3s;
 }
 header nav div i:hover {
-    transform: scale(2.7);
+    transform: scale(2.8);
 }
 header nav div:nth-child(2) {
     width: 100%;
@@ -89,9 +89,27 @@ section .tiret {
     border-bottom: 1px solid #AFAFAF;
     transition: 1s;
 }
-section article {
-    font-size: 1rem;
+.article-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.article {
+    border: 3px outset rgba(60, 141, 188, 0.26);
+    box-shadow: 3px 3px 20px 1px #E8E8E8;
+    border-radius: 5px;
+    padding: 10px 10px 20px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 20px;
+    flex-grow: 1;
+    font-size: 1rem;
+    width: 44%;
+}
+#article-page .article h2{
+    margin-top: 0;
+}
+#home-page .article:nth-child(1) {
+    width:100%;
 }
 section article .round {
     font-family: "DIN Condensed";
@@ -149,23 +167,13 @@ section article a:hover {
 section article p {
     margin-left: 120px;
 }
-footer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-hr {
+.article > hr {
     position: relative;
-    top: 12px;
-    left: 106px;
-    float: left;
-    width: 88%;
-    display: block;
-    height: 1px;
-    border: 0;
-    margin-top: 1px;
+    top: 4px;
+    margin-left: 120px;
     border-top: 1px solid #EBEBEB;
 }
+
 .info {
     margin-top: 22px;
     margin-left: 120px;
@@ -204,8 +212,8 @@ hr {
     align-items:center;
     flex-direction: column;
 }
-.open {
-    width: 85%;
+.reply {
+    width: 75%;
     border: 1px solid #999999;
     border-radius: 5px;
     padding:5px;
@@ -213,21 +221,21 @@ hr {
     position: relative;
     background-color: #f4f4f4;
 }
-.open h4, a {
+.reply h4, a {
     display: inline-block;
 }
-.open h4 {
+.reply h4 {
     font-family: "Fira Code";
     font-weight: 500;
     margin-top: 6px;
 }
-.open a {
+.reply a {
     margin-left: 5px;
     font-weight: 100;
     font-family: Verdana;
     font-size: 0.8em;
 }
-.open p {
+.reply p {
     margin: 3px 0;
     font-size: 0.9em;
 }
@@ -240,9 +248,9 @@ hr {
     border-radius: 4px;
     position: absolute;
     left: 50%;
-    margin-left: -157px;
+    margin-left: -163px;
     top: 71px;
-    background-color: rgba(2, 2, 2, 0.3);
+    background-color: rgba(4, 4, 4, 0.6);
     animation: fadeOut 1s;
 }
 .alert-success {
@@ -264,10 +272,16 @@ hr {
     color: #FFF;
 }
 .social-networks {
+    text-align: center;
     position: fixed;
     top: 30%;
     left: 0;
-    border: 1px solid;
+}
+.social-networks .fa-twitter-square {
+    color: #00aced;
+}
+.social-networks .fa-facebook-square {
+    color: #3b5998;
 }
 .columns {
     display: flex;
@@ -286,13 +300,17 @@ hr {
 .sign_in form {
     width: 300px;
 }
+footer {
+    background-color: #333;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 @media screen and (max-width: 780px) {
     header nav ul{
         display: flex;
         flex-direction: column;
-    }
-    section {
-        width: auto;
     }
     hr {
         display: none;
@@ -305,10 +323,13 @@ hr {
         text-align: center;
         margin: 40px auto;
     }
-    article {
+    .article {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    #article-page .article h2{
+        margin-top: 14px;
     }
     section article h2 {
         text-align: center;

@@ -53,4 +53,12 @@ $routes->add('#sign_in#', new Route('/connexion', array(
     '_controller' => 'AppModule\\Controller\\AuthController::signInAction'
 ), array(), array(), '', array(), array('POST')));
 
+/********************
+ *      COMMENT     *
+ ********************/
+
+$routes->add('#comments#', new Route('/comments', array(
+    '_controller' => 'AppModule\\Controller\\CommentController::addAction'
+), array(), array(), '', array(), array('POST')));
+
 return $routes;

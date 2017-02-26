@@ -15,8 +15,6 @@
             <input type="text" name="pseudo">
             Password :
             <input type="password" name="password">
-            <input type="submit" value="Valider">
+            <input type="submit" value="Connexion">
         </form>
     </div>
-
-<?php include_once 'layout/footer.view.php'; ?>

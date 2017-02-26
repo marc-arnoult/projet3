@@ -9,7 +9,7 @@ class Comment implements iModel
     private $id;
     private $idUser;
     private $idArticle;
-    private $title;
+    private $content;
     private $created_at;
     private $updated_at;
 
@@ -58,7 +58,7 @@ class Comment implements iModel
     /**
      * @param mixed $idUser
      */
-    public function setIdUser($idUser)
+    public function setId_user($idUser)
     {
         $this->idUser = $idUser;
     }
@@ -74,7 +74,7 @@ class Comment implements iModel
     /**
      * @param mixed $idArticle
      */
-    public function setIdArticle($idArticle)
+    public function setId_article($idArticle)
     {
         $this->idArticle = $idArticle;
     }
@@ -82,17 +82,17 @@ class Comment implements iModel
     /**
      * @return mixed
      */
-    public function getTitle()
+    public function getContent()
     {
-        return $this->title;
+        return $this->content;
     }
 
     /**
-     * @param mixed $title
+     * @param mixed $content
      */
-    public function setTitle($title)
+    public function setContent($content)
     {
-        $this->title = $title;
+        $this->content = $content;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace AppModule\Controller;
 
 use AppModule\Model\ArticleDAO;
+use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
 use Core\Database\Database;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,11 @@ class IndexController extends Controller
         $session = new Session();
         $session->start();
 
+        $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
-        $articles = $articleDAO->getAll();
+        $articles = $articleDAO->getAll(3);
         $request->attributes->set('articles', $articles);
+        $request->attributes->set('commentDAO', $commentDAO);
         $request->setSession($session);
 
         $success = $session->getFlashBag()->get('success')['success'] ?? null;

@@ -5,8 +5,10 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\HttpKernel\Controller\{ControllerResolver, ArgumentResolver};
 
+echo 'hi';
 $request = Request::createFromGlobals();
 $routes  = include __DIR__ . '/app/Routes/routes.php';
+
 
 $context = new RequestContext();
 $context->fromRequest($request);
