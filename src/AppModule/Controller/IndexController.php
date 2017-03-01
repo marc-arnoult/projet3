@@ -20,15 +20,16 @@ class IndexController extends Controller
         $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
         $articles = $articleDAO->getAll(3);
+
         $request->attributes->set('articles', $articles);
         $request->attributes->set('commentDAO', $commentDAO);
         $request->setSession($session);
 
         $success = $session->getFlashBag()->get('success')['success'] ?? null;
-        $error = $session->getFlashBag()->get('error')['error'] ?? null;
+        $error = $session->getFlashBag()->get('error') ?? null;
 
         $request->attributes->set('success', $success);
-        $request->attributes->set('error', $error);
+        $request->attributes->set('errors', $error);
 
         return $this->render($request);
     }

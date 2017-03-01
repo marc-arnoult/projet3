@@ -21,9 +21,21 @@ $routes->add('article', new Route('/article/{id}', array(
     '_controller' => 'AppModule\\Controller\\ArticleController::showAction'
 )));
 
+/********************
+ *      ADMIN       *
+ ********************/
+
 $routes->add('/admin/index', new Route('/admin', array(
     '_controller' => 'AppModule\\Controller\\AdminController::indexAction'
 )));
+
+$routes->add('/admin/articles', new Route('/admin/articles', array(
+    '_controller' => 'AppModule\\Controller\\AdminController::articleAction'
+)));
+
+/********************
+ *     SIGN OUT      *
+ ********************/
 
 $routes->add('sign_out', new Route('/deconnexion', array(
     '_controller' => 'AppModule\\Controller\\AuthController::signOutAction'

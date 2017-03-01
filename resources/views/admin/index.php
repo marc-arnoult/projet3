@@ -29,13 +29,23 @@ include_once __DIR__ . '/layout/aside.view.php';
                     <i class="ion ion-ios-people-outline"></i>
                 </div>
                 <div class="info-box-content">
-                    <div class="info-box-number">2</div>
+                    <div class="info-box-number"><?= $nbUser;?></div>
                     <div class="info-box-text">Membres</div>
                 </div>
             </div>
         </div>
       <!-- Your Page Content Here -->
-
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <div class="info-box-icon bg-blue">
+                    <i class="ion ion-ios-people-outline"></i>
+                </div>
+                <div class="info-box-content">
+                    <div class="info-box-number"><?= $nbArticle;?></div>
+                    <div class="info-box-text">Articles</div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
   </div>
@@ -139,6 +149,9 @@ include_once __DIR__ . '/layout/aside.view.php';
 <!-- AdminLTE App -->
 <script src="resources/views/admin/dist/js/app.min.js"></script>
 
+<script>
+    console.log($.post('/comments', {id_article:1, content: 'Lorem ipsum'}));
+</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

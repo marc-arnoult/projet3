@@ -49,11 +49,7 @@ class AuthController extends Controller
 
         if (!$result) {
             $session->getFlashBag()
-                ->set('error', array
-                ('error' => '<div class="alert alert-error">
-                                    <span class="alert-text">Mauvais pseudo ou mot de passe</span>
-                                    <span class="alert-remove">x</span>
-                                </div>'));
+                ->add('error', 'Mauvais pseudo ou mot de passe');
             header('Location: /');
         }
 
@@ -63,15 +59,12 @@ class AuthController extends Controller
         if($user->getRole() === 'administrateur') {
             $session->getFlashBag()->set('success', array('success' => 'Vous êtes maintenant connecté en tant que administrateur'));
             header('Location: /admin');
+        } else if (!empty($user->getRole())) {
+            $session->getFlashBag()
+                ->set('success', array
+                ('success' => 'Vous êtes maintenant connecté'));
+            header('Location: /');
         }
-
-        $session->getFlashBag()
-            ->set('success', array
-                 ('success' => '<div class="alert alert-success">
-                                    <span class="alert-text">Vous êtes maintenant connecté</span>
-                                    <span class="alert-remove">x</span>
-                                </div>'));
-        header('Location: /');
     }
 
     public function signOutAction(Request $request)

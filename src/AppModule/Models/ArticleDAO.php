@@ -44,6 +44,13 @@ class ArticleDAO implements iDAO
         return $data->fetchAll();
     }
 
+    public function getCountUser()
+    {
+        $number = $this->db->query("SELECT COUNT(*) as nbArticle FROM articles", \PDO::FETCH_OBJ);
+
+        return $number->fetch();
+    }
+
     public function update()
     {
         // TODO: Implement update() method.

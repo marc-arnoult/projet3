@@ -1,17 +1,21 @@
 
-<?php
-    include_once 'layout/header.view.php';
-?>
+ <?php include_once 'layout/header.view.php'; ?>
+
 
     <section id="home-page">
-        <?php
-            if($success) {
-                echo $success;
-            } elseif($error) {
-                echo $error;
-            }
-        ?>
-
+            <?php if ($success): ?>
+                <div class="alert alert-success">
+                    <span class="alert-text"> <?= $success; ?></span>
+                    <span class="alert-remove">x</span>
+                </div>
+            <?php elseif ($errors): ?>
+                <?php foreach ($errors as $error): ?>
+                    <div class="alert alert-error">
+                        <span class="alert-text"><?= $error; ?></span>
+                        <span class="alert-remove">x</span>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         <h1>Bonjour, bienvenue sur mon blog</h1>
         <div class="bg-tiret">
             <div class="tiret"></div>
@@ -38,7 +42,6 @@
                     <span>
                         <i class="fa fa-comment-o" aria-hidden="true"></i>
                         <?php
-                        $commentDAO = $request->get('commentDAO');
                         $nb = $commentDAO->getCountComment($article->id)->nbComments;
                         echo $nb;
                         ?>

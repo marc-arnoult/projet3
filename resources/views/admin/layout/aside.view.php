@@ -6,7 +6,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="resources/views/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="/resources/views/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p><?= $user->getPseudo(); ?></p>
@@ -31,7 +31,7 @@
         <ul class="sidebar-menu">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Articles</span></a></li>
+            <li class="active"><a href="/admin/articles"><i class="fa fa-link"></i> <span>Articles</span></a></li>
             <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Commentaires</span></a></li>
             <!--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->
             <!--<li class="treeview">

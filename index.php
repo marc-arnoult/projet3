@@ -8,7 +8,6 @@ use Symfony\Component\HttpKernel\Controller\{ControllerResolver, ArgumentResolve
 $request = Request::createFromGlobals();
 $routes  = include __DIR__ . '/app/Routes/routes.php';
 
-
 $context = new RequestContext();
 $context->fromRequest($request);
 $matcher = new UrlMatcher($routes, $context);
