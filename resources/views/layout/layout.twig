@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="https://use.fontawesome.com/84658dd2ae.js"></script>
+    <link rel="stylesheet" href="/public/css/app.css">
+</head>
+    <body>
+        <header>
+            <nav>
+                <div>
+                    <i class="fa fa-paragraph" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="/">Accueil</a></li>
+                        <li><a href="/articles">Articles</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                    {% set session = request.getSession() %}
+
+                    {% if not session.get('user') %}
+                    <ul>
+                        <li><a href="/inscription">Inscription</a></li>
+                        <li><a href="/connexion">Connexion</a></li>
+                    </ul>
+                    {% else %}
+                    <ul>
+                        <span>Bonjour {{ session.get('user').getPseudo() }}</span>
+                        <li><a href="/deconnexion" class="text-red">Deconnexion</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+        <footer>
+            <ul>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Google</a></li>
+            </ul>
+            <ul>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Google</a></li>
+            </ul>
+        </footer>
+        <script src="/public/js/app.js"></script>
+    </body>
+</html>
