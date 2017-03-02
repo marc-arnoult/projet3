@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="sign_in">
+    <div class="sign">
         <form id="form" action="/connexion" method="post">
             Pseudo :
             <input type="text" name="pseudo">

@@ -30,7 +30,6 @@ class IndexController extends Controller
 
         $request->attributes->set('success', $success);
         $request->attributes->set('errors', $error);
-
         return $this->render($request);
     }
 }

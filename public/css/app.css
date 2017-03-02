@@ -290,14 +290,14 @@ section article p {
 .text-red {
     color: #ff3a3a;
 }
-.sign_in {
+.sign {
     margin: 150px 0;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.sign_in form {
+.sign form {
     width: 300px;
 }
 footer {

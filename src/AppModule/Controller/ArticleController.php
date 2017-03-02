@@ -34,15 +34,14 @@ class ArticleController extends Controller
         $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
 
-        $articles = $articleDAO->get($id);
+        $article = $articleDAO->get($id);
         $comments = $commentDAO->getAll($id);
-
-        if(!$articles) {
+        if(!$article) {
             header('Location: http://localhost:8000');
             exit();
         }
         $request->setSession($session);
-        $request->attributes->set('articles', $articles);
+        $request->attributes->set('article', $article);
         $request->attributes->set('comments', $comments);
 
         return $this->render($request);

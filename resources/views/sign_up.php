@@ -14,12 +14,15 @@
     }
 </style>
 
-<form id="form" action="/inscription" method="post">
-    Pseudo :
-    <input type="text" name="pseudo">
-    Password :
-    <input type="password" name="password">
-    Email :
-    <input type="email" name="email">
-    <input type="submit" value="Valider">
-</form>
+<body>
+    <h1>Inscription</h1>
+    <form id="form" action="/inscription" method="post">
+        Pseudo :
+        <input type="text" name="pseudo">
+        Password :
+        <input type="password" name="password">
+        Email :
+        <input type="email" name="email">
+        <input type="submit" value="Valider">
+    </form>
+</body>

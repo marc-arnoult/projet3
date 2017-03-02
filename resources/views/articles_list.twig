@@ -1,0 +1,12 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    {% set articles = request.attributes.get('articles') %}
+    {% set commentDAO = request.attributes.get('commentDAO') %}
+
+    <section>
+    {% embed 'articles.twig' %}
+    {% endembed %}
+    </section>
+
+{% endblock %}

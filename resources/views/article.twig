@@ -1,0 +1,54 @@
+{%  extends 'layout.twig' %}
+
+{% set article = request.attributes.get('article') %}
+{% set comments = request.attributes.get('comments') %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block content %}
+
+<section id="article-page">
+    <div class="article-container">
+        <article class="article">
+            <div class="round">
+                <time>
+                    {{ article.created_at|date('d M Y') }}
+                </time>
+            </div>
+            <div class="info">
+        <span>
+                    <i class="" aria-hidden="true"></i>
+                </span>
+            </div>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.content }}</p>
+        </article>
+    </div>
+</section>
+<section>
+    <div class="comment-response">
+        <h3>* Commentaires *</h3>
+        {% if user %}
+            <form action="/comments" method="post">
+                <input type="hidden" name="id_article" value="{{ article.id }}">
+                <label for="content">Commentaire :</label>
+                <textarea name="content"></textarea>
+                <input type="submit">
+            </form>
+        {% endif %}
+    </div>
+    <div class="comments">
+        {% for comment in comments %}
+            <div class="reply">
+                <h4>{{ comment.pseudo }}</h4>
+                <i>posté le : {{ comment.created_at|date('d/m/Y à h:m') }}</i>
+                <a href="/comments">Répondre</a>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

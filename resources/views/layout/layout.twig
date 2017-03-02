@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script src="https://use.fontawesome.com/84658dd2ae.js"></script>
     <link rel="stylesheet" href="/public/css/app.css">
+    <title>{% block title %}{% endblock %}</title>
 </head>
     <body>
         <header>
@@ -20,21 +21,25 @@
                         <li><a href="#">Contact</a></li>
                     </ul>
                     {% set session = request.getSession() %}
+                    {% set user = session.get('user') %}
 
                     {% if not session.get('user') %}
-                    <ul>
-                        <li><a href="/inscription">Inscription</a></li>
-                        <li><a href="/connexion">Connexion</a></li>
-                    </ul>
+                        <ul>
+                            <li><a href="/inscription">Inscription</a></li>
+                            <li><a href="/connexion">Connexion</a></li>
+                        </ul>
                     {% else %}
-                    <ul>
-                        <span>Bonjour {{ session.get('user').getPseudo() }}</span>
-                        <li><a href="/deconnexion" class="text-red">Deconnexion</a></li>
-                    </ul>
+                        <ul>
+                            <span>Bonjour {{ user.getPseudo() }}</span>
+                            <li><a href="/deconnexion" class="text-red">Deconnexion</a></li>
+                        </ul>
                     {% endif %}
                 </div>
             </nav>
         </header>
+
+        {% block content %}{% endblock %}
+
         <footer>
             <ul>
                 <li><a href="#">Twitter</a></li>
