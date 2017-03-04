@@ -149,9 +149,6 @@ include_once __DIR__ . '/layout/aside.view.php';
 <!-- AdminLTE App -->
 <script src="resources/views/admin/dist/js/app.min.js"></script>
 
-<script>
-    console.log($.post('/comments', {id_article:1, content: 'Lorem ipsum'}));
-</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

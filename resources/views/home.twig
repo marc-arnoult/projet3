@@ -2,6 +2,8 @@
 
 {% set articles = request.attributes.get('articles') %}
 {% set commentDAO = request.attributes.get('commentDAO') %}
+{% set success = request.attributes.get('success') %}
+{% set errors = request.attributes.get('errors') %}
 
 {% block title %}
    {{ 'Jean Forteroche' }}

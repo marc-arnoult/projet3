@@ -12,7 +12,6 @@ class Comment implements iModel
     private $content;
     private $created_at;
     private $updated_at;
-    private $depth;
 
     public function __construct(array $data)
     {

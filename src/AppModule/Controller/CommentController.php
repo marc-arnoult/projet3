@@ -12,12 +12,14 @@ namespace AppModule\Controller;
 use AppModule\Model\Comment;
 use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CommentController extends Controller
 {
-    public function addAction (Request $request)
+    public function postAction (Request $request)
     {
         $session = new Session();
         $commentDAO = new CommentDAO();
@@ -30,5 +32,18 @@ class CommentController extends Controller
         $commentDAO->add($comment);
         $http_referer = $request->server->get('HTTP_REFERER');
         header("Location: {$http_referer}");
+    }
+
+    public function responseAction (Request $request)
+    {
+        $session = new Session();
+        $commentDAO = new CommentDAO();
+        $comments = $commentDAO->getAll(1);
+
+        $user = $session->get('user');
+        $data = $request->request->all();
+
+        var_dump($comments);
+
     }
 }

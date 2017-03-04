@@ -36,7 +36,6 @@ class CommentDAO implements iDAO
 
     public function get($id)
     {
-
     }
 
     public function getAll($idArticle)
@@ -47,7 +46,7 @@ class CommentDAO implements iDAO
                 LEFT JOIN user 
                 ON comments.id_user = user.id 
                 WHERE comments.id_article = $idArticle
-                ORDER BY comments.created_at DESC", \PDO::FETCH_OBJ);
+                ORDER BY comments.created_at", \PDO::FETCH_OBJ);
 
         return $data->fetchAll();
     }

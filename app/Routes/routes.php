@@ -70,7 +70,11 @@ $routes->add('#sign_in#', new Route('/connexion', array(
  ********************/
 
 $routes->add('#comments#', new Route('/comments', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::addAction'
+    '_controller' => 'AppModule\\Controller\\CommentController::postAction'
 ), array(), array(), '', array(), array('POST')));
+
+$routes->add('#response#', new Route('/response-comment', array(
+    '_controller' => 'AppModule\\Controller\\CommentController::responseAction'
+), array(), array(), '', array(), array()));
 
 return $routes;

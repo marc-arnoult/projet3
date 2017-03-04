@@ -4,7 +4,6 @@ namespace AppModule\Controller;
 use AppModule\Model\ArticleDAO;
 use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
-use Core\Database\Database;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,10 +35,24 @@ class ArticleController extends Controller
 
         $article = $articleDAO->get($id);
         $comments = $commentDAO->getAll($id);
+        $comments_by_id = [];
+
+        foreach ($comments as $comment) {
+            $comments_by_id[$comment->id] = $comment;
+        }
+
+        foreach ($comments as $k => $comment) {
+            if($comment->id_parent !== null) {
+                $comments_by_id[$comment->id_parent]->children[] = $comment;
+                unset($comments[$k]);
+            }
+        }
+
         if(!$article) {
             header('Location: http://localhost:8000');
             exit();
         }
+
         $request->setSession($session);
         $request->attributes->set('article', $article);
         $request->attributes->set('comments', $comments);
