@@ -2,32 +2,20 @@
 
 {% set articles = request.attributes.get('articles') %}
 {% set commentDAO = request.attributes.get('commentDAO') %}
-{% set success = request.attributes.get('success') %}
-{% set errors = request.attributes.get('errors') %}
+{% set messages = request.attributes.get('messages') %}
 
 {% block title %}
    {{ 'Jean Forteroche' }}
 {% endblock %}
 
 {% block content %}
-
     <section id="home-page">
-
-        {% if success %}
-            <div class="alert alert-success">
-                <span class="alert-text">{{ success }}</span>
-                <span class="alert-remove">x</span>
-            </div>
-        {% elseif errors %}
-
-        {% for error in errors %}
-            <div class="alert alert-error">
-                <span class="alert-text">{{ error }}</span>
+        {% for key, message in messages %}
+            <div class="alert alert-{{ key }}">
+                <span class="alert-text">{{ message[0] }}</span>
                 <span class="alert-remove">x</span>
             </div>
         {% endfor %}
-
-        {% endif %}
 
         <h1>Bonjour, bienvenue sur mon blog</h1>
         <div class="bg-tiret">

@@ -1,6 +1,7 @@
 var modalClose = document.querySelector('.alert-remove');
 var replyAll = document.querySelectorAll('.reply');
 var form;
+var formOpened = false;
 
 if (modalClose) {
     var modal = modalClose.parentNode;
@@ -40,22 +41,35 @@ if (replyAll) {
     form.appendChild(submit);
 
     var commentId;
+    var articleId;
 
     replyAll.forEach(function (reply) {
         reply.addEventListener('click', function (e) {
+            e.stopPropagation();
             e.preventDefault();
             this.parentNode.insertBefore(form, this.nextSibling);
-            commentId = JSON.parse(this.getAttribute('commentId'));
+            commentId = JSON.parse(this.getAttribute('data-id'));
+            articleId = JSON.parse(this.getAttribute('data-article_id'));
+            formOpened = true;
         });
     });
     form.addEventListener('submit', function (e) {
         e.preventDefault();
         console.log(commentId);
-        console.log($.post('/response-comment', {id_comment:commentId, content:this.firstChild.value}));
+        console.log($.post('/response-comment', {
+            id_comment: commentId,
+            id_article: articleId,
+            content: this.firstChild.value
+        }));
+    });
+    form.addEventListener('click', function (e) {
+        e.stopPropagation();
     })
+    document.body.addEventListener('click', function(e) {
+        if(formOpened) {
+            form.firstChild.value = '';
+            form.remove();
+            formOpened = false;
+        }
+    });
 }
-
-document.addEventListener('click', function(e) {
-    form.style.display = 'none';
-    e.stopPropagation();
-});

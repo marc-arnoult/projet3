@@ -27,11 +27,13 @@ class CommentController extends Controller
         $user = $session->get('user');
         $data = $request->request->all();
 
-        $comment = new Comment($data);
-        $comment->setId_user($user->getId());
-        $commentDAO->add($comment);
-        $http_referer = $request->server->get('HTTP_REFERER');
-        header("Location: {$http_referer}");
+        if (isset($data)) {
+            $comment = new Comment($data);
+            $comment->setId_user($user->getId());
+            $commentDAO->add($comment);
+            $http_referer = $request->server->get('HTTP_REFERER');
+            header("Location: {$http_referer}");
+        }
     }
 
     public function responseAction (Request $request)

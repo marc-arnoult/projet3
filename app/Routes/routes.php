@@ -8,13 +8,10 @@ $routes->add('home', new Route('/', array(
     '_controller' => 'AppModule\\Controller\\IndexController::indexAction'
 ), array(), array(), '', array(), array('GET')));
 
+
 $routes->add('articles_list', new Route('/articles', array(
     '_controller' => 'AppModule\\Controller\\ArticleController::indexAction'
 ), array(), array(), '', array(), array('GET')));
-
-$routes->add('', new Route('/articles', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::postAction'
-), array(), array(), '', array(), array('POST')));
 
 $routes->add('article', new Route('/article/{id}', array(
     'id' => 'id',
@@ -31,7 +28,11 @@ $routes->add('/admin/index', new Route('/admin', array(
 
 $routes->add('/admin/articles', new Route('/admin/articles', array(
     '_controller' => 'AppModule\\Controller\\AdminController::articleAction'
-)));
+), array(), array(), '', array(), array('GET')));
+
+$routes->add('#/admin/articles#', new Route('/admin/articles', array(
+    '_controller' => 'AppModule\\Controller\\AdminController::articlePostAction'
+), array(), array(), '', array(), array('POST')));
 
 /********************
  *     SIGN OUT      *

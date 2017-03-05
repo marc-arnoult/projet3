@@ -7,7 +7,7 @@ use Core\Database\Database;
 
 interface iDAO
 {
-    public function add(iModel $model);
+    public function add($model);
 
     public function get($cond);
 

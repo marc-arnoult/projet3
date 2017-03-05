@@ -20,26 +20,31 @@ class ArticleDAO implements iDAO
         $this->db = new Database();
     }
 
-    public function add(iModel $article)
+    public function add($article)
     {
-
+        try {
+            $req = $this->db->prepare('INSERT INTO articles (id_user, content, created_at, updated_at)
+                                VALUES (:id_user, :content, NOW(), NOW())');
+            $req->bindValue(':id_user', $article->getIdUser());
+            $req->bindValue(':content', $article->getContent());
+            return $req->execute();
+        } catch (\Exception $e) {
+            echo 'Erreur ' . $e;
+        }
     }
 
     public function get($id)
     {
-        $db = $this->db;
-        $data = $db->query("SELECT * FROM articles WHERE id = {$id}", \PDO::FETCH_OBJ);
+        $data = $this->db->query("SELECT * FROM articles WHERE id = {$id}", \PDO::FETCH_OBJ);
         return $data->fetch();
     }
 
     public function getAll($cond = null)
     {
-        $db = $this->db;
-
         if($cond) {
-            $data = $db->query("SELECT * FROM articles LIMIT $cond", \PDO::FETCH_OBJ);
+            $data = $this->db->query("SELECT * FROM articles LIMIT $cond", \PDO::FETCH_OBJ);
         } else {
-            $data = $db->query("SELECT * FROM articles", \PDO::FETCH_OBJ);
+            $data = $this->db->query("SELECT * FROM articles", \PDO::FETCH_OBJ);
         }
         return $data->fetchAll();
     }

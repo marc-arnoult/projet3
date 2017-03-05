@@ -59,9 +59,4 @@ class ArticleController extends Controller
 
         return $this->render($request);
     }
-
-    public function postAction(Request $request)
-    {
-        var_dump($request->request->all());
-    }
 }

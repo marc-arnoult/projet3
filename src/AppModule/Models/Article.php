@@ -13,7 +13,6 @@ class Article implements iModel
 {
     private $id;
     private $idUser;
-    private $title;
     private $content;
     private $createdAt;
     private $updatedAt;
@@ -31,7 +30,7 @@ class Article implements iModel
 
             if (method_exists($this, $method))
             {
-                $this->$method(htmlspecialchars($value));
+                $this->$method($value);
             }
         }
     }

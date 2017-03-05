@@ -8,6 +8,7 @@
 
 namespace AppModule\Controller;
 
+use AppModule\Model\Article;
 use AppModule\Model\ArticleDAO;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
@@ -47,6 +48,24 @@ class AdminController extends Controller
         $request->attributes->set('nbUser', $nbUser);
         $request->setSession($session);
         return $this->render($request);
+    }
+    public function articlePostAction(Request $request)
+    {
+        $session = new Session();
+        $user = $session->get('user');
+
+        if($user->getRole() === 'administrateur') {
+            $data = array();
+            $data['content'] = $request->request->get('content');
+            $data['idUser'] = $user->getId();
+
+            $article = new Article($data);
+            $articleDAO = new ArticleDAO();
+
+            $result = $articleDAO->add($article);
+        } else {
+            echo 'Wrong';
+        }
     }
 
 }

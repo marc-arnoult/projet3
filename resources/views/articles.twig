@@ -13,11 +13,11 @@
                 commentaires
             </span>
                 </div>
-
                 <hr>
 
-                <h2>{{ article.title }}</h2>
-                <p>{{ article.content|slice(0, 200) }}</p>
+                <div class="content" style="margin-left: 120px">
+                    {{ article.content|slice(0, 200)|raw }}
+                </div>
                 <a href="/article/{{ article.id }}">Read More</a>
             </article>
         {% endfor %}

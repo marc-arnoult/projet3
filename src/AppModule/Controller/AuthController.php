@@ -48,8 +48,9 @@ class AuthController extends Controller
         $result = $userDAO->get($data['pseudo'], sha1($data['password']));
 
         if (!$result) {
-            $session->getFlashBag()
-                ->add('error', 'Mauvais pseudo ou mot de passe');
+            $session
+                ->getFlashBag()
+                ->set('error', 'Mauvais pseudo ou mot de passe');
             header('Location: /');
         }
 
@@ -57,12 +58,14 @@ class AuthController extends Controller
         $session->set('user', $user);
 
         if($user->getRole() === 'administrateur') {
-            $session->getFlashBag()->set('success', array('success' => 'Vous êtes maintenant connecté en tant que administrateur'));
+            $session
+                ->getFlashBag()
+                ->add('success', 'Vous êtes maintenant connecté en tant que administrateur');
+
             header('Location: /admin');
         } else if (!empty($user->getRole())) {
             $session->getFlashBag()
-                ->set('success', array
-                ('success' => 'Vous êtes maintenant connecté'));
+                ->set('success', 'Vous êtes maintenant connecté');
             header('Location: /');
         }
     }

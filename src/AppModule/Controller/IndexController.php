@@ -25,11 +25,10 @@ class IndexController extends Controller
         $request->attributes->set('commentDAO', $commentDAO);
         $request->setSession($session);
 
-        $success = $session->getFlashBag()->get('success')['success'] ?? null;
-        $error = $session->getFlashBag()->get('error') ?? null;
+        $messages = $session->getFlashBag()->all() ?? null;
 
-        $request->attributes->set('success', $success);
-        $request->attributes->set('errors', $error);
+        $request->attributes->set('messages', $messages);
+
         return $this->render($request);
     }
 }

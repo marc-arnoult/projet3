@@ -26,7 +26,7 @@ class Comment implements iModel
 
             if (method_exists($this, $method))
             {
-                $this->$method(htmlspecialchars($value));
+                $this->$method($value);
             }
         }
     }
