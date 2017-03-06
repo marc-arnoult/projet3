@@ -45,7 +45,6 @@ class CommentController extends Controller
         $user = $session->get('user');
         $data = $request->request->all();
 
-        var_dump($comments);
-
+        return new JsonResponse($data);
     }
 }

@@ -16,13 +16,9 @@
                     {{ article.created_at|date('d M Y') }}
                 </time>
             </div>
-            <div class="info">
-                <span>
-                    <i class="" aria-hidden="true"></i>
-                </span>
+            <div class="content">
+                <p>{{ article.content | raw }}</p>
             </div>
-            <h2>{{ article.title }}</h2>
-            <p>{{ article.content | raw }}</p>
         </article>
     </div>
 </section>
@@ -30,7 +26,7 @@
     <div class="comment-response">
         <h3>* Commentaires *</h3>
         {% if user %}
-            <form action="/comments" method="post">
+            <form action="/comments" method="post" id="formComment">
                 <input type="hidden" name="id_article" value="{{ article.id }}">
                 <label for="content">Commentaire :</label>
                 <textarea name="content" required></textarea>

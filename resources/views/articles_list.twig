@@ -4,7 +4,7 @@
     {% set articles = request.attributes.get('articles') %}
     {% set commentDAO = request.attributes.get('commentDAO') %}
 
-    <section>
+    <section id="articles-list">
     {% embed 'articles.twig' %}
     {% endembed %}
     </section>
