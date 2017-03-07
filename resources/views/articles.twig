@@ -16,7 +16,7 @@
                 <hr>
 
                 <div class="content">
-                    {{ article.content|raw }}
+                    {{ article.content|striptags('<h1>')|slice(0, 300)|raw}}
                 </div>
                 <div class="read-more_container">
                     <a class="read-more" href="/article/{{ article.id }}">Read More</a>
