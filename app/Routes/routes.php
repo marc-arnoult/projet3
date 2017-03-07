@@ -76,6 +76,6 @@ $routes->add('#comments#', new Route('/comments', array(
 
 $routes->add('#response#', new Route('/response-comment', array(
     '_controller' => 'AppModule\\Controller\\CommentController::responseAction'
-), array(), array(), '', array(), array()));
+), array(), array(), '', array(), array('POST')));
 
 return $routes;
