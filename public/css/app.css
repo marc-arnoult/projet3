@@ -109,7 +109,6 @@ section .tiret {
 }
 .article {
     position: relative;
-    overflow: hidden;
     border: 3px outset rgba(60, 141, 188, 0.26);
     box-shadow: 3px 3px 20px 1px #E8E8E8;
     border-radius: 5px;

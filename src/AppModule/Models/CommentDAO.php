@@ -23,11 +23,17 @@ class CommentDAO implements iDAO
     public function add($comment)
     {
         try {
-            $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, created_at, updated_at)
-                                VALUES (:id_user, :id_article, :content, NOW(), NOW())');
-            $req->bindValue(':id_user', $comment->getIdUser());
-            $req->bindValue(':id_article', $comment->getIdArticle());
+            $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, created_at, updated_at)
+                                VALUES (:id_user, :id_article, :content, :id_parent, NOW(), NOW())');
+            $req->bindValue(':id_user', $comment->getId_user());
+            $req->bindValue(':id_article', $comment->getId_article());
             $req->bindValue(':content', $comment->getContent());
+            if ($comment->getId_parent()) {
+                $req->bindValue(':id_parent', $comment->getId_parent());
+            } else {
+                $req->bindValue(':id_parent', null);
+            }
+
             return $req->execute();
         } catch (\Exception $e) {
             echo 'Erreur ' . $e;

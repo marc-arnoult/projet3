@@ -40,11 +40,14 @@ class CommentController extends Controller
     {
         $session = new Session();
         $commentDAO = new CommentDAO();
-        $comments = $commentDAO->getAll(1);
 
         $user = $session->get('user');
         $data = $request->request->all();
 
-        return new JsonResponse($data);
+        $comment = new Comment($data);
+        $comment->setId_user($user->getId());
+        $commentDAO->add($comment);
+
+        die();
     }
 }

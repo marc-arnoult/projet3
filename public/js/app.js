@@ -1,28 +1,15 @@
-var modalClose = document.querySelector('.alert-remove');
+/*
+* Insert a form on the click response comment
+* */
 var replyAll = document.querySelectorAll('.reply');
 var form;
 var formOpened = false;
-
-if (modalClose) {
-    var modal = modalClose.parentNode;
-
-    modalClose.addEventListener('click', function () {
-        modal.remove();
-    });
-    setTimeout(function () {
-        modal.style.transition = "0.8s ease-in";
-        modal.style.transform = "translateX(120px)";
-        modal.style.opacity = 0;
-    }, 2100);
-    setTimeout(function () {
-        modal.remove();
-    }, 2900);
-}
 var xhr = new XMLHttpRequest();
 
 if (replyAll) {
     form = document.createElement('form');
-    form.setAttribute('action', '/response-comment');
+    /*form.setAttribute('action', '/response-comment');
+    form.setAttribute('method', 'post');*/
     form.style.display = 'flex';
     form.style.width = '100%';
     form.style.alignItems = 'center';
@@ -44,27 +31,35 @@ if (replyAll) {
     var articleId;
 
     replyAll.forEach(function (reply) {
-        reply.addEventListener('click', function (e) {
+        reply.children[2].addEventListener('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            this.parentNode.insertBefore(form, this.nextSibling);
-            commentId = JSON.parse(this.getAttribute('data-id'));
-            articleId = JSON.parse(this.getAttribute('data-article_id'));
+            reply.parentNode.insertBefore(form, reply.nextSibling);
+            commentId = this.parentNode.getAttribute('data-id');
+            articleId = this.parentNode.getAttribute('data-article_id');
             formOpened = true;
         });
     });
+
     form.addEventListener('submit', function (e) {
+        var content = this.firstChild.value;
+        var self = this;
+
         e.preventDefault();
-        console.log(commentId);
-        console.log($.post('/response-comment', {
-            id_comment: commentId,
+        $.post('/response-comment', {
+            id_parent: commentId,
             id_article: articleId,
-            content: this.firstChild.value
-        }));
+            content: content
+        }).done(function (response) {
+            self.firstChild.value = '';
+            console.log(response);
+        })
     });
+
     form.addEventListener('click', function (e) {
         e.stopPropagation();
-    })
+    });
+
     document.body.addEventListener('click', function(e) {
         if(formOpened) {
             form.firstChild.value = '';
@@ -73,3 +68,32 @@ if (replyAll) {
         }
     });
 }
+
+/*
+* Insert modal with the response flashbag
+* */
+var modalClose = document.querySelector('.alert-remove');
+
+if (modalClose) {
+    var modal = modalClose.parentNode;
+
+    modalClose.addEventListener('click', function () {
+        modal.remove();
+    });
+    setTimeout(function () {
+        modal.style.transition = "0.8s ease-in";
+        modal.style.transform = "translateX(120px)";
+        modal.style.opacity = 0;
+    }, 2100);
+    setTimeout(function () {
+        modal.remove();
+    }, 2900);
+}
+
+/*
+* Dynamic Title
+* */
+var titleArticle = document.querySelector('.content h1').textContent;
+var title = document.querySelector('head title');
+
+console.log(title.textContent);

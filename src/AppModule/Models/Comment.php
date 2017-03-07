@@ -7,8 +7,9 @@ class Comment implements iModel
 {
 
     private $id;
-    private $idUser;
-    private $idArticle;
+    private $id_user;
+    private $id_article;
+    private $id_parent;
     private $content;
     private $created_at;
     private $updated_at;
@@ -50,9 +51,9 @@ class Comment implements iModel
     /**
      * @return mixed
      */
-    public function getIdUser()
+    public function getId_user()
     {
-        return $this->idUser;
+        return $this->id_user;
     }
 
     /**
@@ -60,15 +61,15 @@ class Comment implements iModel
      */
     public function setId_user($idUser)
     {
-        $this->idUser = $idUser;
+        $this->id_user = $idUser;
     }
 
     /**
      * @return mixed
      */
-    public function getIdArticle()
+    public function getId_article()
     {
-        return $this->idArticle;
+        return $this->id_article;
     }
 
     /**
@@ -76,7 +77,7 @@ class Comment implements iModel
      */
     public function setId_article($idArticle)
     {
-        $this->idArticle = $idArticle;
+        $this->id_article = $idArticle;
     }
 
     /**
@@ -125,5 +126,21 @@ class Comment implements iModel
     public function setUpdatedAt($updated_at)
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId_parent()
+    {
+        return $this->id_parent;
+    }
+
+    /**
+     * @param mixed $id_parent
+     */
+    public function setId_parent($id_parent)
+    {
+        $this->id_parent = $id_parent;
     }
 }
