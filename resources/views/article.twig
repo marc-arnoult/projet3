@@ -16,6 +16,7 @@
                     {{ article.created_at|date('d M Y') }}
                 </time>
             </div>
+            <h2>{{ article.title }}</h2>
             <div class="content">
                 {{ article.content | striptags ('<h1>')| raw | nl2br }}
             </div>
