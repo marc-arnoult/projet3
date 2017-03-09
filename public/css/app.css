@@ -349,9 +349,13 @@ footer a {
     hr {
         display: none;
     }
-    .round {
-        margin: 0 auto;
+    section article .round {
+        display: none;
     }
+    section article .info {
+        display: none;
+    }
+    /*
     section .info {
         top: 80px;
         text-align: center;
@@ -384,8 +388,9 @@ footer a {
     }
     .comment-response input[type="submit"] {
         width: 166px;
-    }
+    }*/
 }
+
 @keyframes leftToRight {
     from {
         transform: translateX(-150px);
