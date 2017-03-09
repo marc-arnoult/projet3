@@ -21,7 +21,7 @@ class IndexController extends Controller
         $articleDAO = new ArticleDAO();
         $articles = $articleDAO->getAll(3);
 
-        $request->attributes->set('articles', $articles);
+        $request->attributes->set('articles', array_reverse($articles));
         $request->attributes->set('commentDAO', $commentDAO);
         $request->setSession($session);
 
