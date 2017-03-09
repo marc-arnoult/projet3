@@ -28,7 +28,7 @@ class AdminController extends Controller
             $userDAO = new UserDAO();
             $articleDAO = new ArticleDAO();
             $nbUser = $userDAO->getCountUser()->nbUser;
-            $nbArticle = $articleDAO->getCountUser()->nbArticle;
+            $nbArticle = $articleDAO->getCountArticles()->nbArticle;
 
             $request->attributes->set('nbArticle', $nbArticle);
             $request->attributes->set('nbUser', $nbUser);
@@ -42,7 +42,7 @@ class AdminController extends Controller
         $userDAO = new UserDAO();
         $articleDAO = new ArticleDAO();
         $nbUser = $userDAO->getCountUser()->nbUser;
-        $nbArticle = $articleDAO->getCountUser()->nbArticle;
+        $nbArticle = $articleDAO->getCountArticles()->nbArticle;
 
         $request->attributes->set('nbArticle', $nbArticle);
         $request->attributes->set('nbUser', $nbUser);
@@ -56,6 +56,7 @@ class AdminController extends Controller
 
         if($user->getRole() === 'administrateur') {
             $data = array();
+            $data['title'] = $request->request->get('title');
             $data['content'] = $request->request->get('content');
             $data['idUser'] = $user->getId();
 

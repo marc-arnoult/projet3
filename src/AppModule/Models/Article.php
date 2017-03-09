@@ -13,6 +13,7 @@ class Article implements iModel
 {
     private $id;
     private $idUser;
+    private $title;
     private $content;
     private $createdAt;
     private $updatedAt;

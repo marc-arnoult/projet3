@@ -23,10 +23,11 @@ class ArticleDAO implements iDAO
     public function add($article)
     {
         try {
-            $req = $this->db->prepare('INSERT INTO articles (id_user, content, created_at, updated_at)
-                                VALUES (:id_user, :content, NOW(), NOW())');
+            $req = $this->db->prepare('INSERT INTO articles (id_user, content, title,created_at, updated_at)
+                                VALUES (:id_user, :content, :title, NOW(), NOW())');
             $req->bindValue(':id_user', $article->getIdUser());
             $req->bindValue(':content', $article->getContent());
+            $req->bindValue(':title', $article->getTitle());
             return $req->execute();
         } catch (\Exception $e) {
             echo 'Erreur ' . $e;
@@ -49,7 +50,7 @@ class ArticleDAO implements iDAO
         return $data->fetchAll();
     }
 
-    public function getCountUser()
+    public function getCountArticles()
     {
         $number = $this->db->query("SELECT COUNT(*) as nbArticle FROM articles", \PDO::FETCH_OBJ);
 

@@ -28,9 +28,11 @@
 
     <!-- Main content -->
     <section class="content">
-        <form action="/admin/articles" method="post">
+        <form action="/admin/articles" method="post" class="form-group">
+            <label for="title">Titre de l'article :</label>
+            <input type="text" name="title" class="form-control" style="margin-bottom: 10px" required>
             <textarea name="content"></textarea>
-            <input type="submit" value="Envoyer">
+            <input type="submit" value="Envoyer" class="btn btn-primary" style="margin-top: 10px;">
         </form>
     </section>
     <!-- /.content -->
