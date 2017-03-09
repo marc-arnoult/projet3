@@ -16,6 +16,12 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    {% set messages = request.attributes.get('messages') %}
+    {% for key, message in messages %}
+        <div class="alert alert-{{ key }}">
+            <span class="alert-text">{{ message[0] }}</span>
+        </div>
+    {% endfor %}
     <section class="content-header">
         <h1>
             Articles
