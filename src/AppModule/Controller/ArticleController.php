@@ -35,6 +35,8 @@ class ArticleController extends Controller
 
         $article = $articleDAO->get($id);
         $comments = $commentDAO->getAllWithChildren($id);
+        $messages = $session->getFlashBag()->all() ?? null;
+
 
         if(!$article) {
             header('Location: http://localhost:8000');
@@ -42,6 +44,7 @@ class ArticleController extends Controller
         }
 
         $request->setSession($session);
+        $request->attributes->set('messages', $messages);
         $request->attributes->set('article', $article);
         $request->attributes->set('comments', $comments);
 
