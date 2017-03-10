@@ -34,19 +34,7 @@ class ArticleController extends Controller
         $articleDAO = new ArticleDAO();
 
         $article = $articleDAO->get($id);
-        $comments = $commentDAO->getAll($id);
-        $comments_by_id = [];
-
-        foreach ($comments as $comment) {
-            $comments_by_id[$comment->id] = $comment;
-        }
-
-        foreach ($comments as $k => $comment) {
-            if($comment->id_parent !== null) {
-                $comments_by_id[$comment->id_parent]->children[] = $comment;
-                unset($comments[$k]);
-            }
-        }
+        $comments = $commentDAO->getAllWithChildren($id);
 
         if(!$article) {
             header('Location: http://localhost:8000');

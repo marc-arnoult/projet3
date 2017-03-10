@@ -57,6 +57,23 @@ class CommentDAO implements iDAO
         return $data->fetchAll();
     }
 
+    public function getAllWithChildren($idArticle)
+    {
+        $comments = $this->getAll($idArticle);
+        $comments_by_id = [];
+
+        foreach ($comments as $comment) {
+            $comments_by_id[$comment->id] = $comment;
+        }
+
+        foreach ($comments as $k => $comment) {
+            if($comment->id_parent !== null) {
+                $comments_by_id[$comment->id_parent]->children[] = $comment;
+                unset($comments[$k]);
+            }
+        }
+        return $comments;
+    }
     public function getCountComment($idArticle)
     {
         $number = $this->db->query("SELECT COUNT(*) as nbComments 
