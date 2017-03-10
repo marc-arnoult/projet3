@@ -2,12 +2,19 @@
 
 {% set article = request.attributes.get('article') %}
 {% set comments = request.attributes.get('comments') %}
+{% set messages = request.attributes.get('messages') %}
 {% set depth = 0 %}
 
 {% block title %}
     {{ article.title }}
 {% endblock %}
 {% block content %}
+    {% for key, message in messages %}
+        <div class="alert alert-{{ key }}">
+            <span class="alert-text">{{ message[0] }}</span>
+            <span class="alert-remove">x</span>
+        </div>
+    {% endfor %}
 <section id="article-page">
     <div class="article-container">
         <article class="article">

@@ -46,13 +46,14 @@ if (replyAll) {
         var self = this;
 
         e.preventDefault();
+
         $.post('/response-comment', {
             id_parent: commentId,
             id_article: articleId,
             content: content
         }).done(function (response) {
             self.firstChild.value = '';
-            console.log(response);
+            window.top.location.reload();
         })
     });
 
@@ -93,7 +94,7 @@ if (modalClose) {
 /*
 * Dynamic Title
 * */
-var titleArticle = document.querySelector('.content h1').textContent;
+var titleArticle = document.querySelector('#article-page article h2').textContent;
 var title = document.querySelector('head title');
 
-console.log(title.textContent);
+title.textContent = titleArticle;
