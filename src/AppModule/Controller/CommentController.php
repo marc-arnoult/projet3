@@ -27,7 +27,7 @@ class CommentController extends Controller
         $user = $session->get('user');
         $data = $request->request->all();
 
-        if (isset($data)) {
+        if (isset($data) && !empty($user)) {
             $comment = new Comment($data);
             $comment->setId_user($user->getId());
             $commentDAO->add($comment);
@@ -43,11 +43,17 @@ class CommentController extends Controller
 
         $user = $session->get('user');
         $data = $request->request->all();
+        
+        if(isset($data) && !empty($user)) {
+            $comment = new Comment($data);
+            $comment->setId_user($user->getId());
+            $commentDAO->add($comment);
 
-        $comment = new Comment($data);
-        $comment->setId_user($user->getId());
-        $commentDAO->add($comment);
-
-        die();
+            $session
+                ->getFlashBag()
+                ->add('success', 'Commentaire bien ajouté');
+        } else {
+            return new JsonResponse(array('error' => 'Erreur'));
+        }
     }
 }
