@@ -8,7 +8,6 @@
 
 namespace AppModule\Controller;
 
-
 use AppModule\Model\Comment;
 use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
@@ -32,6 +31,11 @@ class CommentController extends Controller
             $comment->setId_user($user->getId());
             $commentDAO->add($comment);
             $http_referer = $request->server->get('HTTP_REFERER');
+
+            $session
+                ->getFlashBag()
+                ->add('success', 'Commentaire bien ajouté');
+
             header("Location: {$http_referer}");
         }
     }
@@ -43,15 +47,21 @@ class CommentController extends Controller
 
         $user = $session->get('user');
         $data = $request->request->all();
-        
+
         if(isset($data) && !empty($user)) {
             $comment = new Comment($data);
             $comment->setId_user($user->getId());
-            $commentDAO->add($comment);
+            $result = $commentDAO->add($comment);
 
-            $session
-                ->getFlashBag()
-                ->add('success', 'Commentaire bien ajouté');
+            if($result) {
+                $session
+                    ->getFlashBag()
+                    ->add('success', 'Commentaire bien ajouté');
+            } else {
+                $session
+                    ->getFlashBag()
+                    ->add('error', 'Erreur');
+            }
         } else {
             return new JsonResponse(array('error' => 'Erreur'));
         }

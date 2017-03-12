@@ -22,26 +22,29 @@ class CommentDAO implements iDAO
 
     public function add($comment)
     {
-        try {
-            $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, created_at, updated_at)
-                                VALUES (:id_user, :id_article, :content, :id_parent, NOW(), NOW())');
-            $req->bindValue(':id_user', $comment->getId_user());
-            $req->bindValue(':id_article', $comment->getId_article());
-            $req->bindValue(':content', $comment->getContent());
-            if ($comment->getId_parent()) {
-                $req->bindValue(':id_parent', $comment->getId_parent());
-            } else {
-                $req->bindValue(':id_parent', null);
-            }
+        $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at, updated_at)
+                            VALUES (:id_user, :id_article, :content, :id_parent, :depth, NOW(), NOW())');
+        $req->bindValue(':id_user', $comment->getId_user());
+        $req->bindValue(':id_article', $comment->getId_article());
+        $req->bindValue(':content', $comment->getContent());
 
-            return $req->execute();
-        } catch (\Exception $e) {
-            echo 'Erreur ' . $e;
+        if ($comment->getId_parent() != null) {
+            $parentId = $comment->getId_parent();
+            $depth = $this->get($parentId)->depth + 1;
+            $req->bindValue(':id_parent', $comment->getId_parent());
+            $req->bindValue(':depth', $depth);
+        } else {
+            $req->bindValue(':id_parent', null);
+            $req->bindValue(':depth', null);
         }
+        return $req->execute();
     }
 
     public function get($id)
     {
+        $data = $this->db->query("SELECT * FROM comments WHERE id={$id}", \PDO::FETCH_OBJ);
+
+        return $data->fetch();
     }
 
     public function getAll($idArticle)
@@ -51,8 +54,7 @@ class CommentDAO implements iDAO
                 FROM comments  
                 LEFT JOIN user 
                 ON comments.id_user = user.id 
-                WHERE comments.id_article = $idArticle
-                ORDER BY comments.created_at", \PDO::FETCH_OBJ);
+                WHERE comments.id_article = $idArticle", \PDO::FETCH_OBJ);
 
         return $data->fetchAll();
     }

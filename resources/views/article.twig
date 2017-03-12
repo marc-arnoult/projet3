@@ -3,7 +3,6 @@
 {% set article = request.attributes.get('article') %}
 {% set comments = request.attributes.get('comments') %}
 {% set messages = request.attributes.get('messages') %}
-{% set depth = 0 %}
 
 {% block title %}
     {{ article.title }}

@@ -13,6 +13,7 @@ class Comment implements iModel
     private $content;
     private $created_at;
     private $updated_at;
+    private $depth;
 
     public function __construct(array $data)
     {
@@ -142,5 +143,21 @@ class Comment implements iModel
     public function setId_parent($id_parent)
     {
         $this->id_parent = $id_parent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDepth()
+    {
+        return $this->depth;
+    }
+
+    /**
+     * @param mixed $depth
+     */
+    public function setDepth($depth)
+    {
+        $this->depth = $depth;
     }
 }
