@@ -354,40 +354,9 @@ footer a {
     section article .info {
         display: none;
     }
-    /*
-    section .info {
-        top: 80px;
-        text-align: center;
-        margin: 40px auto;
-    }
-    .article {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    #article-page .article h2{
-        margin-top: 14px;
-    }
-    section article h2 {
-        text-align: center;
-        margin: 55px 0 10px 0;
-    }
-    section article p {
-        margin: 0 8%;
-    }
-    section article a {
-        margin: 16px 8%;
-        align-self: flex-start;
-    }
     .comment-response {
-        margin: 0 30px;
+        margin: 0;
     }
-    .comment-response textarea {
-        height: 100px;
-    }
-    .comment-response input[type="submit"] {
-        width: 166px;
-    }*/
 }
 
 @keyframes leftToRight {
