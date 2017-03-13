@@ -27,11 +27,15 @@ $routes->add('/admin/index', new Route('/admin', array(
 )));
 
 $routes->add('/admin/articles', new Route('/admin/articles', array(
-    '_controller' => 'AppModule\\Controller\\AdminController::articleAction'
+    '_controller' => 'AppModule\\Controller\\ArticleController::showArticleAction'
 ), array(), array(), '', array(), array('GET')));
 
-$routes->add('#/admin/articles#', new Route('/admin/articles', array(
-    '_controller' => 'AppModule\\Controller\\AdminController::articlePostAction'
+$routes->add('/admin/article', new Route('/admin/article', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::addArticleAction'
+), array(), array(), '', array(), array('GET')));
+
+$routes->add('#/admin/article#', new Route('/admin/articles', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::postArticleAction'
 ), array(), array(), '', array(), array('POST')));
 
 /********************
