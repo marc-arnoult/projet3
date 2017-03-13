@@ -15,7 +15,7 @@ class UserDAO
         $this->db = new Database();
     }
 
-    public function add(iModel $model)
+    public function add($model)
     {
         try {
             $db = new Database();
@@ -66,6 +66,6 @@ class UserDAO
 
     public function setDb(Database $db)
     {
-        // TODO: Implement setDb() method.
+        $this->db = $db;
     }
 }

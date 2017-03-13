@@ -24,15 +24,15 @@ class CommentDAO implements iDAO
     {
         $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at, updated_at)
                             VALUES (:id_user, :id_article, :content, :id_parent, :depth, NOW(), NOW())');
-        $req->bindValue(':id_user', $comment->getId_user());
-        $req->bindValue(':id_article', $comment->getId_article());
-        $req->bindValue(':content', $comment->getContent());
+        $req->bindValue(':id_user', $comment->getId_user(), \PDO::PARAM_INT);
+        $req->bindValue(':id_article', $comment->getId_article(), \PDO::PARAM_INT);
+        $req->bindValue(':content', $comment->getContent(), \PDO::PARAM_STR);
 
         if ($comment->getId_parent() != null) {
             $parentId = $comment->getId_parent();
             $depth = $this->get($parentId)->depth + 1;
-            $req->bindValue(':id_parent', $comment->getId_parent());
-            $req->bindValue(':depth', $depth);
+            $req->bindValue(':id_parent', $comment->getId_parent(), \PDO::PARAM_INT);
+            $req->bindValue(':depth', $depth, \PDO::PARAM_STR);
         } else {
             $req->bindValue(':id_parent', null);
             $req->bindValue(':depth', null);
@@ -99,6 +99,6 @@ class CommentDAO implements iDAO
 
     public function setDb(Database $db)
     {
-        // TODO: Implement setDb() method.
+        $this->db = $db;
     }
 }

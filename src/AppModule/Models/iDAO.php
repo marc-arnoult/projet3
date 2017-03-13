@@ -9,7 +9,7 @@ interface iDAO
 {
     public function add($model);
 
-    public function get($cond);
+    public function get($options);
 
     public function getAll($cond);
 
