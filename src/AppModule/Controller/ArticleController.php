@@ -1,8 +1,10 @@
 <?php
 namespace AppModule\Controller;
 
+use AppModule\Model\Article;
 use AppModule\Model\ArticleDAO;
 use AppModule\Model\CommentDAO;
+use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,5 +51,60 @@ class ArticleController extends Controller
         $request->attributes->set('comments', $comments);
 
         return $this->render($request);
+    }
+    public function addArticleAction(Request $request)
+    {
+        $session = new Session();
+        $userDAO = new UserDAO();
+        $articleDAO = new ArticleDAO();
+
+        $messages = $session->getFlashBag()->all() ?? null;
+        $nbUser = $userDAO->getCountUser()->nbUser;
+        $nbArticle = $articleDAO->getCountArticles()->nbArticle;
+
+        $request->attributes->set('nbArticle', $nbArticle);
+        $request->attributes->set('nbUser', $nbUser);
+        $request->attributes->set('messages', $messages);
+
+        $request->setSession($session);
+        return $this->render($request);
+    }
+
+    public function showArticleAction(Request $request) {
+        return $this->render($request);
+    }
+
+    public function postArticleAction(Request $request)
+    {
+        $session = new Session();
+        $user = $session->get('user');
+
+        if($user->getRole() === 'administrateur') {
+            $data = array();
+            $data['title'] = $request->request->get('title');
+            $data['content'] = $request->request->get('content');
+            $data['idUser'] = $user->getId();
+
+            $article = new Article($data);
+            $articleDAO = new ArticleDAO();
+
+            $result = $articleDAO->add($article);
+
+            if($result) {
+                $session
+                    ->getFlashBag()
+                    ->add('success', 'Article bien enregistré');
+                $http_referer = $request->server->get('HTTP_REFERER');
+                header("Location: {$http_referer}");
+            } else {
+                $session
+                    ->getFlashBag()
+                    ->add('error', 'Erreur lors de l\'enregistrement de l\'article');
+                $http_referer = $request->server->get('HTTP_REFERER');
+                header("Location: {$http_referer}");
+            }
+        } else {
+            return new Response('Vous n\'êtes pas habilité pour faire ça');
+        }
     }
 }
