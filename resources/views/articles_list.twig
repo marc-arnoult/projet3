@@ -1,6 +1,11 @@
 {% extends 'layout.twig' %}
 
+{% block title %}
+    {{ 'Jean Forteroche' }}
+{% endblock %}
+
 {% block content %}
+
     {% set articles = request.attributes.get('articles') %}
     {% set commentDAO = request.attributes.get('commentDAO') %}
 

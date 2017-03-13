@@ -14,12 +14,9 @@
             </span>
                 </div>
                 <hr>
-                <h2>{{ article.title }}</h2>
+                <h2><a href="/article/{{ article.id }}">{{ article.title }}</a></h2>
                 <div class="content">
                     {{ article.content|striptags('<h1>')|slice(0, 300)|raw}}
-                </div>
-                <div class="read-more_container">
-                    <a class="read-more" href="/article/{{ article.id }}">Read More</a>
                 </div>
             </article>
         {% endfor %}
