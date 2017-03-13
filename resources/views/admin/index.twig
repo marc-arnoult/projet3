@@ -1,11 +1,19 @@
 {% extends 'layout.admin.twig' %}
 {% block content %}
+    {% set messagesAll = request.attributes.get('messages') %}
     {% set nbUser = request.attributes.get('nbUser') %}
     {% set nbArticle = request.attributes.get('nbArticle') %}
 <!-- Left side column. contains the logo and sidebar -->
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    {% for key, messages in messagesAll %}
+        <div class="alert alert-{{ key }}">
+            {% for message in messages %}
+                <span class="alert-text">{{ message }}</span>
+            {% endfor %}
+        </div>
+    {% endfor %}
     <section class="content-header">
         <h1>
             Administration
