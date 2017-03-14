@@ -146,7 +146,7 @@
                 var content = tinyMCE.activeEditor.getContent();
 
                 $.ajax({
-                    url: 'http://localhost:8000/admin/edition/article',
+                    url: '/admin/edition/article',
                     type: 'PUT',
                     data: {
                         content: content,

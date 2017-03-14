@@ -164,7 +164,7 @@
 
          $('#crudArticle .btn-danger').click(function() {
                  $.ajax({
-                     url: 'http://localhost:8000/admin/articles',
+                     url: '/admin/articles',
                      type: 'DELETE',
                      data: {
                          id: this.getAttribute('data-id')
