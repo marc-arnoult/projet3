@@ -42,6 +42,15 @@ $routes->add('#/admin/article/delete#', new Route('/admin/articles', array(
     '_controller' => 'AppModule\\Controller\\ArticleController::deleteAction'
 ), array(), array(), '', array(), array('DELETE')));
 
+$routes->add('/admin/article.edition', new Route('/admin/edition/article/{id}', array(
+    'id' => 'id',
+    '_controller' => 'AppModule\\Controller\\ArticleController::editShowAction'
+), array(), array(), '', array(), array('GET')));
+
+$routes->add('#/admin/article.edition#', new Route('/admin/edition/article', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::editAction'
+), array(), array(), '', array(), array('PUT')));
+
 /********************
  *     SIGN OUT      *
  ********************/
