@@ -10,6 +10,9 @@
     {% for key, messages in messagesAll %}
         <div class="alert alert-{{ key }}">
             {% for message in messages %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <span class="alert-text">{{ message }}</span>
             {% endfor %}
         </div>
@@ -156,6 +159,4 @@
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
-</body>
-</html>
 {% endblock %}

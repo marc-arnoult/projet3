@@ -1,14 +1,21 @@
 {% extends 'layout.admin.twig' %}
 {% block content %}
-
+    {% set articles = request.attributes.get('articles') %}
+    {% set nbArticles = request.attributes.get('nbArticles') %}
+    {% set messages = request.attributes.get('messages') %}
     <!-- Left side column. contains the logo and sidebar -->
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
+        {% for key, message in messages %}
+            <div class="alert alert-{{ key }}">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span class="alert-text">{{ message[0] }}</span>
+            </div>
+        {% endfor %}
         <section class="content-header">
-            <h1>
-                Articles
-            </h1>
             <!--<ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
               <li class="active">Here</li>
@@ -16,6 +23,41 @@
         </section>
 
         <!-- Main content -->
+        <div class="box" id="crudArticle">
+            <div class="box-header with-border">
+                <h3 class="box-title">Articles</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th class="hidden-xs">autheur</th>
+                        <th class="hidden-xs">Ajouté le</th>
+                        <th class="hidden-xs">Edité le</th>
+                        <th>Editer</th>
+                        <th>Supprimer</th>
+                    </tr>
+                    {% for article in articles %}
+                        <tr>
+                            <td>{{ article.id }}</td>
+                            <td>{{ article.title }}</td>
+                            <td class="hidden-xs">{{ article.pseudo }}</td>
+                            <td class="hidden-xs">{{ article.created_at | date('d M Y à H:i:s') }}</td>
+                            <td class="hidden-xs">
+                                {% if article.updated_at == null %}
+                                    {{ article.updated_at }}
+                                {% else %}
+                                    {{ article.updated_at | date('d M Y à H:i:s') }}
+                                {% endif %}
+                            </td>
+                            <td><a href="/admin/edition/article/{{ article.id }}"><button data-id={{ article.id }} class="btn btn-primary">Edition</button></a></td>
+                            <td><a href="#"><button data-id={{ article.id }} class="btn btn-danger">Suppression</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -117,7 +159,23 @@
     <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/resources/views/admin/dist/js/app.min.js"></script>
+    <script>
+        $(function() {
 
+         $('#crudArticle .btn-danger').click(function() {
+                 $.ajax({
+                     url: 'http://localhost:8000/admin/articles',
+                     type: 'DELETE',
+                     data: {
+                         id: this.getAttribute('data-id')
+                     },
+                     success: function(result) {
+                         window.top.location.reload();
+                     }
+                 })
+            })
+        })
+    </script>
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. Slimscroll is required when using the

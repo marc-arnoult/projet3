@@ -1,24 +1,15 @@
 {% extends 'layout.admin.twig' %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
-    <script>tinymce.init({
-            selector: 'textarea',  // change this value according to your HTML
-            plugin: 'a_tinymce_plugin',
-            a_plugin_option: true,
-            a_configuration_option: 400
-        });</script>
-</head>
-
 <!-- Left side column. contains the logo and sidebar -->
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     {% set messages = request.attributes.get('messages') %}
     {% for key, message in messages %}
-        <div class="alert alert-{{ key }}">
+        <div data-dismiss="alert" class="alert alert-{{ key }}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <span class="alert-text">{{ message[0] }}</span>
         </div>
     {% endfor %}
@@ -142,7 +133,18 @@
 <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/resources/views/admin/dist/js/app.min.js"></script>
-
+<script src="/public/js/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',  // change this value according to your HTML
+        plugin: 'a_tinymce_plugin',
+        content_css : '/public/css/app.css',
+        height : 280,
+        themes: "modern",
+        a_plugin_option: true,
+        a_configuration_option: 400
+    });
+</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

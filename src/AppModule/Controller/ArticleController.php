@@ -143,8 +143,48 @@ class ArticleController extends Controller
         }
     }
 
+    public function editShowAction (Request $request, $id)
+    {
+        $session = new Session();
+
+        $articleDAO = new ArticleDAO();
+        $article = $articleDAO->get($id);
+        $messages = $session->getFlashBag()->all() ?? null;
+
+        if($article == false) {
+            header('Location: /admin');
+            return false;
+        }
+
+        $request->attributes->set('messages', $messages);
+        $request->attributes->set('article', $article);
+
+        return $this->render($request);
+    }
+
     public function editAction (Request $request)
     {
+        $session = new Session();
+        $user = $session->get('user');
 
+        $data = $request->request->all();
+        $data['idUser'] = $user->getId();
+
+        $article = new Article($data);
+        $articleDAO = new ArticleDAO();
+
+        $result = $articleDAO->update($article);
+
+        if($result) {
+            $session
+                ->getFlashBag()
+                ->add('success', 'article modifié');
+        } else {
+            $session
+                ->getFlashBag()
+                ->add('error', 'Erreur lors de la modification de l\'article');
+        }
+
+        return new JsonResponse($result);
     }
 }
