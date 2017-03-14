@@ -52,7 +52,7 @@ class ArticleController extends Controller
 
         return $this->render($request);
     }
-    public function addArticleAction(Request $request)
+    public function addAction(Request $request)
     {
         $session = new Session();
         $userDAO = new UserDAO();
@@ -71,10 +71,21 @@ class ArticleController extends Controller
     }
 
     public function showArticleAction(Request $request) {
+        $articleDAO = new ArticleDAO();
+        $session = new Session();
+
+        $articles = $articleDAO->getAll();
+        $nbArticles = $articleDAO->getCountArticles();
+        $messages = $session->getFlashBag()->all() ?? null;
+
+        $request->attributes->set('messages', $messages);
+        $request->attributes->set('nbArticles', $nbArticles);
+        $request->attributes->set('articles', $articles);
+
         return $this->render($request);
     }
 
-    public function postArticleAction(Request $request)
+    public function postAction(Request $request)
     {
         $session = new Session();
         $user = $session->get('user');
@@ -106,5 +117,34 @@ class ArticleController extends Controller
         } else {
             return new Response('Vous n\'êtes pas habilité pour faire ça');
         }
+    }
+
+    public function deleteAction (Request $request)
+    {
+        $session = new Session();
+        $user = $session->get('user');
+
+        if($user->getRole() === 'administrateur') {
+            $id = $request->request->get('id');
+
+            $articleDAO = new ArticleDAO();
+            $result = $articleDAO->delete($id);
+
+            if($result) {
+                $session
+                    ->getFlashBag()
+                    ->add('success', 'article supprimé');
+            } else {
+                $session
+                    ->getFlashBag()
+                    ->add('error', 'Erreur lors de la suppresion de l\'article');
+            }
+
+        }
+    }
+
+    public function editAction (Request $request)
+    {
+
     }
 }

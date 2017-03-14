@@ -31,12 +31,16 @@ $routes->add('/admin/articles', new Route('/admin/articles', array(
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('/admin/article', new Route('/admin/article', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::addArticleAction'
+    '_controller' => 'AppModule\\Controller\\ArticleController::addAction'
 ), array(), array(), '', array(), array('GET')));
 
-$routes->add('#/admin/article#', new Route('/admin/articles', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::postArticleAction'
+$routes->add('#/admin/article/post#', new Route('/admin/articles', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::postAction'
 ), array(), array(), '', array(), array('POST')));
+
+$routes->add('#/admin/article/delete#', new Route('/admin/articles', array(
+    '_controller' => 'AppModule\\Controller\\ArticleController::deleteAction'
+), array(), array(), '', array(), array('DELETE')));
 
 /********************
  *     SIGN OUT      *
