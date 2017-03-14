@@ -41,7 +41,7 @@ class ArticleController extends Controller
 
 
         if(!$article) {
-            header('Location: http://localhost:8000');
+            header('Location: /admin/articles');
             exit();
         }
 
@@ -105,14 +105,12 @@ class ArticleController extends Controller
                 $session
                     ->getFlashBag()
                     ->add('success', 'Article bien enregistré');
-                $http_referer = $request->server->get('HTTP_REFERER');
-                header("Location: {$http_referer}");
+                header("Location: /admin/articles");
             } else {
                 $session
                     ->getFlashBag()
                     ->add('error', 'Erreur lors de l\'enregistrement de l\'article');
-                $http_referer = $request->server->get('HTTP_REFERER');
-                header("Location: {$http_referer}");
+                header("Location: /admin/articles");
             }
         } else {
             return new Response('Vous n\'êtes pas habilité pour faire ça');
@@ -152,7 +150,7 @@ class ArticleController extends Controller
         $messages = $session->getFlashBag()->all() ?? null;
 
         if($article == false) {
-            header('Location: /admin');
+            header('Location: /admin/articles');
             return false;
         }
 

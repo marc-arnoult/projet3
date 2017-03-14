@@ -53,7 +53,7 @@
                                 {% endif %}
                             </td>
                             <td><a href="/admin/edition/article/{{ article.id }}"><button data-id={{ article.id }} class="btn btn-primary">Edition</button></a></td>
-                            <td><a href="#"><button data-id={{ article.id }} class="btn btn-danger">Suppression</button></a></td>
+                            <td><a href="#"><button data-id="{{ article.id }}" class="btn btn-danger">Suppression</button></a></td>
                         </tr>
                     {% endfor %}
                 </table>
