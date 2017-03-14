@@ -13,9 +13,9 @@ interface iDAO
 
     public function getAll($cond);
 
-    public function update();
+    public function update($model);
 
-    public function delete();
+    public function delete($id);
 
     public function setDb(Database $db);
 }

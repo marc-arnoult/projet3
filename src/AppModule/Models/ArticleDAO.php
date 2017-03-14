@@ -23,8 +23,8 @@ class ArticleDAO implements iDAO
     public function add($article)
     {
         try {
-            $req = $this->db->prepare('INSERT INTO articles (id_user, content, title,created_at, updated_at)
-                                VALUES (:id_user, :content, :title, NOW(), NOW())');
+            $req = $this->db->prepare('INSERT INTO articles (id_user, content, title,created_at)
+                                VALUES (:id_user, :content, :title, NOW())');
             $req->bindValue(':id_user', $article->getIdUser(), \PDO::PARAM_INT);
             $req->bindValue(':content', $article->getContent(), \PDO::PARAM_STR);
             $req->bindValue(':title', $article->getTitle(), \PDO::PARAM_STR);
@@ -37,6 +37,7 @@ class ArticleDAO implements iDAO
     public function get($id)
     {
         $data = $this->db->query("SELECT * FROM articles WHERE id = {$id}", \PDO::FETCH_OBJ);
+
         return $data->fetch();
     }
 
@@ -45,7 +46,7 @@ class ArticleDAO implements iDAO
         if($cond) {
             $data = $this->db->query("SELECT * FROM articles ORDER BY id DESC LIMIT $cond", \PDO::FETCH_OBJ);
         } else {
-            $data = $this->db->query("SELECT * FROM articles ORDER BY id DESC", \PDO::FETCH_OBJ);
+            $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id ORDER BY id DESC", \PDO::FETCH_OBJ);
         }
         return $data->fetchAll();
     }
@@ -57,18 +58,25 @@ class ArticleDAO implements iDAO
         return $number->fetch();
     }
 
-    public function update()
+    public function update($article)
     {
-        // TODO: Implement update() method.
+        $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, updated_at = NOW() WHERE id = {$article->getId()}");
+        $req->bindValue(':title', $article->getTitle());
+        $req->bindValue(':content', $article->getContent());
+
+        return $req->execute();
+
     }
 
-    public function delete()
+    public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $result = $this->db->query("DELETE FROM articles WHERE id = {$id}");
+
+        return $result;
     }
 
     public function setDb(Database $db)
     {
-        $this->db = $db;
+        // TODO: Implement setDb() method.
     }
 }
