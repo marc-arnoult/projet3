@@ -31,7 +31,7 @@ $routes->add('/admin/articles', new Route('/admin/articles', array(
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('/admin/article', new Route('/admin/article', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::addAction'
+    '_controller' => 'AppModule\\Controller\\ArticleController::addShowAction'
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('#/admin/article/post#', new Route('/admin/articles', array(

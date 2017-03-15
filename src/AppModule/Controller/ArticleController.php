@@ -52,7 +52,7 @@ class ArticleController extends Controller
 
         return $this->render($request);
     }
-    public function addAction(Request $request)
+    public function addShowAction(Request $request)
     {
         $session = new Session();
         $userDAO = new UserDAO();
@@ -90,7 +90,7 @@ class ArticleController extends Controller
         $session = new Session();
         $user = $session->get('user');
 
-        if($user->getRole() === 'administrateur') {
+        if($this->userRoleIs($user, 'administrateur')) {
             $data = array();
             $data['title'] = $request->request->get('title');
             $data['content'] = $request->request->get('content');
@@ -122,7 +122,7 @@ class ArticleController extends Controller
         $session = new Session();
         $user = $session->get('user');
 
-        if($user->getRole() === 'administrateur') {
+        if($this->userRoleIs($user, 'administrateur')) {
             $id = $request->request->get('id');
 
             $articleDAO = new ArticleDAO();
