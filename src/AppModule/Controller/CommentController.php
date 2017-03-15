@@ -97,4 +97,35 @@ class CommentController extends Controller
                 ->add('error', 'Vous ne pouvez pas supprimer le commentaire');
         }
     }
+
+    public function editAction (Request $request)
+    {
+        $session = new Session();
+        $commentDAO = new CommentDAO();
+
+        $user = $session->get('user');
+        $data = $request->request->all();
+        $data['id_user'] = $user->getId();
+
+        $newComment = new Comment($data);
+        $comment = $commentDAO->get($data['id']);
+
+        if($this->userRoleIs($user, 'administrateur') || $comment->id_user == $user->getId()) {
+            $result = $commentDAO->update($newComment);
+
+            if($result) {
+                $session
+                    ->getFlashBag()
+                    ->add('success', 'Commentaire bien modifié');
+            } else {
+                $session
+                    ->getFlashBag()
+                    ->add('error', 'Erreur lors de la modification du commentaire');
+            }
+        } else {
+            $session
+                ->getFlashBag()
+                ->add('error', 'Vous ne pouvez pas éditer le commentaire');
+        }
+    }
 }

@@ -63,14 +63,16 @@
                     }
                 });
             });
-            var formOpened = false;
-            form = document.createElement('form');
+
+            var formEditOpened = false;
+
+            formEdit = document.createElement('form');
             /*form.setAttribute('action', '/response-comment');
              form.setAttribute('method', 'post');*/
-            form.style.display = 'flex';
-            form.style.width = '100%';
-            form.style.alignItems = 'center';
-            form.style.marginTop = '8px';
+            formEdit.style.display = 'flex';
+            formEdit.style.width = '100%';
+            formEdit.style.alignItems = 'center';
+            formEdit.style.marginTop = '8px';
 
             var textarea = document.createElement('textarea');
             textarea.style.width = '75%';
@@ -81,18 +83,47 @@
             submit.setAttribute('type', 'submit');
             submit.setAttribute('value', 'Envoyer');
 
-            form.appendChild(textarea);
-            form.appendChild(submit);
+            formEdit.appendChild(textarea);
+            formEdit.appendChild(submit);
+            formEdit.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
 
             var btnEdit = document.querySelectorAll(".btn-edit");
+            var commentId;
 
             btnEdit.forEach(function (btn) {
                 btn.addEventListener('click', function (e) {
+                    commentId = this.parentNode.getAttribute('data-id');
                     e.stopPropagation();
                     e.preventDefault();
-                    $(form).insertAfter(this.parentNode);
-                    formOpened = true;
+                    $(formEdit).insertAfter(this.parentNode);
+                    formEditOpened = true;
                 });
+            });
+
+            formEdit.addEventListener('submit', function (e) {
+                var content = this.firstChild.value;
+                e.preventDefault();
+                $.ajax({
+                    url: '/edit-comment',
+                    type: 'PUT',
+                    data: {
+                        content: content,
+                        id: commentId
+                    },
+                    success: function (result) {
+                        window.location.reload();
+                    }
+                });
+            });
+
+            document.body.addEventListener('click', function(e) {
+                if(formEditOpened) {
+                    formEdit.firstChild.value = '';
+                    formEdit.remove();
+                    formEditOpened = false;
+                }
             });
         });
     </script>

@@ -99,4 +99,8 @@ $routes->add('#delete#', new Route('/delete-comment', array(
     '_controller' => 'AppModule\\Controller\\CommentController::deleteAction'
 ), array(), array(), '', array(), array('DELETE')));
 
+$routes->add('#edit#', new Route('/edit-comment', array(
+    '_controller' => 'AppModule\\Controller\\CommentController::editAction'
+), array(), array(), '', array(), array('PUT')));
+
 return $routes;

@@ -42,9 +42,11 @@ class CommentDAO implements iDAO
 
     public function get($id)
     {
-        $data = $this->db->query("SELECT * FROM comments WHERE id={$id}", \PDO::FETCH_OBJ);
+        $req = $this->db->prepare("SELECT * FROM comments WHERE id = :id");
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
+        $req->execute();
 
-        return $data->fetch();
+        return $req->fetch(\PDO::FETCH_OBJ);
     }
 
     public function getAll($idArticle)
@@ -91,9 +93,12 @@ class CommentDAO implements iDAO
         return $number->fetch(\PDO::FETCH_OBJ);
     }
 
-    public function update($id)
+    public function update($comment)
     {
-        // TODO: Implement update() method.
+        $req = $this->db->prepare("UPDATE comments SET content = :content, updated_at = NOW() WHERE id = {$comment->getId()}");
+        $req->bindValue(':content', $comment->getContent());
+
+        return $req->execute();
     }
 
     public function delete($id)
