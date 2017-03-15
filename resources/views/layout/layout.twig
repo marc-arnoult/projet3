@@ -41,7 +41,9 @@
         {% block content %}{% endblock %}
 
         <footer>
-            <a href="/admin">Administration</a>
+            {% if user.getRole() == 'administrateur'%}
+                <a href="/admin">Administration</a>
+            {% endif %}
         </footer>
         <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="/public/js/app.js"></script>
