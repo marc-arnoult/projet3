@@ -22,12 +22,13 @@ class AdminController extends Controller
     public function indexAction(Request $request)
     {
         $session = new Session();
-        $user = $session->get('user') ?? 'Anonyme';
+        $user = $session->get('user');
         $messages = $session->getFlashBag()->all() ?? null;
         $request->attributes->set('messages', $messages);
 
-        if ($user->getRole() !== 'administrateur') {
+        if (!$user || $user->getRole() !== 'administrateur') {
             header('Location: /');
+            return false;
         } else {
             $userDAO = new UserDAO();
             $articleDAO = new ArticleDAO();
