@@ -49,14 +49,16 @@ class CommentDAO implements iDAO
 
     public function getAll($idArticle)
     {
-        $data = $this->db->query
+        $req = $this->db->prepare
                 ("SELECT comments.*, user.pseudo, user.role
                 FROM comments  
                 LEFT JOIN user 
                 ON comments.id_user = user.id 
-                WHERE comments.id_article = $idArticle", \PDO::FETCH_OBJ);
+                WHERE comments.id_article = :id_article");
+        $req->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
+        $req->execute();
 
-        return $data->fetchAll();
+        return $req->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getAllWithChildren($idArticle)
@@ -78,13 +80,15 @@ class CommentDAO implements iDAO
     }
     public function getCountComment($idArticle)
     {
-        $number = $this->db->query("SELECT COUNT(*) as nbComments 
+        $number = $this->db->prepare("SELECT COUNT(*) as nbComments 
                 FROM comments  
                 LEFT JOIN user 
                 ON comments.id_user = user.id 
-                WHERE comments.id_article = $idArticle", \PDO::FETCH_OBJ);
+                WHERE comments.id_article = :id_article");
+        $number->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
+        $number->execute();
 
-        return $number->fetch();
+        return $number->fetch(\PDO::FETCH_OBJ);
     }
 
     public function update($id)
