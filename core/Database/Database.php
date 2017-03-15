@@ -4,6 +4,8 @@ namespace Core\Database;
 
 
 
+use Exception;
+
 class Database extends \PDO
 {
 

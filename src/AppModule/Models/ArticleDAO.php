@@ -22,16 +22,13 @@ class ArticleDAO implements iDAO
 
     public function add($article)
     {
-        try {
-            $req = $this->db->prepare('INSERT INTO articles (id_user, content, title,created_at)
-                                VALUES (:id_user, :content, :title, NOW())');
-            $req->bindValue(':id_user', $article->getIdUser(), \PDO::PARAM_INT);
-            $req->bindValue(':content', $article->getContent(), \PDO::PARAM_STR);
-            $req->bindValue(':title', $article->getTitle(), \PDO::PARAM_STR);
-            return $req->execute();
-        } catch (\Exception $e) {
-            echo 'Erreur ' . $e;
-        }
+        $req = $this->db->prepare('INSERT INTO articles (id_user, content, title,created_at)
+                            VALUES (:id_user, :content, :title, NOW())');
+        $req->bindValue(':id_user', $article->getIdUser(), \PDO::PARAM_INT);
+        $req->bindValue(':content', $article->getContent(), \PDO::PARAM_STR);
+        $req->bindValue(':title', $article->getTitle(), \PDO::PARAM_STR);
+        return $req->execute();
+
     }
 
     public function get($id)

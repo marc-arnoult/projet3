@@ -4,7 +4,7 @@ namespace AppModule\Model;
 
 
 use Core\Database\Database;
-use AppModule\Model\User;
+
 
 class UserDAO
 {

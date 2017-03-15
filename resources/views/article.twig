@@ -58,7 +58,7 @@
                     data: {
                         id: this.parentNode.getAttribute('data-id')
                     },
-                    success: function (result) {
+                    success: function () {
                         window.location.reload();
                     }
                 });
@@ -66,7 +66,7 @@
 
             var formEditOpened = false;
 
-            formEdit = document.createElement('form');
+            var formEdit = document.createElement('form');
             /*form.setAttribute('action', '/response-comment');
              form.setAttribute('method', 'post');*/
             formEdit.style.display = 'flex';
@@ -109,7 +109,7 @@
             });
 
             formEdit.addEventListener('submit', function (e) {
-                newContent = this.firstChild.value
+                newContent = this.firstChild.value;
                 e.preventDefault();
                 $.ajax({
                     url: '/edit-comment',
@@ -118,13 +118,13 @@
                         content: newContent,
                         id: commentId
                     },
-                    success: function (result) {
+                    success: function () {
                         window.location.reload();
                     }
                 });
             });
 
-            document.body.addEventListener('click', function(e) {
+            document.body.addEventListener('click', function() {
                 if(formEditOpened) {
                     formEdit.remove();
                     formEditOpened = false;

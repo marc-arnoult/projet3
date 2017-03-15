@@ -13,7 +13,7 @@ use AppModule\Model\User;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class AuthController extends Controller

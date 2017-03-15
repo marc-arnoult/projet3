@@ -13,7 +13,7 @@ use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CommentController extends Controller

@@ -8,13 +8,13 @@
 
 namespace AppModule\Controller;
 
-use AppModule\Model\Article;
+
 use AppModule\Model\ArticleDAO;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
-use Core\Database\Database;
+
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class AdminController extends Controller

@@ -115,6 +115,7 @@ class ArticleController extends Controller
         } else {
             return new Response('Vous n\'êtes pas habilité pour faire ça');
         }
+        return false;
     }
 
     public function deleteAction (Request $request)

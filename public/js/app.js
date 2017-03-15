@@ -51,7 +51,7 @@ if (replyAll) {
             id_parent: commentId,
             id_article: articleId,
             content: content
-        }).done(function (response) {
+        }).done(function () {
             self.firstChild.value = '';
             window.top.location.reload();
         })
@@ -61,7 +61,7 @@ if (replyAll) {
         e.stopPropagation();
     });
 
-    document.body.addEventListener('click', function(e) {
+    document.body.addEventListener('click', function() {
         if(formOpened) {
             form.firstChild.value = '';
             form.remove();
