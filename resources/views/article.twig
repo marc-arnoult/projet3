@@ -91,25 +91,31 @@
 
             var btnEdit = document.querySelectorAll(".btn-edit");
             var commentId;
+            var newContent;
+            var oldContent;
 
             btnEdit.forEach(function (btn) {
                 btn.addEventListener('click', function (e) {
-                    commentId = this.parentNode.getAttribute('data-id');
                     e.stopPropagation();
                     e.preventDefault();
+
+                    commentId = this.parentNode.getAttribute('data-id');
+                    oldContent = this.parentNode.childNodes[11].textContent;
+                    formEdit.firstChild.textContent = oldContent;
+
                     $(formEdit).insertAfter(this.parentNode);
                     formEditOpened = true;
                 });
             });
 
             formEdit.addEventListener('submit', function (e) {
-                var content = this.firstChild.value;
+                newContent = this.firstChild.value
                 e.preventDefault();
                 $.ajax({
                     url: '/edit-comment',
                     type: 'PUT',
                     data: {
-                        content: content,
+                        content: newContent,
                         id: commentId
                     },
                     success: function (result) {
@@ -120,7 +126,6 @@
 
             document.body.addEventListener('click', function(e) {
                 if(formEditOpened) {
-                    formEdit.firstChild.value = '';
                     formEdit.remove();
                     formEditOpened = false;
                 }
