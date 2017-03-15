@@ -25,17 +25,22 @@ class CommentController extends Controller
 
         $user = $session->get('user');
         $data = $request->request->all();
+        $http_referer = $request->server->get('HTTP_REFERER');
 
         if (isset($data) && !empty($user)) {
             $comment = new Comment($data);
             $comment->setId_user($user->getId());
             $commentDAO->add($comment);
-            $http_referer = $request->server->get('HTTP_REFERER');
 
             $session
                 ->getFlashBag()
                 ->add('success', 'Commentaire bien ajouté');
 
+            header("Location: {$http_referer}");
+        } else {
+            $session
+                ->getFlashBag()
+                ->add('success', 'Commentaire bien ajouté');
             header("Location: {$http_referer}");
         }
     }
@@ -60,10 +65,36 @@ class CommentController extends Controller
             } else {
                 $session
                     ->getFlashBag()
-                    ->add('error', 'Erreur');
+                    ->add('error', 'Erreur lors de l\'ajout du commentaire');
             }
         } else {
             return new JsonResponse(array('error' => 'Erreur'));
+        }
+    }
+    public function deleteAction (Request $request)
+    {
+        $session = new Session();
+        $commentDAO = new CommentDAO();
+
+        $user = $session->get('user');
+        $idComment = $request->request->get('id');
+        $comment = $commentDAO->get($idComment);
+
+        if($this->userRoleIs($user, 'administrateur') || $comment->id_user == $user->getId()) {
+            $result = $commentDAO->delete($idComment);
+            if($result) {
+                $session
+                    ->getFlashBag()
+                    ->add('success', 'Commentaire supprimé');
+            } else {
+                $session
+                    ->getFlashBag()
+                    ->add('error', 'Erreur lors de la suppresion du commentaire');
+            }
+        } else {
+            $session
+                ->getFlashBag()
+                ->add('error', 'Vous ne pouvez pas supprimer le commentaire');
         }
     }
 }

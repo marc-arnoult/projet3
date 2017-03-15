@@ -46,3 +46,54 @@
     {% endfor %}
 </section>
 {% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $(".btn-delete").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '/delete-comment',
+                    type: 'DELETE',
+                    data: {
+                        id: this.parentNode.getAttribute('data-id')
+                    },
+                    success: function (result) {
+                        window.location.reload();
+                    }
+                });
+            });
+            var formOpened = false;
+            form = document.createElement('form');
+            /*form.setAttribute('action', '/response-comment');
+             form.setAttribute('method', 'post');*/
+            form.style.display = 'flex';
+            form.style.width = '100%';
+            form.style.alignItems = 'center';
+            form.style.marginTop = '8px';
+
+            var textarea = document.createElement('textarea');
+            textarea.style.width = '75%';
+            textarea.style.height = '90px';
+            textarea.setAttribute('name', 'content');
+
+            var submit = document.createElement('input');
+            submit.setAttribute('type', 'submit');
+            submit.setAttribute('value', 'Envoyer');
+
+            form.appendChild(textarea);
+            form.appendChild(submit);
+
+            var btnEdit = document.querySelectorAll(".btn-edit");
+
+            btnEdit.forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $(form).insertAfter(this.parentNode);
+                    formOpened = true;
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -95,4 +95,8 @@ $routes->add('#response#', new Route('/response-comment', array(
     '_controller' => 'AppModule\\Controller\\CommentController::responseAction'
 ), array(), array(), '', array(), array('POST')));
 
+$routes->add('#delete#', new Route('/delete-comment', array(
+    '_controller' => 'AppModule\\Controller\\CommentController::deleteAction'
+), array(), array(), '', array(), array('DELETE')));
+
 return $routes;

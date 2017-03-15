@@ -74,9 +74,8 @@ class ArticleDAO implements iDAO
     {
         $req = $this->db->prepare("DELETE FROM articles WHERE id = :id");
         $req->bindValue(':id', $id, \PDO::PARAM_INT);
-        $req->execute();
 
-        return $req;
+        return $req->execute();
     }
 
     public function setDb(Database $db)

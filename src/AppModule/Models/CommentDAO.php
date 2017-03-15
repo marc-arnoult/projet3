@@ -98,7 +98,10 @@ class CommentDAO implements iDAO
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $req = $this->db->prepare("DELETE FROM comments WHERE id = :id");
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
+
+        return $req->execute();
     }
 
     public function setDb(Database $db)
