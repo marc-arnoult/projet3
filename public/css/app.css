@@ -105,7 +105,7 @@ section .tiret {
     flex-wrap: wrap;
 }
 #articles-list .article, #home-page .article {
-    height: 200px;
+    height: 230px;
 }
 .article {
     position: relative;
@@ -119,6 +119,11 @@ section .tiret {
     flex-grow: 1;
     font-size: 1rem;
     width: 44%;
+    overflow: hidden;
+}
+.article h2 a {
+    text-decoration: none;
+    color: #3c8dbc;
 }
 #article-page .article h2{
     margin-top: 0;
@@ -345,6 +350,9 @@ footer a {
         display: flex;
         flex-direction: column;
     }
+    .article h2 a {
+        margin: 0 20px;
+    }
     hr {
         display: none;
     }
@@ -358,7 +366,11 @@ footer a {
         margin: 0;
     }
 }
-
+@media screen and (max-width: 520px) {
+    #articles-list .article, #home-page .article {
+        height: 280px;
+    }
+}
 @keyframes leftToRight {
     from {
         transform: translateX(-150px);

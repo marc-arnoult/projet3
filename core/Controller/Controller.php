@@ -2,6 +2,7 @@
 
 namespace Core\Controller;
 
+use AppModule\Model\User;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Twig_Environment;
 use Twig_Extension_Debug;
@@ -21,6 +22,7 @@ class Controller
             'debug' => true
         ));
         $twig->addExtension(new Twig_Extension_Debug());
+        $twig->addExtension(new \Twig_Extensions_Extension_Text());
 
         extract($request->attributes->all(), EXTR_SKIP);
         ob_start();
@@ -28,5 +30,12 @@ class Controller
         echo $twig->render(sprintf('%s.twig', $_route), array('request' => $request));
 
         return new Response(ob_get_clean());
+    }
+
+    public function userRoleIs($user, string $role) {
+        if($user instanceof User && $user->getRole() === $role) {
+            return true;
+        }
+        return false;
     }
 }

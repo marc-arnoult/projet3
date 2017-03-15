@@ -26,7 +26,10 @@ class AdminController extends Controller
         $messages = $session->getFlashBag()->all() ?? null;
         $request->attributes->set('messages', $messages);
 
-        if (!$user || $user->getRole() !== 'administrateur') {
+        if (!$this->userRoleIs($user, 'administrateur')) {
+            $session
+                ->getFlashBag()
+                ->add('error', 'Vous n\'êtes pas autorisé à faire ça');
             header('Location: /');
             return false;
         } else {

@@ -144,12 +144,13 @@ class ArticleController extends Controller
     public function editShowAction (Request $request, $id)
     {
         $session = new Session();
+        $user = $session->get('user');
 
         $articleDAO = new ArticleDAO();
         $article = $articleDAO->get($id);
         $messages = $session->getFlashBag()->all() ?? null;
 
-        if($article == false) {
+        if($article == false || !$this->userRoleIs($user, 'administrateur')) {
             header('Location: /admin/articles');
             return false;
         }
@@ -165,6 +166,10 @@ class ArticleController extends Controller
         $session = new Session();
         $user = $session->get('user');
 
+        if(!$this->userRoleIs($user, 'administrateur')) {
+            header('Location: /');
+            return false;
+        }
         $data = $request->request->all();
         $data['idUser'] = $user->getId();
 
