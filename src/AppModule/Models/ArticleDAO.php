@@ -36,9 +36,11 @@ class ArticleDAO implements iDAO
 
     public function get($id)
     {
-        $data = $this->db->query("SELECT * FROM articles WHERE id = {$id}", \PDO::FETCH_OBJ);
+        $data = $this->db->prepare("SELECT * FROM articles WHERE id = :id");
+        $data->bindValue(':id', $id, \PDO::PARAM_INT);
+        $data->execute();
 
-        return $data->fetch();
+        return $data->fetch(\PDO::FETCH_OBJ);
     }
 
     public function getAll($cond = null)
@@ -70,9 +72,11 @@ class ArticleDAO implements iDAO
 
     public function delete($id)
     {
-        $result = $this->db->query("DELETE FROM articles WHERE id = {$id}");
+        $req = $this->db->prepare("DELETE FROM articles WHERE id = :id");
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
+        $req->execute();
 
-        return $result;
+        return $req;
     }
 
     public function setDb(Database $db)
