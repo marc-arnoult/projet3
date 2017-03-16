@@ -150,6 +150,26 @@ section article .round {
     border-radius: 100%;
     border: 5px solid #EBEBEB;
 }
+#home-page-lastComment {
+    border-top: 2px solid #f1f1f1;
+    border-bottom: 2px solid #f1f1f1;
+    background-color: #fafafa;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.comment-container {
+    display: flex;
+    height: 70%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#home-page-lastComment h2 {
+    color: #222;
+    text-align: center;
+}
 form {
     display: flex;
     flex-direction: column;
@@ -277,8 +297,18 @@ section article .content p {
 .btn-edit:hover {
     background-color: #555;
 }
-.reply {
+#article-comment .reply {
     transform: translateX(-200px);
+    opacity: 0;
+    width: 100%;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    padding:5px;
+    margin-top:10px;
+    background-color: #f4f4f4;
+}
+#home-page-lastComment .reply {
+    transform: translateY(200px);
     opacity: 0;
     width: 100%;
     border: 1px solid #999999;

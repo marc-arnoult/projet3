@@ -29,7 +29,7 @@
         </article>
     </div>
 </section>
-<section>
+<section id="article-comment">
     <div class="comment-response">
         <h3>* Commentaires *</h3>
         {% if user %}
@@ -186,8 +186,8 @@
                     if ((element_bottom_position >= window_top_position) &&
                         (element_top_position <= window_bottom_position)) {
                         $element.css({
-                            'transition-duration': '1.6s',
-                            'transition-delay': '0.5s',
+                            'transition-duration': '1.4s',
+                            'transition-delay': '0.1s',
                             'opacity': '1',
                             'transform': 'translateX(0px)'
                         });
@@ -196,11 +196,16 @@
                             'transition-duration': 'none',
                             'transition-delay': 'none',
                             'opacity': '0',
-                            'transform': 'translateX(-200px)'
+                            'transform': 'translateX(-220px)'
                         });
                     }
                 });
             }
+
+            var titleArticle = document.querySelector('#article-page article h2').textContent;
+            var title = document.querySelector('head title');
+
+            title.textContent = titleArticle;
         });
     </script>
 

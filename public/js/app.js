@@ -123,9 +123,5 @@ $(function () {
     /*
      * Dynamic Title
      * */
-    var titleArticle = document.querySelector('#article-page article h2').textContent;
-    var title = document.querySelector('head title');
-
-    title.textContent = titleArticle;
 });
 
