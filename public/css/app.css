@@ -172,7 +172,7 @@ section article .round {
 }
 #home-page-contact {
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
 #home-page-contact hr {
     width: 70%;
@@ -180,6 +180,11 @@ section article .round {
 }
 #home-page-contact h3 {
     text-align: center;
+}
+#home-page-contact form {
+    display: flex;
+    justify-content: center;
+    width: 80%;
 }
 form {
     display: flex;
