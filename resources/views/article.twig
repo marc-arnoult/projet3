@@ -76,7 +76,6 @@
 
             var textarea = document.createElement('textarea');
             textarea.style.width = '75%';
-            textarea.style.height = '100px';
             textarea.setAttribute('name', 'content');
 
             var submit = document.createElement('input');
@@ -98,12 +97,34 @@
                 btn.addEventListener('click', function (e) {
                     e.stopPropagation();
                     e.preventDefault();
-                    commentId = this.parentNode.getAttribute('data-id');
-                    oldContent = this.parentNode.childNodes[11].textContent;
-                    formEdit.firstChild.textContent = oldContent;
 
-                    $(formEdit).insertAfter(this.parentNode);
-                    formEditOpened = true;
+                    if(formEditOpened) {
+                        $(formEdit).each(function() {
+                            $(this.firstChild).animate({
+                                height: 0
+                            }, "normal");
+                        });
+
+                        setTimeout(function () {
+                            formEdit.remove();
+                        }, 300);
+
+                        formEditOpened = false;
+                    } else {
+                        commentId = this.parentNode.getAttribute('data-id');
+                        oldContent = this.parentNode.childNodes[11].textContent;
+                        formEdit.firstChild.textContent = oldContent;
+
+                        $(formEdit).insertAfter(this.parentNode);
+
+                        $(formEdit).each(function() {
+                            $(this.firstChild).animate({
+                                height: 100
+                            }, "normal");
+                        });
+                        formEditOpened = true;
+                    }
+
                 });
             });
 
@@ -125,7 +146,14 @@
 
             document.body.addEventListener('click', function() {
                 if(formEditOpened) {
-                    formEdit.remove();
+                    $(formEdit).each(function() {
+                        $(this.firstChild).animate({
+                            height: 0
+                        }, "normal");
+                    });
+                    setTimeout(function () {
+                        formEdit.remove();
+                    }, 300);
                     formEditOpened = false;
                 }
             });
@@ -162,7 +190,12 @@
                             'transform': 'translateX(0px)'
                         });
                     } else {
-                        $element.removeClass('in-view');
+                        $element.css({
+                            'transition-duration': 'none',
+                            'transition-delay': 'none',
+                            'opacity': '0',
+                            'transform': 'translateX(-200px)'
+                        });
                     }
                 });
             }
