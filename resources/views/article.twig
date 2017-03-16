@@ -76,7 +76,7 @@
 
             var textarea = document.createElement('textarea');
             textarea.style.width = '75%';
-            textarea.style.height = '90px';
+            textarea.style.height = '100px';
             textarea.setAttribute('name', 'content');
 
             var submit = document.createElement('input');
@@ -98,7 +98,6 @@
                 btn.addEventListener('click', function (e) {
                     e.stopPropagation();
                     e.preventDefault();
-
                     commentId = this.parentNode.getAttribute('data-id');
                     oldContent = this.parentNode.childNodes[11].textContent;
                     formEdit.firstChild.textContent = oldContent;

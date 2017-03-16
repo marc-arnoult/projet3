@@ -251,7 +251,7 @@ section article .content p {
     background-color: #3c8dbc;
     position: absolute;
     color: white;
-    right: 0px;
+    right: 3px;
     top: 20px;
 }
 .btn-response:hover {
