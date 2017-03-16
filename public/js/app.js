@@ -19,7 +19,6 @@ $(function () {
 
         var textarea = document.createElement('textarea');
         textarea.style.width = '75%';
-        textarea.style.height = '90px';
         textarea.setAttribute('name', 'content');
 
         var submit = document.createElement('input');
@@ -36,9 +35,30 @@ $(function () {
             reply.children[2].addEventListener('click', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
+
                 reply.parentNode.insertBefore(form, reply.nextSibling);
                 commentId = this.parentNode.getAttribute('data-id');
                 articleId = this.parentNode.getAttribute('data-article_id');
+
+                if(formOpened) {
+                    $(form).each(function() {
+                        $(this.firstChild).animate({
+                            height: 0
+                        }, "normal");
+                    });
+
+                    setTimeout(function () {
+                        form.remove();
+                    }, 300);
+
+                    formOpened = false;
+                } else {
+                    $(form).each(function () {
+                        $(this.firstChild).animate({
+                            height: 100
+                        }, "normal");
+                    });
+                }
                 formOpened = true;
             });
         });
@@ -64,9 +84,16 @@ $(function () {
         });
 
         document.body.addEventListener('click', function () {
-            if (formOpened) {
-                form.firstChild.value = '';
-                form.remove();
+            if(formOpened) {
+                $(form).each(function() {
+                    $(this.firstChild).animate({
+                        height: 0
+                    }, "normal");
+                });
+                setTimeout(function () {
+                    form.remove();
+                }, 300);
+
                 formOpened = false;
             }
         });
