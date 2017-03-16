@@ -366,18 +366,7 @@ section article .content p {
 .alert-text {
     color: #FFF;
 }
-.social-networks {
-    text-align: center;
-    position: fixed;
-    top: 30%;
-    left: 0;
-}
-.social-networks .fa-twitter-square {
-    color: #00aced;
-}
-.social-networks .fa-facebook-square {
-    color: #3b5998;
-}
+
 .columns {
     display: flex;
     flex-direction: column;
