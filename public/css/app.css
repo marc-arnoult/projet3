@@ -278,6 +278,8 @@ section article .content p {
     background-color: #555;
 }
 .reply {
+    transform: translateX(-200px);
+    opacity: 0;
     width: 100%;
     border: 1px solid #999999;
     border-radius: 5px;
