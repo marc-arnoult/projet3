@@ -11,7 +11,7 @@ interface iDAO
 
     public function get($options);
 
-    public function getAll($cond);
+    public function getAll($id);
 
     public function update($model);
 

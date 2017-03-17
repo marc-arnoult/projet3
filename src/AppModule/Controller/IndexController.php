@@ -19,15 +19,19 @@ class IndexController extends Controller
 
         $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
-        $articles = $articleDAO->getAll(1);
 
-        $request->attributes->set('articles', array_reverse($articles));
-        $request->attributes->set('commentDAO', $commentDAO);
-        $request->setSession($session);
+        $articles = $articleDAO->getAll(1);
+        $lastComments = $commentDAO->getLast(3);
 
         $messages = $session->getFlashBag()->all() ?? null;
 
+        $request->attributes->set('lastComments', $lastComments);
+        $request->attributes->set('articles', array_reverse($articles));
+        $request->attributes->set('commentDAO', $commentDAO);
         $request->attributes->set('messages', $messages);
+        $request->setSession($session);
+
+
 
         return $this->render($request);
     }

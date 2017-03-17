@@ -44,8 +44,9 @@ class AuthController extends Controller
         $session = new Session();
 
         $data = $request->request->all();
+        $data['password'] = sha1($data['password']);
         $userDAO = new UserDAO();
-        $result = $userDAO->get($data['pseudo'], sha1($data['password']));
+        $result = $userDAO->get($data);
 
         if (!$result) {
             $session

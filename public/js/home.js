@@ -1,15 +1,4 @@
 $(function () {
-
-    if ($(window).width() < 780) {
-        $('.reply').css({
-            'width': '320px'
-        });
-    } else {
-        $('.reply').css({
-            'width': '520px'
-        });
-    }
-
     var $replyElt = $('.reply');
 
     var $window = $(window);

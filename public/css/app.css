@@ -109,7 +109,7 @@ section .tiret {
     position: relative;
     /*border: 3px outset rgba(60, 141, 188, 0.26);*/
     box-shadow: 3px 3px 14px 1px #acacac;
-    border-radius: 5px;
+    border-radius: 2px;
     padding: 10px 10px 20px 10px;
     margin-left: 10px;
     margin-right: 10px;
@@ -177,13 +177,13 @@ section article .round {
 .comment-container {
     display: flex;
     height: 70%;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 #home-page-lastComment h2 {
     font-weight: 300;
-    color: #222;
     text-align: center;
 }
 #home-page-contact {
@@ -201,6 +201,7 @@ section article .round {
 }
 #home-page-contact h3 {
     font-weight: 300;
+    color: #23adc2;
     text-align: center;
 }
 #home-page-contact form {
@@ -335,6 +336,13 @@ section article .content p {
     color: #FFF;
     background-color: #fc4c02;
 }
+.btn-reporting {
+    color: #d9534f;
+    text-decoration: none;
+}
+.btn-reporting:hover {
+    text-decoration: underline;
+}
 #article-comment .reply {
     transform: translateX(-200px);
     opacity: 0;
@@ -344,6 +352,9 @@ section article .content p {
     padding:5px;
     margin-top:10px;
     background-color: #f4f4f4;
+}
+#home-page-lastComment .comments {
+    width: 60%;
 }
 #home-page-lastComment .reply {
     transform: translateY(200px);
@@ -467,36 +478,20 @@ footer a {
         margin: 0;
     }
     .btn-response {
-        top: 20px;
-        right:0;
+        padding: 4px 4px;
+        top: 4px;
+        right:2px;
     }
     .btn-delete {
+        padding: 4px 4px;
         margin: 0;
-        top: 48px;
-        right: 0;
+        top: 30px;
+        right: 2px;
     }
 }
 @media screen and (max-width: 520px) {
     #articles-list .article, #home-page .article {
         height: 280px;
-    }
-    .reply p {
-        margin-top: 20px;
-    }
-    .btn {
-        padding-top: 2px;
-        padding-bottom: 2px;
-    }
-    .btn-response {
-        top: 20px;
-        right:0;
-        padding: 1px 9px;
-    }
-    .btn-delete {
-        margin: 0;
-        top: 42px;
-        right: 0;
-        padding: 1px 9px;
     }
     .btn-edit {
         width: 38px;

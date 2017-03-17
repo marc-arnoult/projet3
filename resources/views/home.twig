@@ -3,6 +3,7 @@
 {% set articles = request.attributes.get('articles') %}
 {% set commentDAO = request.attributes.get('commentDAO') %}
 {% set messages = request.attributes.get('messages') %}
+{% set lastComments = request.attributes.get('lastComments') %}
 
 {% block title %}
    {{ 'Jean Forteroche' }}
@@ -30,12 +31,15 @@
     <section id="home-page-lastComment">
         <h2>Derniers commentaires publiés</h2>
         <div class="comment-container">
-            <div class="comments">
-                <div class="reply">
-                    <p>Posté par <strong>{{ comment.pseudo }}</strong></p>
-                    <i> le : {{ comment.created_at|date('d/m/Y à H:i', 'Europe/Paris') }}</i>
+            {% for comment in lastComments %}
+                <div class="comments">
+                    <div class="reply">
+                        <p>Posté par <strong>{{ comment.pseudo }}</strong></p>
+                        <i> le : {{ comment.created_at|date('d/m/Y à H:i', 'Europe/Paris') }}</i>
+                        <p>{{ comment.content }}</p>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
     <section id="home-page-contact">

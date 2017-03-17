@@ -63,6 +63,18 @@ class CommentDAO implements iDAO
         return $req->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    public function getLast($limit) {
+        $req = $this->db->prepare
+        ("SELECT comments.*, user.pseudo, user.role
+                FROM comments  
+                LEFT JOIN user 
+                ON comments.id_user = user.id 
+                LIMIT {$limit}");
+        $req->execute();
+
+        return $req->fetchAll(\PDO::FETCH_OBJ);
+    }
+
     public function getAllWithChildren($idArticle)
     {
         $comments = $this->getAll($idArticle);
