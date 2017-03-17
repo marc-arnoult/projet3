@@ -380,6 +380,9 @@ section article .content p {
     font-family: Verdana;
     font-size: 0.8em;
 }
+.reply > p:first-child {
+    display: inline-block;
+}
 .reply p {
     margin: 3px 0;
     font-size: 0.9em;
