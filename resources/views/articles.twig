@@ -16,7 +16,7 @@
                 <hr>
                 <h2><a href="/article/{{ article.id }}">{{ article.title }}</a></h2>
                 <div class="content">
-                    {{ article.content | striptags('<br>') | truncate(300, true, ' ...') | raw }}
+                    {{ article.content | truncate(300, true, ' ...') | raw }}
                 </div>
             </article>
         {% endfor %}

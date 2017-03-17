@@ -18,7 +18,7 @@
         {% endfor %}
 
         <h1>Bienvenue sur le blog de Jean Forteroche</h1>
-        <p>Vous trouverez ici les derniers billets à propos de mon nouveau roman : <strong style="color: #23adc2;">Billet simple pour l'Alaska.</strong></p>
+        <p>Vous trouverez ici les derniers billets à propos de mon nouveau roman : <strong>Billet simple pour l'Alaska.</strong></p>
         <div class="bg-tiret">
             <div class="tiret"></div>
             <div class="tiret"></div>
@@ -32,16 +32,8 @@
         <div class="comment-container">
             <div class="comments">
                 <div class="reply">
-                    <h4>Par {{ comment.pseudo }}</h4>
-                    <i>posté le : {{ comment.created_at|date('d/m/Y à H:i', 'Europe/Paris') }}</i>
-                    <p>Bonjour</p>
-                </div>
-            </div>
-            <div class="comments">
-                <div class="reply">
-                    <h4 style="color: #23adc2">Celine</h4>
-                    <i>posté le : {{ comment.created_at|date('d/m/Y à H:i', 'Europe/Paris') }}</i>
-                    <p>Bonjour</p>
+                    <p>Posté par <strong>{{ comment.pseudo }}</strong></p>
+                    <i> le : {{ comment.created_at|date('d/m/Y à H:i', 'Europe/Paris') }}</i>
                 </div>
             </div>
         </div>

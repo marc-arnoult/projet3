@@ -30,7 +30,7 @@ header nav div:nth-child(1) {
     justify-content: center;
     align-items: center;
     width: 100px;
-    background-color: #3c8dbc;
+    background-color: #23adc2;
 }
 header nav div i {
     transform: scale(2.3);
@@ -67,7 +67,7 @@ header nav ul li a {
     transition: 0.2s;
 }
 header nav ul a:hover {
-    color: #3c8dbc;
+    color: #23adc2;
 }
 header nav ul img {
     position: absolute;
@@ -119,11 +119,15 @@ section .tiret {
     width: 44%;
     overflow: hidden;
 }
+.article span strong {
+    color: #fc4c02;
+}
 .article h2 a {
     text-decoration: none;
-    color: #3c8dbc;
+    color: #23adc2;
 }
 #article-page .article h2{
+    color: #23adc2;
     margin-top: 0;
 }
 #home-page > h1 {
@@ -133,9 +137,12 @@ section .tiret {
     color: #AFAFAF;
     animation: leftToRight 2.2s;
 }
-#home-page p {
+#home-page > p {
     text-align: center;
     animation: fadeIn 2.4s;
+}
+#home-page > p > strong, .comments strong {
+    color: #fc4c02;
 }
 #home-page .article:nth-child(1) {
     width:100%;
@@ -147,7 +154,7 @@ section article .round {
     font-size: 1.4rem;
     font-weight: bold;
     letter-spacing: 1px;
-    color: #3c8dbc;
+    color: #23adc2;
     position: relative;
     display: flex;
     justify-content: center;
@@ -215,7 +222,7 @@ form input[type=submit]{
     border: none;
     cursor: pointer;
     color: #ffffff;
-    background-color: #3c8dbc;
+    background-color: #23adc2;
     font-size: 1rem;
     border-radius: 3px;
     margin-top: 10px;
@@ -223,7 +230,7 @@ form input[type=submit]{
     transition: 0.2s;
 }
 form input[type=submit]:hover {
-    background-color: #449bce;
+    background-color: #23adc9;
     box-shadow: #0f0F0F 2px 2px 10px 0;
 }
 
@@ -255,7 +262,7 @@ section article .content p {
 }
 .info i {
     margin-right: 2px;
-    color: #3c8dbc;
+    color: #23adc2;
     transform: scale(1.1);
 }
 .comment-response {
@@ -283,32 +290,35 @@ section article .content p {
     align-items:center;
     flex-direction: column;
 }
+.comments:first-child {
+    display: inline-block;
+}
 .btn {
     width: 66px;
     text-align: center;
     padding: 6px 16px;
     border-radius: 3px;
     text-decoration: none;
-    transition: 0.2s;
+    transition: 0.1s;
 }
 .btn:hover {
     box-shadow: #0f0F0F 2px 2px 10px 0;
 }
 .btn-response {
-    background-color: #3c8dbc;
+    background-color: #23adc2;
     position: absolute;
     color: white;
     right: 3px;
-    top: 20px;
+    top: 15px;
 }
 .btn-response:hover {
-    background-color: #449bce;
+    background-color: #23adc9;
 }
 .btn-delete {
     margin-right: 6px;
     position: absolute;
     right: 100px;
-    top: 20px;
+    top: 15px;
     color: #fff;
     background-color: #d9534f;
 }
@@ -316,13 +326,14 @@ section article .content p {
     background-color: #e56460;
 }
 .btn-edit {
-    background-color: #222;
-    color: white;
+    border: 2px solid #fc4c02;
+    color: #fc4c02;
     padding: 2px 16px;
     margin-left: 10px;
 }
 .btn-edit:hover {
-    background-color: #555;
+    color: #FFF;
+    background-color: #fc4c02;
 }
 #article-comment .reply {
     transform: translateX(-200px);
