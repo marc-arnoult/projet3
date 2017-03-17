@@ -10,8 +10,9 @@
     {% set commentDAO = request.attributes.get('commentDAO') %}
 
     <section id="articles-list">
-    {% embed 'articles.twig' %}
-    {% endembed %}
+        <h1>Tous les articles</h1>
+        {% embed 'articles.twig' %}
+        {% endembed %}
     </section>
 
 {% endblock %}
