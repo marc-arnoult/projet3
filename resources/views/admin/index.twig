@@ -5,7 +5,6 @@
     {% set nbArticle = request.attributes.get('nbArticle') %}
 <!-- Left side column. contains the logo and sidebar -->
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     {% for key, messages in messagesAll %}
         <div class="alert alert-{{ key }}">
@@ -29,15 +28,20 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <div class="info-box-icon bg-yellow">
-                    <i class="ion ion-ios-people-outline"></i>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{ nbUser }}</h3>
+
+                    <p>Utilisateurs inscrits</p>
                 </div>
-                <div class="info-box-content">
-                    <div class="info-box-number">{{ nbUser }}</div>
-                    <div class="info-box-text">Membres</div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
                 </div>
+                <a href="#" class="small-box-footer">
+                    Plus d'infos <i class="fa fa-arrow-circle-right"></i>
+                </a>
             </div>
         </div>
         <!-- Your Page Content Here -->
@@ -116,34 +120,12 @@
         </div>
         <!-- /.tab-pane -->
         <!-- Stats tab content -->
-        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
         <!-- /.tab-pane -->
-        <!-- Settings tab content -->
-        <div class="tab-pane" id="control-sidebar-settings-tab">
-            <form method="post">
-                <h3 class="control-sidebar-heading">General Settings</h3>
-
-                <div class="form-group">
-                    <label class="control-sidebar-subheading">
-                        Report panel usage
-                        <input type="checkbox" class="pull-right" checked>
-                    </label>
-
-                    <p>
-                        Some information about this general settings option
-                    </p>
-                </div>
-                <!-- /.form-group -->
-            </form>
-        </div>
-        <!-- /.tab-pane -->
-    </div>
+     </div>
 </aside>
 <!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
      immediately after the control sidebar -->
-<div class="control-sidebar-bg"></div>
-</div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->

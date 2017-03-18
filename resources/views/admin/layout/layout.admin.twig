@@ -183,10 +183,13 @@ desired effect
                         <li class="active"><a href="/admin/article"><i class="fa fa-link"></i> <span>Ajouter</span></a></li>
                     </ul>
                 </li>
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Commentaires</span></a></li>
+                <li class=""><a href="#"><i class="fa fa-link"></i> <span>Commentaires</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
     </aside>
-    {% block content %}{% endblock %}
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+</div>
