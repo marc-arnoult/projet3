@@ -10,7 +10,7 @@ $(function () {
     if (modalClose) {
         var modal = modalClose.parentNode;
 
-        modalClose.addEventListener('click', function () {
+        $(modalClose).click(function () {
             modal.remove();
         });
         setTimeout(function () {

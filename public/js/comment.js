@@ -64,7 +64,7 @@ if (replyAll) {
 
         e.preventDefault();
 
-        $.post('/response-comment', {
+        $.post('/comment-response', {
             id_parent: commentId,
             id_article: articleId,
             content: content

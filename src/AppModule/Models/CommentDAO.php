@@ -22,8 +22,8 @@ class CommentDAO implements iDAO
 
     public function add($comment)
     {
-        $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at, updated_at)
-                            VALUES (:id_user, :id_article, :content, :id_parent, :depth, NOW(), NOW())');
+        $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at)
+                            VALUES (:id_user, :id_article, :content, :id_parent, :depth, NOW())');
         $req->bindValue(':id_user', $comment->getId_user(), \PDO::PARAM_INT);
         $req->bindValue(':id_article', $comment->getId_article(), \PDO::PARAM_INT);
         $req->bindValue(':content', $comment->getContent(), \PDO::PARAM_STR);
@@ -49,16 +49,25 @@ class CommentDAO implements iDAO
         return $req->fetch(\PDO::FETCH_OBJ);
     }
 
-    public function getAll($idArticle)
+    public function getAll($idArticle = null)
     {
-        $req = $this->db->prepare
-                ("SELECT comments.*, user.pseudo, user.role
-                FROM comments  
-                LEFT JOIN user 
-                ON comments.id_user = user.id 
-                WHERE comments.id_article = :id_article");
-        $req->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
-        $req->execute();
+        if($idArticle != null) {
+            $req = $this->db->prepare
+                    ("SELECT comments.*, user.pseudo, user.role
+                    FROM comments  
+                    LEFT JOIN user 
+                    ON comments.id_user = user.id 
+                    WHERE comments.id_article = :id_article");
+            $req->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
+            $req->execute();
+        } else {
+            $req = $this->db->prepare
+                    ("SELECT comments.*, user.pseudo
+                    FROM comments
+                    LEFT JOIN USER 
+                    ON comments.id_user = user.id");
+            $req->execute();
+        }
 
         return $req->fetchAll(\PDO::FETCH_OBJ);
     }

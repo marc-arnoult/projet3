@@ -14,10 +14,27 @@ use Core\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CommentController extends Controller
 {
+    public function indexAction (Request $request)
+    {
+        $session = new Session();
+        $commentDAO = new CommentDAO();
+
+        $user = $session->get('user');
+        $comments = $commentDAO->getAll();
+        $messages = $session->getFlashBag()->all() ?? null;
+
+        $request->attributes->set('user', $user);
+        $request->attributes->set('comments', $comments);
+        $request->attributes->set('messages', $messages);
+
+        return $this->render($request);
+    }
+
     public function postAction (Request $request)
     {
         $session = new Session();
@@ -30,17 +47,24 @@ class CommentController extends Controller
         if (isset($data) && !empty($user)) {
             $comment = new Comment($data);
             $comment->setId_user($user->getId());
-            $commentDAO->add($comment);
+            $result = $commentDAO->add($comment);
 
-            $session
-                ->getFlashBag()
-                ->add('success', 'Commentaire bien ajouté');
+            if($result) {
+                $session
+                    ->getFlashBag()
+                    ->add('success', 'Commentaire bien ajouté');
 
-            header("Location: {$http_referer}");
+                header("Location: {$http_referer}");
+            } else {
+                $session
+                    ->getFlashBag()
+                    ->add('error', 'Erreur lors de l\'ajout du commentaire');
+                header("Location: {$http_referer}");
+            }
         } else {
             $session
                 ->getFlashBag()
-                ->add('success', 'Commentaire bien ajouté');
+                ->add('error', 'Vous n\'êtes pas enregistré ou le commentaire est vide');
             header("Location: {$http_referer}");
         }
     }
@@ -68,7 +92,9 @@ class CommentController extends Controller
                     ->add('error', 'Erreur lors de l\'ajout du commentaire');
             }
         } else {
-            return new JsonResponse(array('error' => 'Erreur'));
+            $session
+                ->getFlashBag()
+                ->add('error', 'Erreur');
         }
     }
     public function deleteAction (Request $request)
@@ -127,5 +153,10 @@ class CommentController extends Controller
                 ->getFlashBag()
                 ->add('error', 'Vous ne pouvez pas éditer le commentaire');
         }
+    }
+
+    public function reportAction (Request $request)
+    {
+
     }
 }

@@ -1,0 +1,197 @@
+{% extends 'layout.admin.twig' %}
+{% block content %}
+    {% set user = request.attributes.get('user') %}
+    {% set comments = request.attributes.get('comments') %}
+    {% set messages = request.attributes.get('messages') %}
+
+    {% for key, message in messages %}
+        <div class="alert alert-{{ key }}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="alert-text">{{ message[0] }}</span>
+        </div>
+    {% endfor %}
+
+    <div class="box" id="crudComment">
+        <div class="box-header with-border">
+            <h3 class="box-title">Commentaires</h3>
+        </div>
+    <!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th class="hidden-xs">ID</th>
+                    <th>Auteur</th>
+                    <th>Contenu</th>
+                    <th class="hidden-xs">Ajouté le</th>
+                    <th class="hidden-xs">Edité le</th>
+                    <th>Répondre</th>
+                    <th>Editer</th>
+                    <th>Supprimer</th>
+                </tr>
+                {% for comment in comments %}
+                    <tr data-id="{{ comment.id }}" data-article="{{ comment.id_article }}">
+                        <td class="hidden-xs">{{ comment.id }}</td>
+                        <td>{{ comment.pseudo }}</td>
+                        <td name="content">
+                            <p>{{ comment.content }}</p>
+                        </td>
+                        <td class="hidden-xs">{{ comment.created_at | date('d M Y à H:i:s') }}</td>
+                        <td class="hidden-xs">
+                            {% if comment.updated_at == null %}
+                                {{ comment.updated_at }}
+                            {% else %}
+                                {{ comment.updated_at | date('d M Y à H:i:s') }}
+                            {% endif %}
+                        </td>
+                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-success">Répondre</button></a></td>
+                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-primary">Edition</button></a></td>
+                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-danger">Suppression</button></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/resources/views/admin/dist/js/app.min.js"></script>
+
+    <script>
+        $(function () {
+            var form = document.createElement('form');
+            var textarea = document.createElement('textarea');
+            var submitBtn = document.createElement('input');
+            var $contentTd;
+            var btnSuccess = true;
+            var method;
+            var $id;
+            var $content;
+            var $idArticle;
+
+            submitBtn.setAttribute('type', 'submit');
+            submitBtn.setAttribute('value', 'Envoyer');
+
+            $(submitBtn).addClass('btn btn-sm btn-success pull-left');
+            $(submitBtn).css('margin-top', '5px');
+
+            $(textarea).addClass('form-control');
+            $(textarea).css('margin', '0');
+
+            $(form).addClass('form');
+            $(form).append(textarea);
+            $(form).append(submitBtn);
+
+            form.addEventListener('click', function (e) {
+                e.stopPropagation();
+            })
+
+            $('td a button.btn-primary').click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                method = 'PUT';
+                textarea.textContent = '';
+
+                if($contentTd) {
+                    $contentTd.find('p').css('display', 'block');
+                    $('td a button.btn-success').css('display', 'block');
+                }
+                $id = $(this).data('id');
+                var $parentTr = $(this).parents('tr');
+
+                if ($parentTr.data('id') == $id) {
+                    $contentTd = $parentTr.find('td[name=content]');
+                    textarea.textContent = $.trim($contentTd.text());
+                    $contentTd.find('p').css('display', 'none');
+                    $contentTd.append(form);
+                }
+            });
+
+            $('td a button.btn-success').click(function (e) {
+                btnSuccess = false;
+
+                e.stopPropagation();
+                e.preventDefault();
+
+                $id = $(this).data('id');
+                $idArticle = $(this).parents('tr').data('article');
+
+                method = 'POST';
+                textarea.textContent = '';
+
+                $(this).css('display', 'none');
+                $(this).parent().append(form)
+            });
+
+            $('td a button.btn-danger').click(function (e) {
+                $id = $(this).data('id');
+                method = 'DELETE';
+
+                $.ajax({
+                    url: '/comment',
+                    type: method,
+                    data: {
+                        id: $id
+                    },
+                    success: function () {
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $(document).click(function () {
+                if($contentTd) {
+                    $contentTd.find('p').css('display', 'block');
+                    textarea.textContent = '';
+                    $(form).remove();
+                }
+                if(!btnSuccess) {
+                    $('td a button.btn-success').css('display', 'block');
+                    textarea.textContent = '';
+                    $(form).remove();
+                }
+            })
+
+            $(textarea).keypress(function () {
+                $content = $(this).text();
+            });
+
+            $(form).submit(function () {
+                var $value = $(this).find('textarea').val();
+                if(method !== 'POST') {
+                    $.ajax({
+                        url: '/comment',
+                        type: method,
+                        data: {
+                            content: $value,
+                            id: $id
+                        },
+                        success: function () {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    console.log($idArticle);
+
+                    $.ajax({
+                        url: '/comment-response',
+                        type: method,
+                        data: {
+                            content: $value,
+                            id_article: $idArticle,
+                            id_parent: $id
+                        },
+                        success: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+            })
+
+        });
+    </script>
+{% endblock %}

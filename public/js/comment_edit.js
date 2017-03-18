@@ -3,7 +3,7 @@ $(function () {
         e.preventDefault();
 
         $.ajax({
-            url: '/delete-comment',
+            url: '/comment',
             type: 'DELETE',
             data: {
                 id: this.parentNode.getAttribute('data-id')
@@ -62,7 +62,7 @@ $(function () {
                 formEditOpened = false;
             } else {
                 commentId = this.parentNode.getAttribute('data-id');
-                oldContent = this.parentNode.childNodes[11].textContent;
+                oldContent = this.parentNode.childNodes[13].textContent;
                 formEdit.firstChild.textContent = oldContent;
 
                 $(formEdit).insertAfter(this.parentNode);
@@ -83,7 +83,7 @@ $(function () {
         newContent = this.firstChild.value;
         e.preventDefault();
         $.ajax({
-            url: '/edit-comment',
+            url: '/comment',
             type: 'PUT',
             data: {
                 content: newContent,
