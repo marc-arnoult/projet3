@@ -64,7 +64,7 @@ class CommentDAO implements iDAO
             $req = $this->db->prepare
                     ("SELECT comments.*, user.pseudo
                     FROM comments
-                    LEFT JOIN USER 
+                    LEFT JOIN user 
                     ON comments.id_user = user.id");
             $req->execute();
         }
