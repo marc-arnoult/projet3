@@ -1,0 +1,30 @@
+{% extends 'layout.admin.twig' %}
+{% block content %}
+    {% set reportedComments = request.attributes.get('reportedComments') %}
+
+        <div class="box" id="crudComment">
+            <div class="box-header with-border">
+                <h3 class="box-title text-danger">Signalement des commentaires</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID commentaire</th>
+                        <th>Nombre de signalement</th>
+                    </tr>
+                    {% for report in reportedComments %}
+                        <tr>
+                            <td>{{ report.id_comment }} <a href="/admin/comments#comment{{ report.id_comment }}">Voir le commentaire</a></td>
+                            <td><span class="badge bg-red">{{ report.nbr_report }}</span></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/resources/views/admin/dist/js/app.min.js"></script>
+{% endblock %}

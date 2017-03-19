@@ -45,15 +45,20 @@
             </div>
         </div>
         <!-- Your Page Content Here -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <div class="info-box-icon bg-blue">
-                    <i class="ion ion-ios-people-outline"></i>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ nbArticle }}</h3>
+
+                    <p>Article écrit</p>
                 </div>
-                <div class="info-box-content">
-                    <div class="info-box-number">{{ nbArticle }}</div>
-                    <div class="info-box-text">Articles</div>
+                <div class="icon">
+                    <i class=" fa fa-edit"></i>
                 </div>
+                <a href="/admin/articles" class="small-box-footer">
+                    Plus d'infos <i class="fa fa-arrow-circle-right"></i>
+                </a>
             </div>
         </div>
     </section>

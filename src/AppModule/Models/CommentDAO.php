@@ -130,6 +130,36 @@ class CommentDAO implements iDAO
         return $req->execute();
     }
 
+    public function addReport($id)
+    {
+        $req = $this->db->prepare("SELECT * FROM reporting_comment WHERE id_comment = {$id}");
+        $req->execute();
+
+        $result = $req->fetch();
+
+        if($result) {
+            $update = $this->db->prepare("UPDATE reporting_comment SET nbr_report = nbr_report + 1 WHERE id_comment = {$id}");
+
+            return $update->execute();
+        } else if (!$result) {
+            $adding = $this->db->prepare("INSERT INTO reporting_comment (id_comment, nbr_report) VALUES (:id_comment, :nbr_report)");
+            $adding->bindValue(':id_comment', $id, \PDO::PARAM_INT);
+            $adding->bindValue(':nbr_report', 1, \PDO::PARAM_INT);
+
+            return $adding->execute();
+        } else {
+            return 'FATAL ERROR';
+        }
+    }
+
+    public function getAllReport()
+    {
+        $req = $this->db->prepare('SELECT * FROM reporting_comment');
+        $req->execute();
+
+        return $req->fetchAll(\PDO::FETCH_OBJ);
+    }
+
     public function setDb(Database $db)
     {
         $this->db = $db;

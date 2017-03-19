@@ -3,7 +3,6 @@
     {% set user = request.attributes.get('user') %}
     {% set comments = request.attributes.get('comments') %}
     {% set messages = request.attributes.get('messages') %}
-
     {% for key, message in messages %}
         <div class="alert alert-{{ key }}">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -31,7 +30,7 @@
                     <th>Supprimer</th>
                 </tr>
                 {% for comment in comments %}
-                    <tr data-id="{{ comment.id }}" data-article="{{ comment.id_article }}">
+                    <tr id="comment#{{ comment.id }}" data-id="{{ comment.id }}" data-article="{{ comment.id_article }}">
                         <td class="hidden-xs">{{ comment.id }}</td>
                         <td>{{ comment.pseudo }}</td>
                         <td name="content">
@@ -45,7 +44,11 @@
                                 {{ comment.updated_at | date('d M Y à H:i:s') }}
                             {% endif %}
                         </td>
-                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-success">Répondre</button></a></td>
+                        {% if user and comment.depth < 3 %}
+                            <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-success">Répondre</button></a></td>
+                        {% else %}
+                            <td><p class="text-danger">Vous ne pouvez pas répondre à la suite de ce commantaire</p></td>
+                        {% endif %}
                         <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-primary">Edition</button></a></td>
                         <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-danger">Suppression</button></a></td>
                     </tr>
@@ -53,7 +56,6 @@
             </table>
         </div>
     </div>
-
     <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>

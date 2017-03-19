@@ -25,5 +25,23 @@ $(function () {
     /*
      * Dynamic Title
      * */
+    var $reportingBtn = $('.btn-reporting');
+
+    if($reportingBtn) {
+        $($reportingBtn).click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/reporting-comment',
+                method: 'POST',
+                data: {
+                    id: $(this).parent().data('id'),
+                    idArticle: $(this).parent().data('article_id')
+                },
+                success: function (response) {
+                    window.location.reload();
+                }
+            })
+        })
+    }
 });
 

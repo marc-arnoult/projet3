@@ -55,6 +55,10 @@ $routes->add('admin/comments', new Route('/admin/comments', array(
     '_controller' => 'AppModule\\Controller\\CommentController::indexAction'
 ), array(), array(), '', array(), array('GET')));
 
+$routes->add('admin/comments.reported', new Route('/admin/comments/reported', array(
+    '_controller' => 'AppModule\\Controller\\CommentController::reportedAction'
+), array(), array(), '', array(), array('GET')));
+
 /********************
  *     SIGN OUT      *
  ********************/
@@ -106,5 +110,9 @@ $routes->add('#delete#', new Route('/comment', array(
 $routes->add('#edit#', new Route('/comment', array(
     '_controller' => 'AppModule\\Controller\\CommentController::editAction'
 ), array(), array(), '', array(), array('PUT')));
+
+$routes->add('#reporting#', new Route('/reporting-comment', array(
+    '_controller' => 'AppModule\\Controller\\CommentController::reportAction'
+), array(), array(), '', array(), array('POST')));
 
 return $routes;

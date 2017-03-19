@@ -11,6 +11,7 @@ namespace AppModule\Controller;
 use AppModule\Model\Comment;
 use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -120,7 +121,7 @@ class CommentController extends Controller
         } else {
             $session
                 ->getFlashBag()
-                ->add('error', 'Vous ne pouvez pas supprimer le commentaire');
+                ->add('error', 'Vous ne pouvez pas supprimer ce commentaire');
         }
     }
 
@@ -157,6 +158,47 @@ class CommentController extends Controller
 
     public function reportAction (Request $request)
     {
+        $session = new Session();
+        $idComment = $request->request->get('id');
+        $idArticle = $request->request->get('idArticle');
 
+        $hisReported = $request->cookies->get('Report'.$idComment);
+
+        if($hisReported) {
+            $session
+                ->getFlashBag()
+                ->add('error', 'Vous avez déjà signalé ce commentaire');
+            return new JsonResponse('Erreur');
+        } else {
+            $commentDAO = new CommentDAO();
+
+            $result = $commentDAO->addReport($idComment);
+
+            if($result) {
+                $session
+                    ->getFlashBag()
+                    ->add('success', 'Commentaire signalé, merci.');
+                $response = new Response();
+                $response->headers->setCookie(new Cookie('Report'.$idComment, true));
+
+                return $response;
+            } else {
+                $session
+                    ->getFlashBag()
+                    ->add('error', 'Erreur lors du signalement.');
+            }
+        }
+
+    }
+
+    public function reportedAction (Request $request)
+    {
+        $commentDAO = new CommentDAO();
+
+        $reportedComments = $commentDAO->getAllReport();
+
+        $request->attributes->set('reportedComments', $reportedComments);
+
+        return $this->render($request);
     }
 }

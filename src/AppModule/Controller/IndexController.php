@@ -31,8 +31,6 @@ class IndexController extends Controller
         $request->attributes->set('messages', $messages);
         $request->setSession($session);
 
-
-
         return $this->render($request);
     }
 }

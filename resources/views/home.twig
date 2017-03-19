@@ -35,7 +35,7 @@
         <div class="comment-container">
             {% for comment in lastComments %}
                 <div class="comments">
-                    <div class="reply">
+                    <div class="reply" data-id="{{ comment.id }}>
                         <p>Posté par <strong>{{ comment.pseudo }}</strong></p>
                         <i> le : {{ comment.created_at|date('d/m/Y à H:i', 'Europe/Paris') }}</i>
                         <a href="" class="btn-reporting">signaler</a>
