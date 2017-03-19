@@ -2,6 +2,32 @@
 * Insert a form on the click response comment
 * */
 $(function () {
+    var $nav = $('#responsive-menu');
+    var $bars = $('header .fa-bars');
+
+    $bars.css({
+        position: 'absolute',
+        top: '30px',
+        right: '5%',
+        color: '#000'
+    })
+
+    console.log($bars);
+
+    if($(window).width() <= 780) {
+        $bars.click(function (e) {
+            e.preventDefault();
+
+            if($nav.css('display') == 'none') {
+                $nav.insertAfter('header');
+                $nav.css({
+                    display: 'block'
+                })
+            } else {
+                $nav.css('display', 'none')
+            }
+        })
+    }
     /*
      * Insert modal with the response flashbag
      * */

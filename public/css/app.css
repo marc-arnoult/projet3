@@ -25,10 +25,13 @@ header nav div:nth-child(1) {
     width: 120px;
     background-color: #23adc2;
 }
-header nav div i {
+header nav div .fa-paragraph {
     transform: scale(2.3);
     color: #FFFFFF;
     transition: 0.3s;
+}
+header nav .fa-bars {
+    display: none;
 }
 header nav div i:hover {
     transform: scale(2.8);
@@ -54,12 +57,12 @@ header span {
     border-right: 1px solid #AFAFAF;
     padding-right: 10px;
 }
-header nav ul li a {
+#responsive-menu a {
     color: #AFAFAF;
     text-decoration: none;
     transition: 0.2s;
 }
-header nav ul a:hover {
+#responsive-menu a:hover {
     color: #23adc2;
 }
 header nav ul img {
@@ -115,12 +118,12 @@ section .tiret {
     width: 44%;
     overflow: hidden;
 }
-.article span strong {
-    color: #fc4c02;
-}
 .article h2 a {
     text-decoration: none;
     color: #23adc2;
+}
+.text-red:hover {
+    color: red;
 }
 #article-page .article h2{
     color: #23adc2;
@@ -467,9 +470,43 @@ footer a {
 }
 
 @media screen and (max-width: 780px) {
+    header span {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    header nav .fa-bars {
+        display: block;
+    }
+    #responsive-menu {
+        margin: 0;
+        padding: 10px 0;
+        text-align: center;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #555;
+    }
+
+    #responsive-menu a {
+        color: #FFF;
+        text-decoration: none;
+    }
+    #responsive-menu span {
+        color: #00a65a;
+    }
     header nav ul{
+        width: 100%;
         display: flex;
         flex-direction: column;
+        text-align: center;
+    }
+    header nav ul li {
+        text-align: center;
+        border-bottom: 1px solid;
+        width: 100%;
+        padding: 0;
     }
     .article h2 {
         margin: 15px 20px;

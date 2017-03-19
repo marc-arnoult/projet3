@@ -14,14 +14,13 @@
                 <div>
                     <i class="fa fa-paragraph" aria-hidden="true"></i>
                 </div>
-                <div>
+                <div id="responsive-menu">
                     <ul>
                         <li><a href="/">Accueil</a></li>
                         <li><a href="/articles">Articles</a></li>
                     </ul>
                     {% set session = request.getSession() %}
                     {% set user = session.get('user') %}
-
                     {% if not session.get('user') %}
                         <ul>
                             <li><a href="/inscription">Inscription</a></li>
@@ -30,10 +29,14 @@
                     {% else %}
                         <ul>
                             <span>Bonjour {{ user.getPseudo() }}</span>
-                            <li><a href="/deconnexion" class="text-red">Deconnexion</a></li>
+                            <li><a href="/deconnexion">Deconnexion</a></li>
                         </ul>
                     {% endif %}
                 </div>
+                <a href="">
+                    <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                </a>
+
             </nav>
         </header>
 
