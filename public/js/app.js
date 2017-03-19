@@ -56,6 +56,8 @@ $(function () {
     if($reportingBtn) {
         $($reportingBtn).click(function (e) {
             e.preventDefault();
+            e.stopPropagation();
+
             $.ajax({
                 url: '/reporting-comment',
                 method: 'POST',

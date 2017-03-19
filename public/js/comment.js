@@ -27,6 +27,10 @@ if (replyAll) {
     var articleId;
 
     replyAll.forEach(function (reply) {
+        if(reply.children[2].getAttribute('class') ==  $('.btn-reporting').attr('class')) {
+            return false;
+        }
+
         reply.children[2].addEventListener('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
