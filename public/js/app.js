@@ -10,11 +10,9 @@ $(function () {
         top: '30px',
         right: '5%',
         color: '#000'
-    })
+    });
 
-    console.log($bars);
-
-    if($(window).width() <= 780) {
+    if($(window).width() <= 980) {
         $bars.click(function (e) {
             e.preventDefault();
 
@@ -24,7 +22,7 @@ $(function () {
                     display: 'block'
                 })
             } else {
-                $nav.css('display', 'none')
+                $nav.css('display', 'none');
             }
         })
     }
