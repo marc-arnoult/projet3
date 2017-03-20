@@ -43,9 +43,30 @@
         {% block content %}{% endblock %}
 
         <footer>
+            <div>
+                <h5>Plan du site</h5>
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/articles">Articles</a></li>
+                    <li><a href="/inscription">Inscription</a></li>
+                    <li><a href="/connexion">connexion</a></li>
+                </ul>
+            </div>
             {% if user.getRole() == 'administrateur'%}
-                <a href="/admin">Administration</a>
+                <div>
+                    <h5>Aller vers</h5>
+                    <a href="/admin">Administration</a>
+                </div>
             {% endif %}
+            <div>
+                <h5>Suivez moi</h5>
+                <ul>
+                    <li><a href="">Facebook</a></li>
+                    <li><a href="">Twitter</a></li>
+                    <li><a href="">Google Plus</a></li>
+                    <li><a href="">LinkedIn</a></li>
+                </ul>
+            </div>
         </footer>
         <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="/public/js/app.js"></script>

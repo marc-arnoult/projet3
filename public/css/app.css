@@ -10,7 +10,6 @@ html {
 body {
     position: relative;
     margin: 0;
-    padding-bottom: 6rem;
     min-height: 100%;
 }
 header nav {
@@ -107,7 +106,6 @@ section .tiret {
     background-color: rgba(255, 255, 255, 0.51);
     position: relative;
     box-shadow: 2px 2px 12px -1px #acacac;
-    height: 280px;
     border-radius: 2px;
     padding: 10px 10px 20px 10px;
     margin-left: 10px;
@@ -118,19 +116,30 @@ section .tiret {
     overflow: hidden;
 }
 #info-box {
-    text-align: center;
     position: fixed;
-    width: 7%;
+    background-color: #EBEBEB;
+    padding: 0 30px 20px 30px;
+    width: 9%;
     top: 240px;
-    right: 10%;
+    right: 8%;
 }
-#info-box ul {
+#info-box h4 {
+    text-align: center;
+}
+#nav-articles {
+    margin-left: 30px;
+}
+#nav-articles ul {
+    padding-left: 12px;
+}
+#social-network {
     justify-content: center;
     display: flex;
-}
-#info-box li {
-    margin: 0 4px;
+    margin-bottom: 20px;
     list-style-type: none;
+}
+#social-network li {
+    margin: 0 3px;
 }
 .article h2 a {
     text-decoration: none;
@@ -464,19 +473,29 @@ section article .content p {
     width: 300px;
 }
 footer {
-    position: absolute;
-    right: 0;
+    position: relative;
     bottom: 0;
-    left: 0;
-    padding: 3rem;
     text-align: center;
     background-color: #222;
     color: #FFF;
-    display: flex;
+    padding: 2.5rem;
     justify-content: center;
+    display: flex;
 }
 footer li {
     list-style-type: none;
+    margin-top: 3px;
+}
+footer * {
+    margin: 0;
+}
+footer div h5 {
+    padding-bottom: 15px;
+    font-weight: 300;
+    font-size: 1rem;
+}
+footer div {
+    margin: 0 60px;
 }
 footer a {
     text-decoration: none;
@@ -586,11 +605,17 @@ footer a {
         top: 30px;
         right: 2px;
     }
+    footer div {
+        margin: 0 20px;
+    }
 }
 @media screen and (max-width: 520px) {
     .btn-edit {
         width: 38px;
         padding: 1px 6px;
+    }
+    footer div {
+        margin: 0 8px;
     }
 }   
 @keyframes leftToRight {

@@ -8,6 +8,7 @@
 
     {% set articles = request.attributes.get('articles') %}
     {% set commentDAO = request.attributes.get('commentDAO') %}
+    {% set articlesByDates = request.attributes.get('articlesByDates') %}
 
     <section id="articles-list">
         <h1>Tous les articles</h1>
@@ -16,12 +17,29 @@
     </section>
     <aside id="info-box">
         <h4>Suivez moi</h4>
-        <ul>
-            <li><a href=""><i class="fa fa-facebook-square fa-2x"></i></a></li>
-            <li><a href=""><i class="fa fa-twitter-square fa-2x"></i></a></li>
-            <li><a href=""><i class="fa fa-google-plus-square fa-2x"></i></a></li>
-            <li><a href=""><i class="fa fa-linkedin-square fa-2x"></i></a></li>
-        </ul>
+            <ul id="social-network">
+                <li><a href=""><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                <li><a href=""><i class="fa fa-twitter-square fa-2x"></i></a></li>
+                <li><a href=""><i class="fa fa-google-plus-square fa-2x"></i></a></li>
+                <li><a href=""><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+            </ul>
+        <div>
+            <ul id="nav-articles">
+            {% for year, articlesByYear in articlesByDates  %}
+                <li><a href="#">{{ year }}</a></li>
+                <ul>
+                    {% for month, articlesByMonth in articlesByYear %}
+                        <li><a href="#">{{ month }}</a></li>
+                        <ul>
+                            {% for article in articlesByMonth %}
+                                <li><a href="/article/{{ article.id }}">{{ article.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+            </ul>
+        </div>
     </aside>
 
 {% endblock %}
