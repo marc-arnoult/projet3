@@ -87,11 +87,10 @@
                         content: content,
                         title: title,
                         id: {{ article.id }}
-                    },
-                    success: function(result) {
-                        window.location.replace("/admin/articles");
                     }
-                })
+                }).done(function () {
+                    window.location.reload();
+                });
             })
         })
     </script>

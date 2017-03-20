@@ -5,9 +5,11 @@
         {% if user and comment.depth < 3 %}
             <a href="#" class="btn btn-response">Répondre</a>
         {% endif %}
+        {% if comment.id_user == user.getId() %}
+            <a href="" class="btn btn-edit">Editer</a>
+        {% endif %}
         {% if user.getRole() == 'administrateur' or comment.id_user == user.getId() %}
             <a href="" class="btn btn-delete">Supprimer</a>
-            <a href="" class="btn btn-edit">Editer</a>
         {% endif %}
             <a href="" class="btn-reporting">signaler</a>
         <p>{{ comment.content }}</p>

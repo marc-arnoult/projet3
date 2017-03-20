@@ -7,10 +7,9 @@ $(function () {
             type: 'DELETE',
             data: {
                 id: this.parentNode.getAttribute('data-id')
-            },
-            success: function () {
-                window.location.reload();
             }
+        }).done(function () {
+            window.location.reload();
         });
     });
 
@@ -88,10 +87,9 @@ $(function () {
             data: {
                 content: newContent,
                 id: commentId
-            },
-            success: function () {
-                window.location.reload();
             }
+        }).done(function () {
+            window.location.reload();
         });
     });
 

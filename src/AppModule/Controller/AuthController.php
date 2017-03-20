@@ -28,10 +28,22 @@ class AuthController extends Controller
 
         $userDAO = new UserDAO();
         $user = new User($data);
-        var_dump($user);
         $result = $userDAO->add($user);
+
         if($result) {
-            echo 'Utilisateur bien ajouté';
+            $session = new Session();
+
+            $session
+                ->getFlashBag()
+                ->set('success', 'Inscription terminé, merci.');
+            header('Location: /');
+        } else {
+            $session = new Session();
+
+            $session
+                ->getFlashBag()
+                ->set('error', 'Erreur lors de l\'inscription');
+            header('Location: /');
         }
     }
     public function signInShowAction(Request $request)

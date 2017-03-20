@@ -81,11 +81,10 @@
                      type: 'DELETE',
                      data: {
                          id: this.getAttribute('data-id')
-                     },
-                     success: function(result) {
-                         window.top.location.reload();
                      }
-                 })
+                 }).done(function () {
+                     window.location.reload();
+                 });
             })
         })
     </script>

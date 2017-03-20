@@ -64,11 +64,10 @@ $(function () {
                 data: {
                     id: $(this).parent().data('id'),
                     idArticle: $(this).parent().data('article_id')
-                },
-                success: function (response) {
-                    window.location.reload();
                 }
-            })
+            }).done(function () {
+                window.location.reload();
+            });
         })
     }
 });

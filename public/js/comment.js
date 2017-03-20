@@ -74,7 +74,7 @@ if (replyAll) {
             content: content
         }).done(function () {
             self.firstChild.value = '';
-            window.top.location.reload();
+            window.location.reload();
         })
     });
 

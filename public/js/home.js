@@ -1,5 +1,6 @@
 $(function () {
-    var $replyElt = $('.reply');
+    var $home_last_comment = $('#home-page-lastComment');
+    var $replys = $('.reply');
 
     var $window = $(window);
 
@@ -11,31 +12,23 @@ $(function () {
         var window_height = $window.height();
         var window_top_position = $window.scrollTop();
         var window_bottom_position = (window_top_position + window_height);
-        var duration = 1.2;
+        var duration = 1;
 
-        $.each($replyElt, function () {
+        $.each($home_last_comment, function () {
             var $element = $(this);
             var element_height = $element.outerHeight();
             var element_top_position = $element.offset().top;
             var element_bottom_position = (element_top_position + element_height);
-            duration += 0.5;
+            duration += 0.8;
             //check to see if this current container is within viewport
             if ((element_bottom_position >= window_top_position) &&
                 (element_top_position <= window_bottom_position)) {
-                $element.css({
+                $replys.css({
                     'transition-duration': duration + 's',
-                    'transition-delay': '0.2s',
                     'opacity': '1',
-                    'transform': 'translateY(0px)'
+                    'transform': 'translateY(-20px)'
                 });
 
-            } else {
-                $element.css({
-                    'transition-duration': 'none',
-                    'transition-delay': 'none',
-                    'opacity': '0',
-                    'transform': 'translateY(200px)'
-                });
             }
         });
     }
