@@ -18,8 +18,7 @@ class Controller
             __DIR__ .'/../../resources/views/admin',
             __DIR__ .'/../../resources/views/admin/layout'));
         $twig = new Twig_Environment($loader, array(
-            'cache' => false,
-            'debug' => true
+            'cache' => __DIR__ . '/../../tmp/',
         ));
         $twig->addExtension(new Twig_Extension_Debug());
         $twig->addExtension(new \Twig_Extensions_Extension_Text());
@@ -29,7 +28,11 @@ class Controller
         //include sprintf(__DIR__ . '/../../resources/views/%s.php', $_route);
         echo $twig->render(sprintf('%s.twig', $_route), array('request' => $request));
 
-        return new Response(ob_get_clean());
+        $response = new Response(ob_get_clean());
+        $response->setSharedMaxAge(3600);
+        $response->headers->addCacheControlDirective('must_revalidate', true);
+
+        return $response;
     }
 
     public function userRoleIs($user, string $role) {
