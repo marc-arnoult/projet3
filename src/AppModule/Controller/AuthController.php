@@ -22,6 +22,7 @@ class AuthController extends Controller
     {
         return $this->render($request);
     }
+
     public function signUpAction(Request $request)
     {
         $data = $request->request->all();

@@ -21,10 +21,12 @@ class ArticleController extends Controller
         $commentDAO = new CommentDAO();
 
         $articles = $articleDAO->getAll();
+        $articlesByDates = $articleDAO->getAllByDate();
 
         $request->setSession($session);
         $request->attributes->set('articles', $articles);
         $request->attributes->set('commentDAO', $commentDAO);
+        $request->attributes->set('articlesByDates', $articlesByDates);
 
         return $this->render($request);
     }
