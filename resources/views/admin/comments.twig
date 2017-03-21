@@ -175,7 +175,7 @@
                     }).done(function () {
                         window.location.reload();
                     });
-                } else {
+                } else if (method == 'POST') {
                     console.log($idArticle);
 
                     $.ajax({
@@ -186,8 +186,9 @@
                             id_article: $idArticle,
                             id_parent: $id
                         }
-                    }).done(function () {
-                        window.location.reload();
+                    }).done(function (r) {
+                        console.log(r);
+                        /*window.location.reload();*/
                     });
                 }
             })

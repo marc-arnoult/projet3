@@ -9,6 +9,8 @@
 namespace AppModule\Model;
 
 
+use DateTimeZone;
+
 class Article implements iModel
 {
     private $id;
@@ -129,6 +131,6 @@ class Article implements iModel
      */
     public function setCreated_at($createdAt)
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime($createdAt, new DateTimeZone('Europe/Paris'));
     }
 }

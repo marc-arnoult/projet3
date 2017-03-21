@@ -20,7 +20,7 @@ class ArticleDAO implements iDAO
         $this->db = new Database();
     }
 
-    public function add($article)
+    public function add(iModel $article)
     {
         $req = $this->db->prepare('INSERT INTO articles (id_user, content, title,created_at)
                             VALUES (:id_user, :content, :title, NOW())');
@@ -57,6 +57,22 @@ class ArticleDAO implements iDAO
         return $number->fetch();
     }
 
+    public function getAllByDate()
+    {
+        $data = $this->db->query("SELECT id, title, created_at FROM articles ORDER BY created_at");
+
+        $articles = $data->fetchAll();
+        $dates = [];
+
+        foreach ($articles as $article) {
+            $article = new Article($article);
+            $year = $article->getCreated_at()->format('Y');
+            $month = $article->getCreated_at()->format('M');
+            $dates[$year][$month][] = $article;
+        }
+
+        return $dates;
+    }
     public function update($article)
     {
         $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, updated_at = NOW() WHERE id = {$article->getId()}");

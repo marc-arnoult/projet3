@@ -15,7 +15,7 @@ class UserDAO implements iDAO
         $this->db = new Database();
     }
 
-    public function add($model)
+    public function add(iModel $model)
     {
         $db = new Database();
         $req = $db->prepare('INSERT INTO user (pseudo, password, email, role, created_at) VALUES (:pseudo, :password, :email, :role, NOW())');

@@ -18,19 +18,20 @@
     <aside id="info-box">
         <h4>Suivez moi</h4>
             <ul id="social-network">
-                <li><a href=""><i class="fa fa-facebook-square fa-2x"></i></a></li>
-                <li><a href=""><i class="fa fa-twitter-square fa-2x"></i></a></li>
-                <li><a href=""><i class="fa fa-google-plus-square fa-2x"></i></a></li>
-                <li><a href=""><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
             </ul>
         <div>
+            <h4>Mes articles</h4>
             <ul id="nav-articles">
             {% for year, articlesByYear in articlesByDates  %}
-                <li><a href="#">{{ year }}</a></li>
-                <ul>
+                <li><a href="#" class="toggleSubMenu">{{ year }}</a></li>
+                <ul class="subMenu">
                     {% for month, articlesByMonth in articlesByYear %}
-                        <li><a href="#">{{ month }}</a></li>
-                        <ul>
+                        <li><a href="#" class="toggleSubMenu">{{ month }}</a></li>
+                        <ul class="subMenu">
                             {% for article in articlesByMonth %}
                                 <li><a href="/article/{{ article.id }}">{{ article.title }}</a></li>
                             {% endfor %}
@@ -42,4 +43,17 @@
         </div>
     </aside>
 
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $('.subMenu').hide();
+
+            $('li a.toggleSubMenu').click(function (e) {
+                e.preventDefault();
+
+                $(this).parent().next().toggle(400);
+            })
+        })
+    </script>
 {% endblock %}

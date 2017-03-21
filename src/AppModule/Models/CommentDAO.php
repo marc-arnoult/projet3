@@ -20,7 +20,7 @@ class CommentDAO implements iDAO
         $this->db = new Database();
     }
 
-    public function add($comment)
+    public function add(iModel $comment)
     {
         $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at)
                             VALUES (:id_user, :id_article, :content, :id_parent, :depth, NOW())');
