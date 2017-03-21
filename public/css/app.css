@@ -1,16 +1,15 @@
 body, html, ul {
     margin: 0;
     padding: 0;
-    font-family: "Raleway";
+    font-family: "Raleway", sans-serif;
 }
 html {
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
 }
 body {
-    position: relative;
+    min-height: 100vh;
     margin: 0;
-    min-height: 100%;
 }
 header nav {
     display: flex;
@@ -64,10 +63,6 @@ header span {
 #responsive-menu a:hover {
     color: #23adc2;
 }
-header nav ul img {
-    position: absolute;
-    top: 360px;
-}
 section {
     margin: 40px auto;
     padding: 30px 0;
@@ -91,12 +86,12 @@ section .tiret {
     transition: 1s;
 }
 .article-container {
-    display: flex;
-    flex-direction: column;
     height: 100%;
 }
 #articles-list .article-container {
-    width: 74%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 78%;
 }
 #articles-list > h1 {
     font-weight: 600;
@@ -116,12 +111,15 @@ section .tiret {
     overflow: hidden;
 }
 #info-box {
+    z-index: 2;
     position: fixed;
     background-color: #EBEBEB;
-    padding: 0 30px 20px 30px;
-    width: 9%;
-    top: 240px;
-    right: 8%;
+    padding: 0 20px 20px 20px;
+    border-radius: 5px;
+    border: 1px solid #acacac;
+    width: 16%;
+    top: 250px;
+    right: 3.2%;
 }
 #info-box h4 {
     text-align: center;
@@ -129,8 +127,20 @@ section .tiret {
 #nav-articles {
     margin-left: 30px;
 }
+#nav-articles a {
+    text-decoration: none;
+    color: #000;
+    transition: 0.2s;
+}
+#nav-articles a:hover {
+    color: #23adc2;
+}
 #nav-articles ul {
     padding-left: 12px;
+}
+#nav-articles li {
+    margin-top: 8px;
+    list-style-type: circle;
 }
 #social-network {
     justify-content: center;
@@ -140,6 +150,12 @@ section .tiret {
 }
 #social-network li {
     margin: 0 3px;
+}
+#social-network a {
+    transition: .4s;
+}
+#social-network a:hover {
+    transform: scale(1.12);
 }
 .article h2 a {
     text-decoration: none;
@@ -153,9 +169,7 @@ section .tiret {
     margin-top: 0;
 }
 #home-page {
-    background-image: url("/public/img/1024px-Gray_alaska.png");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("/public/img/1024px-Gray_alaska.png") no-repeat center;
 }
 #home-page > h1 {
     font-size: 2.8rem;
@@ -176,7 +190,7 @@ section .tiret {
 #home-page > p > a:hover {
     color: #9B9B9B;
 }
-#home-page > p > strong, .comments strong {
+#home-page > p > strong, .info strong, .comments strong {
     color: #fc4c02;
 }
 #home-page .article:nth-child(1) {
@@ -185,7 +199,7 @@ section .tiret {
 section article .round {
     float: left;
     margin: 5px;
-    font-family: "DIN Condensed";
+    font-family: "DIN Condensed", sans-serif;
     font-size: 1.4rem;
     font-weight: bold;
     letter-spacing: 1px;
@@ -406,14 +420,14 @@ section article .content p {
     display: inline-block;
 }
 .reply h4 {
-    font-family: "Fira Code";
+    font-family: "Fira Code", sans-serif;
     font-weight: 500;
     margin-top: 6px;
 }
 .reply a {
     margin-left: 5px;
     font-weight: 100;
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
     font-size: 0.8em;
 }
 .reply > p:first-child {
@@ -474,7 +488,10 @@ section article .content p {
 }
 footer {
     position: relative;
+    height: 220px;
     bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
     background-color: #222;
     color: #FFF;
@@ -572,7 +589,6 @@ footer a {
     .article {
         width: 100%;
         margin: 0 0 15px 0;
-        height: 300px;
         padding: 0;
     }
     .article h2 {
