@@ -1,12 +1,10 @@
 web:
- image: silintl/php7
+ image: pablofmorales/apache-php7
  ports:
   - "8000:80"
   - "8443:443"
  volumes:
   - $PWD:/var/www/html
-  - $PWD/config/10-opcache.ini:/etc/php/7.0/apache2/conf.d/10-opcache.ini
-  - $PWD/config/sites-enabled:/etc/apache2/sites-enabled/000-default.conf
  links:
   - db:db
 db:
