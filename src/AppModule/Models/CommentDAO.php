@@ -152,9 +152,15 @@ class CommentDAO implements iDAO
         }
     }
 
-    public function getAllReport()
+    public function getAllWithReport()
     {
-        $req = $this->db->prepare('SELECT * FROM reporting_comment');
+        $req = $this->db->prepare('SELECT comments.*, user.pseudo, user.role, reporting_comment.nbr_report
+                                    FROM comments  
+                                    LEFT OUTER JOIN user 
+                                    ON comments.id_user = user.id
+                                    LEFT OUTER JOIN reporting_comment
+                                    ON comments.id = reporting_comment.id_comment
+                                    ORDER BY created_at DESC;');
         $req->execute();
 
         return $req->fetchAll(\PDO::FETCH_OBJ);

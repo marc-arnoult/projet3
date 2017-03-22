@@ -25,12 +25,14 @@ class CommentController extends Controller
         $session = new Session();
         $commentDAO = new CommentDAO();
 
-        $user = $session->get('user');
         $comments = $commentDAO->getAll();
+        $reportedComments = $commentDAO->getAllWithReport();
+
         $messages = $session->getFlashBag()->all() ?? null;
+        $user = $session->get('user');
 
         $request->attributes->set('user', $user);
-        $request->attributes->set('comments', $comments);
+        $request->attributes->set('comments', $reportedComments);
         $request->attributes->set('messages', $messages);
 
         return $this->render($request);
@@ -189,16 +191,5 @@ class CommentController extends Controller
             }
         }
 
-    }
-
-    public function reportedAction (Request $request)
-    {
-        $commentDAO = new CommentDAO();
-
-        $reportedComments = $commentDAO->getAllReport();
-
-        $request->attributes->set('reportedComments', $reportedComments);
-
-        return $this->render($request);
     }
 }

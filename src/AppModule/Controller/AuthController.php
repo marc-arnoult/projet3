@@ -29,6 +29,7 @@ class AuthController extends Controller
 
         $userDAO = new UserDAO();
         $user = new User($data);
+
         $result = $userDAO->add($user);
 
         if($result) {
@@ -44,7 +45,7 @@ class AuthController extends Controller
 
             $session
                 ->getFlashBag()
-                ->set('error', 'Erreur lors de l\'inscription');
+                ->set('error', 'Pseudo et/ou adresse email déjà utilisé');
             header('Location: /');
         }
     }

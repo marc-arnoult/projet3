@@ -55,10 +55,6 @@ $routes->add('admin/comments', new Route('/admin/comments', array(
     '_controller' => 'AppModule\\Controller\\CommentController::indexAction'
 ), array(), array(), '', array(), array('GET')));
 
-$routes->add('admin/comments.reported', new Route('/admin/comments/reported', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::reportedAction'
-), array(), array(), '', array(), array('GET')));
-
 /********************
  *     SIGN OUT      *
  ********************/
