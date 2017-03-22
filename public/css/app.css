@@ -260,6 +260,15 @@ section article .round {
     justify-content: center;
     width: 68%;
 }
+#a-propos {
+
+}
+#a-propos h2 {
+    color: #23adc2;
+}
+#a-propos a {
+    color: #fc4c02;
+}
 form {
     display: flex;
     flex-direction: column;
@@ -438,7 +447,8 @@ section article .content p {
     font-size: 0.9em;
 }
 .alert {
-    height: 50px;
+    display: flex;
+    flex-direction: column;
     padding: 10px 46px;
     text-align: center;
     position: fixed;
@@ -458,14 +468,15 @@ section article .content p {
 }
 .alert-remove {
     cursor: pointer;
-    position: relative;
-    top: -13px;
-    right: -44px;
+    position: absolute;
+    top: 0px;
+    right: 4px;
 }
 .alert-remove:hover {
     color: #FFF;
 }
 .alert-text {
+    margin: 10px 0;
     color: #FFF;
 }
 

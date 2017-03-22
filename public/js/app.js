@@ -29,23 +29,19 @@ $(function () {
     /*
      * Insert modal with the response flashbag
      * */
-    var modalClose = document.querySelector('.alert-remove');
+    $('.alert-remove').click(function () {
+        $(this).parent().remove();
+    });
 
-    if (modalClose) {
-        var modal = modalClose.parentNode;
-
-        $(modalClose).click(function () {
-            modal.remove();
+    setTimeout(function () {
+        $('.alert-remove').parent().animate({
+            left:"+=100",
+            opacity: 0
+        }, 1800, function () {
+           $('.alert-remove').parent().remove();
         });
-        setTimeout(function () {
-            modal.style.transition = "0.8s ease-in";
-            modal.style.transform = "translateX(120px)";
-            modal.style.opacity = 0;
-        }, 2100);
-        setTimeout(function () {
-            modal.remove();
-        }, 2900);
-    }
+    }, 2100);
+
     /*
      * Dynamic Title
      * */
@@ -64,7 +60,7 @@ $(function () {
                     idArticle: $(this).parent().data('article_id')
                 }
             }).done(function () {
-                window.location.reload();
+                top.location.reload();
             });
         })
     }

@@ -2,7 +2,7 @@
 
 {% set articles = request.attributes.get('articles') %}
 {% set commentDAO = request.attributes.get('commentDAO') %}
-{% set messages = request.attributes.get('messages') %}
+{% set messagesAll = request.attributes.get('messages') %}
 {% set lastComments = request.attributes.get('lastComments') %}
 
 {% block title %}
@@ -11,9 +11,11 @@
 
 {% block content %}
     <section id="home-page">
-        {% for key, message in messages %}
+        {% for key, messages in messagesAll %}
             <div class="alert alert-{{ key }}">
-                <span class="alert-text">{{ message[0] }}</span>
+                {% for message in messages %}
+                    <span class="alert-text">{{ message }}</span>
+                {% endfor %}
                 <span class="alert-remove">x</span>
             </div>
         {% endfor %}
@@ -25,7 +27,7 @@
             <div class="tiret"></div>
         </div>
         <p>Dernier article</p>
-        {% embed 'articles.twig' %}{% endembed %}
+        {% include 'articles.twig' %}
         <p>
             <a href="/articles">Tout les articles</a>
         </p>
@@ -44,6 +46,15 @@
                 </div>
             {% endfor %}
         </div>
+    </section>
+    <section id="a-propos">
+        <h2>A propos</h2>
+        <p>Qui suis-je ?
+            Je me nomme <strong>Jean Forteroche</strong>, acteur et écrivain je travail en ce moment sur mon prochain roman : <strong>Un billet simple pour l'alaska</strong>.
+            <br><br>
+            Grâce à ce blog j'exposerai par billet le contenu de mon nouveau roman, n'hésitez pas à me suivre sur les réseaux sociaux et à vous <a href="/inscription">inscrire</a> sur le sites
+            pour échanger sur mes prochains posts.
+        </p>
     </section>
     <section id="home-page-contact">
         <h3>Me contacter</h3>

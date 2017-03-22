@@ -89,7 +89,7 @@ $(function () {
                 id: commentId
             }
         }).done(function () {
-            window.location.reload();
+            window.location.top.reload();
         });
     });
 

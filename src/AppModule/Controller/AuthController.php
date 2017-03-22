@@ -37,7 +37,8 @@ class AuthController extends Controller
             $session
                 ->getFlashBag()
                 ->set('success', 'Inscription terminé, merci.');
-            header('Location: /');
+
+            $this->signInAction($request);
         } else {
             $session = new Session();
 
