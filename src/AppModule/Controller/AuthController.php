@@ -39,7 +39,7 @@ class AuthController extends Controller
                 ->getFlashBag()
                 ->set('success', 'Inscription terminé, merci.');
 
-            $this->signInAction($request);
+            self::signInAction($request);
         } else {
             $session = new Session();
 
