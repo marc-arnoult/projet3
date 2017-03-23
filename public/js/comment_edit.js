@@ -1,18 +1,4 @@
 $(function () {
-    $(".btn-delete").click(function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: '/comment',
-            type: 'DELETE',
-            data: {
-                id: this.parentNode.getAttribute('data-id')
-            }
-        }).done(function () {
-            window.location.reload();
-        });
-    });
-
     var formEditOpened = false;
 
     var formEdit = document.createElement('form');
@@ -84,6 +70,7 @@ $(function () {
         $.ajax({
             url: '/comment',
             type: 'PUT',
+            cache: false,
             data: {
                 content: newContent,
                 id: commentId
@@ -93,6 +80,20 @@ $(function () {
         });
     });
 
+    $(".btn-delete").click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/comment',
+            cache: false,
+            type: 'DELETE',
+            data: {
+                id: this.parentNode.getAttribute('data-id')
+            }
+        }).done(function () {
+            window.location.reload();
+        });
+    });
     document.body.addEventListener('click', function() {
         if(formEditOpened) {
             $(formEdit).each(function() {

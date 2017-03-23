@@ -55,6 +55,7 @@ $routes->add('admin/comments', new Route('/admin/comments', array(
     '_controller' => 'AppModule\\Controller\\CommentController::indexAction'
 ), array(), array(), '', array(), array('GET')));
 
+
 /********************
  *     SIGN OUT      *
  ********************/
@@ -95,19 +96,19 @@ $routes->add('comments', new Route('/comments', array(
     '_controller' => 'AppModule\\Controller\\CommentController::postAction'
 ), array(), array(), '', array(), array('POST')));
 
-$routes->add('#comments/response#', new Route('/comment-response', array(
+$routes->add('#response#', new Route('/comment-response', array(
     '_controller' => 'AppModule\\Controller\\CommentController::responseAction'
 ), array(), array(), '', array(), array('POST')));
 
-$routes->add('#comments/delete#', new Route('/comment', array(
+$routes->add('#delete#', new Route('/comment', array(
     '_controller' => 'AppModule\\Controller\\CommentController::deleteAction'
 ), array(), array(), '', array(), array('DELETE')));
 
-$routes->add('#comments/edit#', new Route('/comment', array(
+$routes->add('#edit#', new Route('/comment', array(
     '_controller' => 'AppModule\\Controller\\CommentController::editAction'
 ), array(), array(), '', array(), array('PUT')));
 
-$routes->add('#comments/reporting#', new Route('/reporting-comment', array(
+$routes->add('#reporting#', new Route('/reporting-comment', array(
     '_controller' => 'AppModule\\Controller\\CommentController::reportAction'
 ), array(), array(), '', array(), array('POST')));
 

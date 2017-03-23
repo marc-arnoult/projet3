@@ -68,13 +68,18 @@ if (replyAll) {
 
         e.preventDefault();
 
-        $.post('/comment-response', {
-            id_parent: commentId,
-            id_article: articleId,
-            content: content
+        $.ajax({
+            method: "POST",
+            url: '/comment-response',
+            cache: false,
+            data: {
+                id_parent: commentId,
+                id_article: articleId,
+                content: content
+            }
         }).done(function () {
             self.firstChild.value = '';
-            window.location.top.reload();
+            window.location.reload();
         })
     });
 

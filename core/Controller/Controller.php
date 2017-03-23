@@ -29,8 +29,6 @@ class Controller
         echo $twig->render(sprintf('%s.twig', $_route), array('request' => $request));
 
         $response = new Response(ob_get_clean());
-        $response->setSharedMaxAge(3600);
-        $response->headers->addCacheControlDirective('must_revalidate', true);
 
         return $response;
     }

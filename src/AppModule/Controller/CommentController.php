@@ -125,6 +125,9 @@ class CommentController extends Controller
                 ->getFlashBag()
                 ->add('error', 'Vous ne pouvez pas supprimer ce commentaire');
         }
+
+        return new Response();
+
     }
 
     public function editAction (Request $request)
