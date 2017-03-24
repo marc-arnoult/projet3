@@ -20,7 +20,7 @@ class IndexController extends Controller
         $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
 
-        $articles = $articleDAO->getAllPublished(1);
+        $articles = $articleDAO->getAll(1);
         $lastComments = $commentDAO->getLast(3);
 
         $messages = $session->getFlashBag()->all() ?? null;

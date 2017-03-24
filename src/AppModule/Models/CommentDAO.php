@@ -101,14 +101,9 @@ class CommentDAO implements iDAO
         }
         return $comments;
     }
-    public function getCountComment($idArticle)
+    public function getCountComment()
     {
-        $number = $this->db->prepare("SELECT COUNT(*) as nbComments 
-                FROM comments  
-                LEFT JOIN user 
-                ON comments.id_user = user.id 
-                WHERE comments.id_article = :id_article");
-        $number->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
+        $number = $this->db->prepare("SELECT COUNT(*) as nbComments FROM comments");
         $number->execute();
 
         return $number->fetch(\PDO::FETCH_OBJ);

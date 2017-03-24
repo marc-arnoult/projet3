@@ -71,7 +71,6 @@ if (replyAll) {
         $.ajax({
             method: "POST",
             url: '/comment-response',
-            cache: false,
             data: {
                 id_parent: commentId,
                 id_article: articleId,

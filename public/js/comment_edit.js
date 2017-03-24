@@ -64,19 +64,22 @@ $(function () {
         });
     });
 
-    formEdit.addEventListener('submit', function (e) {
+    $(formEdit).submit(function (e) {
         newContent = this.firstChild.value;
         e.preventDefault();
+
         $.ajax({
             url: '/comment',
             type: 'PUT',
-            cache: false,
             data: {
                 content: newContent,
                 id: commentId
+            },
+            success: function () {
+                window.location.reload();
             }
         }).done(function () {
-            window.location.top.reload();
+            window.location.reload();
         });
     });
 
@@ -85,7 +88,6 @@ $(function () {
 
         $.ajax({
             url: '/comment',
-            cache: false,
             type: 'DELETE',
             data: {
                 id: this.parentNode.getAttribute('data-id')

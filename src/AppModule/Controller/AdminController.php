@@ -10,6 +10,7 @@ namespace AppModule\Controller;
 
 
 use AppModule\Model\ArticleDAO;
+use AppModule\Model\CommentDAO;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
 
@@ -23,6 +24,7 @@ class AdminController extends Controller
     {
         $session = new Session();
         $user = $session->get('user');
+
         $messages = $session->getFlashBag()->all() ?? null;
         $request->attributes->set('messages', $messages);
 
@@ -35,11 +37,15 @@ class AdminController extends Controller
         } else {
             $userDAO = new UserDAO();
             $articleDAO = new ArticleDAO();
+            $commentDAO = new CommentDAO();
+
             $nbUser = $userDAO->getCountUser()->nbUser;
             $nbArticle = $articleDAO->getCountArticles()->nbArticle;
+            $nbComment = $commentDAO->getCountComment()->nbComments;
 
             $request->attributes->set('nbArticle', $nbArticle);
             $request->attributes->set('nbUser', $nbUser);
+            $request->attributes->set('nbComment', $nbComment);
             $request->setSession($session);
             return $this->render($request);
         }

@@ -89,15 +89,21 @@ class CommentController extends Controller
                 $session
                     ->getFlashBag()
                     ->add('success', 'Commentaire bien ajouté');
+
+                return new Response('Commentaire bien ajouté');
             } else {
                 $session
                     ->getFlashBag()
                     ->add('error', 'Erreur lors de l\'ajout du commentaire');
+
+                return new Response('Erreur lors de l\'ajout du commentaire');
             }
         } else {
             $session
                 ->getFlashBag()
-                ->add('error', 'Erreur');
+                ->add('error', 'Erreur lors de l\'ajout du commentaire');
+
+            return new Response('Erreur lors de l\'ajout du commentaire');
         }
     }
     public function deleteAction (Request $request)
@@ -115,19 +121,20 @@ class CommentController extends Controller
                 $session
                     ->getFlashBag()
                     ->add('success', 'Commentaire supprimé');
+                return new Response('Commentaire supprimé');
             } else {
                 $session
                     ->getFlashBag()
                     ->add('error', 'Erreur lors de la suppresion du commentaire');
+                return new Response('Erreur lors de la suppresion du commentaire');
             }
         } else {
             $session
                 ->getFlashBag()
                 ->add('error', 'Vous ne pouvez pas supprimer ce commentaire');
+
+            return new Response('Vous ne pouvez pas supprimer ce commentaire\'');
         }
-
-        return new Response();
-
     }
 
     public function editAction (Request $request)
@@ -149,15 +156,21 @@ class CommentController extends Controller
                 $session
                     ->getFlashBag()
                     ->add('success', 'Commentaire bien modifié');
+
+                return new Response('Commentaire bien modifié');
             } else {
                 $session
                     ->getFlashBag()
                     ->add('error', 'Erreur lors de la modification du commentaire');
+
+                return new Response('Erreur lors de la modification du commentaire');
             }
         } else {
             $session
                 ->getFlashBag()
                 ->add('error', 'Vous ne pouvez pas éditer le commentaire');
+
+            return new Response('Vous ne pouvez pas éditer le commentaire');
         }
     }
 
