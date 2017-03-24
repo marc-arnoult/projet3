@@ -12,10 +12,6 @@
             </div>
         {% endfor %}
         <section class="content-header">
-            {#<ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-              <li class="active">Here</li>
-            </ol>#}
             <h2>Mise à jour de l'article</h2>
         </section>
 
@@ -25,8 +21,8 @@
                 <label for="title">Titre de l'article :</label>
                 <input type="text" name="title" class="form-control" value="{{ article.title }}" style="margin-bottom: 10px" required>
                 <textarea id="article-content" name="content">{{ article.content }}</textarea>
-                <button class="btn btn-success">Publier</button>
-                <button class="btn btn-primary">Enregistrer</button>
+                <button class="btn btn-success" style="margin-top: 10px">Publier</button>
+                <button class="btn btn-primary" style="margin-top: 10px">Enregistrer</button>
             </form>
         </section>
         <!-- /.content-wrapper -->

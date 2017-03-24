@@ -28,7 +28,7 @@
                     <th class="hidden-xs">Edité le</th>
                     <th>Signalement</th>
                     <th>Répondre</th>
-                    <th>Editer</th>
+                    <th>Modérer</th>
                     <th>Supprimer</th>
                 </tr>
                 {% for comment in comments %}
@@ -52,7 +52,7 @@
                         {% else %}
                             <td><p class="text-danger">Vous ne pouvez pas répondre à la suite de ce commantaire</p></td>
                         {% endif %}
-                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-primary">Edition</button></a></td>
+                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-primary">Modérer</button></a></td>
                         <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-danger">Suppression</button></a></td>
                     </tr>
                 {% endfor %}
@@ -141,10 +141,9 @@
                     type: method,
                     data: {
                         id: $id
-                    },
-                    success: function () {
-                        window.location.reload();
                     }
+                }).done(function () {
+                    window.location.reload();
                 });
             });
 
@@ -189,9 +188,8 @@
                             id_article: $idArticle,
                             id_parent: $id
                         }
-                    }).done(function (r) {
-                        console.log(r);
-                        /*window.location.reload();*/
+                    }).done(function () {
+                        window.location.reload();
                     });
                 }
             })
