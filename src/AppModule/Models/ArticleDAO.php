@@ -22,11 +22,20 @@ class ArticleDAO implements iDAO
 
     public function add(iModel $article)
     {
-        $req = $this->db->prepare('INSERT INTO articles (id_user, content, title,created_at)
-                            VALUES (:id_user, :content, :title, NOW())');
+        $req = null;
+
+        if($article->getPublished() == 0) {
+            $req = $this->db->prepare('INSERT INTO articles (id_user, content, title, created_at, updated_at, published)
+                            VALUES (:id_user, :content, :title, NULL, NOW(), :published)');
+        } else {
+            $req = $this->db->prepare('INSERT INTO articles (id_user, content, title, created_at, updated_at, published)
+                            VALUES (:id_user, :content, :title, NOW(), NOW(), :published)');
+        }
         $req->bindValue(':id_user', $article->getIdUser(), \PDO::PARAM_INT);
         $req->bindValue(':content', $article->getContent(), \PDO::PARAM_STR);
         $req->bindValue(':title', $article->getTitle(), \PDO::PARAM_STR);
+        $req->bindValue(':published', $article->getPublished(), \PDO::PARAM_INT);
+
         return $req->execute();
 
     }
@@ -40,15 +49,35 @@ class ArticleDAO implements iDAO
         return $data->fetch(\PDO::FETCH_OBJ);
     }
 
-    public function getAll($cond = null)
+    public function getPublished($id)
     {
-        if($cond) {
-            $data = $this->db->query("SELECT * FROM articles ORDER BY id DESC LIMIT $cond", \PDO::FETCH_OBJ);
+        $data = $this->db->prepare("SELECT * FROM articles WHERE id = :id AND published = true");
+        $data->bindValue(':id', $id, \PDO::PARAM_INT);
+        $data->execute();
+
+        return $data->fetch(\PDO::FETCH_OBJ);
+    }
+
+    public function getAllPublished($limit = null)
+    {
+        if($limit) {
+            $data = $this->db->query("SELECT * FROM articles WHERE published = true ORDER BY id DESC LIMIT $limit", \PDO::FETCH_OBJ);
+        } else {
+            $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
+        }
+        return $data->fetchAll();
+    }
+
+    public function getAll($limit = null)
+    {
+        if($limit) {
+            $data = $this->db->query("SELECT * FROM articles ORDER BY id DESC LIMIT $limit", \PDO::FETCH_OBJ);
         } else {
             $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id ORDER BY id DESC", \PDO::FETCH_OBJ);
         }
         return $data->fetchAll();
     }
+
 
     public function getCountArticles()
     {
@@ -59,25 +88,30 @@ class ArticleDAO implements iDAO
 
     public function getAllByDate()
     {
-        $data = $this->db->query("SELECT id, title, created_at FROM articles ORDER BY created_at");
+        $data = $this->db->query("SELECT id, title, created_at FROM articles WHERE published = true ORDER BY created_at");
 
         $articles = $data->fetchAll();
-        $dates = [];
+        $articlesByDate = [];
 
         foreach ($articles as $article) {
             $article = new Article($article);
             $year = $article->getCreated_at()->format('Y');
             $month = $article->getCreated_at()->format('M');
-            $dates[$year][$month][] = $article;
+            $articlesByDate[$year][$month][] = $article;
         }
 
-        return $dates;
+        return $articlesByDate;
     }
     public function update($article)
     {
-        $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, updated_at = NOW() WHERE id = {$article->getId()}");
+        if($article->getPublished() == 0) {
+            $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, updated_at = NOW(), published = :published WHERE id = {$article->getId()}");
+        } else {
+            $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, created_at = NOW(), updated_at = NOW(), published = :published WHERE id = {$article->getId()}");
+        }
         $req->bindValue(':title', $article->getTitle());
         $req->bindValue(':content', $article->getContent());
+        $req->bindValue(':published', $article->getPublished());
 
         return $req->execute();
 

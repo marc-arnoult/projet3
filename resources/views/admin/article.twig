@@ -28,7 +28,9 @@
             <label for="title">Titre de l'article :</label>
             <input type="text" name="title" class="form-control" style="margin-bottom: 10px" required>
             <textarea name="content"></textarea>
-            <input type="submit" value="Publier" class="btn btn-success" style="margin-top: 10px;">
+            <input type="hidden" name="published" value="">
+            <button class="btn btn-success">Publier</button>
+            <button class="btn btn-primary">Enregistrer</button>
         </form>
     </section>
     <!-- /.content -->
@@ -70,6 +72,19 @@
         a_plugin_option: true,
         a_configuration_option: 400
     });
+
+    $('.content .btn-success').click(function () {
+        $(this).attr({
+            name: 'published',
+            value: 1
+        })
+    })
+    $('.content .btn-primary').click(function () {
+        $(this).attr({
+            name: 'published',
+            value: 0
+        })
+    })
 </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

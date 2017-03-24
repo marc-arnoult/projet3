@@ -55,6 +55,10 @@ $routes->add('admin/comments', new Route('/admin/comments', array(
     '_controller' => 'AppModule\\Controller\\CommentController::indexAction'
 ), array(), array(), '', array(), array('GET')));
 
+$routes->add('admin/users', new Route('/admin/users', array(
+    '_controller' => 'AppModule\\Controller\\AdminController::usersShowAction'
+), array(), array(), '', array(), array('GET')));
+
 
 /********************
  *     SIGN OUT      *

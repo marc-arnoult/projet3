@@ -1,0 +1,33 @@
+{% extends 'layout.admin.twig' %}
+{% block content %}
+    {% set users = request.attributes.get('users') %}
+
+    <section class="content-header">
+        <h1>
+            Utilisateurs
+        </h1>
+    </section>
+
+    <div class="content">
+        <div class="row">
+            {% for user in users %}
+                <div class="col-lg-4 col-sm-6">
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-olive">
+                            <h3 class="widget-user-username">{{ user.pseudo }}</h3>
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="mailto:{{ user.email }}">{{ user.email }}</a></li>
+                                <li><a href="">{{ user.role }}</a></li>
+                                <li><a href="">Créé le : {{ user.created_at }}</a></li>
+                                <li><a href=""><span class="text-danger">Supprimer</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

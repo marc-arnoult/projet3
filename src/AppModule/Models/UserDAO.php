@@ -36,18 +36,15 @@ class UserDAO implements iDAO
         return $req;
     }
 
-    public function getAll($cond)
+    public function getAll($cond = null)
     {
-        $db = new Database();
-
-        if(!$cond) {
-            $req = $db->prepare("SELECT * FROM user");
-            $req->execute();
-
-            return $req->fetchAll(\PDO::FETCH_OBJ);
+        $req = null;
+        if($cond) {
+            $req = $this->db->prepare("SELECT id, pseudo, email, role, created_at FROM user LIMIT {$cond}");
+        } else {
+            $req = $this->db->prepare("SELECT id, pseudo, email, role, created_at FROM user");
         }
 
-        $req = $db->prepare("SELECT * FROM user WHERE {$cond}");
         $req->execute();
 
         return $req->fetchAll(\PDO::FETCH_OBJ);

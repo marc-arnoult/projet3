@@ -19,6 +19,7 @@ class Article implements iModel
     private $content;
     private $createdAt;
     private $updatedAt;
+    private $published;
 
     public function __construct(array $data)
     {
@@ -51,7 +52,7 @@ class Article implements iModel
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int) $id;
     }
 
     /**
@@ -67,7 +68,7 @@ class Article implements iModel
      */
     public function setIdUser($idUser)
     {
-        $this->idUser = $idUser;
+        $this->idUser = (int) $idUser;
     }
 
     /**
@@ -83,7 +84,7 @@ class Article implements iModel
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = (string) $title;
     }
 
     /**
@@ -99,7 +100,7 @@ class Article implements iModel
      */
     public function setContent($content)
     {
-        $this->content = $content;
+        $this->content = (string) $content;
     }
 
     /**
@@ -132,5 +133,21 @@ class Article implements iModel
     public function setCreated_at($createdAt)
     {
         $this->createdAt = new \DateTime($createdAt, new DateTimeZone('Europe/Paris'));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * @param mixed $published
+     */
+    public function setPublished($published)
+    {
+        $this->published = (int) $published;
     }
 }

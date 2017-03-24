@@ -25,7 +25,8 @@
                 <label for="title">Titre de l'article :</label>
                 <input type="text" name="title" class="form-control" value="{{ article.title }}" style="margin-bottom: 10px" required>
                 <textarea id="article-content" name="content">{{ article.content }}</textarea>
-                <input type="submit" value="Mettre à jour l'article" class="btn btn-primary" style="margin-top: 10px;">
+                <button class="btn btn-success">Publier</button>
+                <button class="btn btn-primary">Enregistrer</button>
             </form>
         </section>
         <!-- /.content-wrapper -->
@@ -75,7 +76,31 @@
         });
 
        $(function() {
-            $("form").submit(function(e) {
+            $('form').submit(function (e) {
+                e.preventDefault();
+            });
+            $('.content .btn-success').click(function (e) {
+                e.preventDefault();
+
+                var title = ($("form input[name='title']")[0].value);
+                var content = tinyMCE.activeEditor.getContent();
+
+                $.ajax({
+                    url: '/admin/edition/article',
+                    type: 'PUT',
+                    data: {
+                        content: content,
+                        title: title,
+                        id: {{ article.id }},
+                        published: 1
+                    }
+                }).done(function (response) {
+                    window.location.reload();
+                });
+
+            });
+
+            $('.content .btn-primary').click(function (e) {
                 e.preventDefault();
                 var title = ($("form input[name='title']")[0].value);
                 var content = tinyMCE.activeEditor.getContent();
@@ -86,7 +111,8 @@
                     data: {
                         content: content,
                         title: title,
-                        id: {{ article.id }}
+                        id: {{ article.id }},
+                        published: 0
                     }
                 }).done(function () {
                     window.location.reload();

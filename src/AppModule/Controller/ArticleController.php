@@ -20,7 +20,7 @@ class ArticleController extends Controller
         $articleDAO = new ArticleDAO();
         $commentDAO = new CommentDAO();
 
-        $articles = $articleDAO->getAll();
+        $articles = $articleDAO->getAllPublished();
         $articlesByDates = $articleDAO->getAllByDate();
 
         $request->setSession($session);
@@ -37,13 +37,15 @@ class ArticleController extends Controller
         $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
 
-        $article = $articleDAO->get($id);
+        $article = $articleDAO->getPublished($id);
         $comments = $commentDAO->getAllWithChildren($id);
         $messages = $session->getFlashBag()->all() ?? null;
 
-
         if(!$article) {
-            header('Location: /admin/articles');
+            $session
+                ->getFlashBag()
+                ->add('error', 'L\'article n\'existe pas');
+            header('Location: /');
             exit();
         }
 
@@ -96,6 +98,7 @@ class ArticleController extends Controller
             $data = array();
             $data['title'] = $request->request->get('title');
             $data['content'] = $request->request->get('content');
+            $data['published'] = $request->request->get('published');
             $data['idUser'] = $user->getId();
 
             $article = new Article($data);
@@ -104,10 +107,17 @@ class ArticleController extends Controller
             $result = $articleDAO->add($article);
 
             if($result) {
-                $session
-                    ->getFlashBag()
-                    ->add('success', 'Article bien enregistré');
-                header("Location: /admin/articles");
+                if($article->getPublished()) {
+                    $session
+                        ->getFlashBag()
+                        ->add('success', 'Article publié');
+                    header("Location: /admin/articles");
+                } else {
+                    $session
+                        ->getFlashBag()
+                        ->add('success', 'Article enregistré');
+                    header("Location: /admin/articles");
+                }
             } else {
                 $session
                     ->getFlashBag()
@@ -134,11 +144,15 @@ class ArticleController extends Controller
             if($result) {
                 $session
                     ->getFlashBag()
-                    ->add('success', 'article supprimé');
+                    ->add('success', 'Article supprimé');
+
+                return new Response('Article supprimé');
             } else {
                 $session
                     ->getFlashBag()
                     ->add('error', 'Erreur lors de la suppresion de l\'article');
+
+                return new Response('Erreur lors de la suppresion de l\'article');
             }
 
         }
@@ -184,13 +198,13 @@ class ArticleController extends Controller
         if($result) {
             $session
                 ->getFlashBag()
-                ->add('success', 'article modifié');
+                ->add('success', 'Article modifié');
+            return new Response('Article modifié');
         } else {
             $session
                 ->getFlashBag()
                 ->add('error', 'Erreur lors de la modification de l\'article');
+            return new Response('Erreur lors de la modification de l\'article');
         }
-
-        return new JsonResponse($result);
     }
 }
