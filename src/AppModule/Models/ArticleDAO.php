@@ -61,7 +61,7 @@ class ArticleDAO implements iDAO
     public function getAllPublished($limit = null)
     {
         if($limit) {
-            $data = $this->db->query("SELECT * FROM articles WHERE published = true ORDER BY id DESC LIMIT $limit", \PDO::FETCH_OBJ);
+            $data = $this->db->query("SELECT * FROM articles WHERE published = true ORDER BY created_at DESC LIMIT $limit", \PDO::FETCH_OBJ);
         } else {
             $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
         }

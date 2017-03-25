@@ -83,6 +83,7 @@ class AuthController extends Controller
             $session
                 ->getFlashBag()
                 ->add('success', 'Vous êtes maintenant connecté');
+
             header('Location: /');
         }
     }
