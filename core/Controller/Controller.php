@@ -18,8 +18,7 @@ class Controller
             __DIR__ .'/../../resources/views/admin',
             __DIR__ .'/../../resources/views/admin/layout'));
         $twig = new Twig_Environment($loader, array(
-            'cache' => false/*'/../../tmp'*/,
-            'debug' => true
+            'cache' => '/../../tmp'
         ));
         $twig->addExtension(new Twig_Extension_Debug());
         $twig->addExtension(new \Twig_Extensions_Extension_Text());
