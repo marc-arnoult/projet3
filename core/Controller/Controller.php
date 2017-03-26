@@ -3,6 +3,7 @@
 namespace Core\Controller;
 
 use AppModule\Model\User;
+use DateTime;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Twig_Environment;
 use Twig_Extension_Debug;
@@ -29,6 +30,13 @@ class Controller
         echo $twig->render(sprintf('%s.twig', $_route), array('request' => $request));
         $response = new Response(ob_get_clean());
 
+        $date = new DateTime();
+        $date->modify('+600 seconds');
+
+        $response->setPublic();
+        $response->setPrivate();
+        $response->setExpires($date);
+        $response->setMaxAge(600);
         $response->setSharedMaxAge(3600);
         $response->headers->addCacheControlDirective('must-revalidate', true);
 
