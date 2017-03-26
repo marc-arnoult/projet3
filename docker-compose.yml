@@ -9,6 +9,7 @@ web:
   - $PWD/config/sites-enabled/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
  links:
   - db:db
+  - redis:redis
 db:
  image: mysql
  volumes:
