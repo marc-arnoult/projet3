@@ -10,6 +10,7 @@ namespace AppModule\Model;
 
 
 use Core\Database\Database;
+use Core\Database\RedisCache;
 
 class CommentDAO implements iDAO
 {
@@ -73,15 +74,20 @@ class CommentDAO implements iDAO
     }
 
     public function getLast($limit) {
-        $req = $this->db->prepare
-        ("SELECT comments.*, user.pseudo, user.role
+
+        $cache = new RedisCache();
+
+        $cache->remember('comments.last', 60 * 60, function () use ($limit) {
+            $req = $this->db->prepare
+            ("SELECT comments.*, user.pseudo, user.role
                 FROM comments  
                 LEFT JOIN user 
                 ON comments.id_user = user.id 
                 LIMIT {$limit}");
-        $req->execute();
+            $req->execute();
 
-        return $req->fetchAll(\PDO::FETCH_OBJ);
+            return $req->fetchAll(\PDO::FETCH_OBJ);
+        });
     }
 
     public function getAllWithChildren($idArticle)

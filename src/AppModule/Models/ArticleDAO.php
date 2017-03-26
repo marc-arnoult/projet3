@@ -10,6 +10,7 @@ namespace AppModule\Model;
 
 
 use Core\Database\Database;
+use Core\Database\RedisCache;
 
 class ArticleDAO implements iDAO
 {
@@ -51,21 +52,30 @@ class ArticleDAO implements iDAO
 
     public function getPublished($id)
     {
-        $data = $this->db->prepare("SELECT * FROM articles WHERE id = :id AND published = true");
-        $data->bindValue(':id', $id, \PDO::PARAM_INT);
-        $data->execute();
+        $cache = new RedisCache();
 
-        return $data->fetch(\PDO::FETCH_OBJ);
+        return $cache->remember('article_'.$id, 60 * 60, function () use ($id) {
+            $data = $this->db->prepare("SELECT * FROM articles WHERE id = :id AND published = true");
+            $data->bindValue(':id', $id, \PDO::PARAM_INT);
+            $data->execute();
+
+            return $data->fetch(\PDO::FETCH_OBJ);
+        });
     }
 
     public function getAllPublished($limit = null)
     {
-        if($limit) {
-            $data = $this->db->query("SELECT * FROM articles WHERE published = true ORDER BY created_at DESC LIMIT $limit", \PDO::FETCH_OBJ);
-        } else {
-            $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
-        }
-        return $data->fetchAll();
+        $cache = new RedisCache();
+
+        return $cache->remember('articles.all', 60 * 60, function () use ($limit) {
+            if($limit) {
+                $data = $this->db->query("SELECT * FROM articles WHERE published = true ORDER BY created_at DESC LIMIT $limit", \PDO::FETCH_OBJ);
+            } else {
+                $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
+            }
+
+            return $data->fetchAll();
+        });
     }
 
     public function getAll($limit = null)

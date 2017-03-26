@@ -6,6 +6,7 @@ use AppModule\Model\ArticleDAO;
 use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
 
+use Predis\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 

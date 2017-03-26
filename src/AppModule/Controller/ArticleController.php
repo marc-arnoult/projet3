@@ -6,6 +6,7 @@ use AppModule\Model\ArticleDAO;
 use AppModule\Model\CommentDAO;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
+use Predis\Client;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +37,11 @@ class ArticleController extends Controller
         $session = new Session();
         $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
+
+        $client = new Client(array(
+            'host' => 'redis'
+        ));
+
 
         $article = $articleDAO->getPublished($id);
         $comments = $commentDAO->getAllWithChildren($id);
