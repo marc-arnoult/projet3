@@ -53,27 +53,32 @@ class ArticleDAO implements iDAO
     public function getPublished($id)
     {
         $cache = new RedisCache();
+        $updatedAt = $this->getUpdatedAt($id)->updated_at;
 
-        return $cache->remember('article_'.$id, 60 * 60, function () use ($id) {
+        return $cache->cache("article_{$id}_{$updatedAt}", function () use ($id) {
+
             $data = $this->db->prepare("SELECT * FROM articles WHERE id = :id AND published = true");
             $data->bindValue(':id', $id, \PDO::PARAM_INT);
             $data->execute();
 
             return $data->fetch(\PDO::FETCH_OBJ);
         });
+
     }
 
     public function getAllPublished($limit = null)
     {
         $cache = new RedisCache();
 
-        return $cache->remember('articles.all', 60 * 60, function () use ($limit) {
-            if($limit) {
+        if($limit) {
+            return $cache->cache(['last_article', $this->getLastUpdated()->updated_at] , function () use ($limit) {
                 $data = $this->db->query("SELECT * FROM articles WHERE published = true ORDER BY created_at DESC LIMIT $limit", \PDO::FETCH_OBJ);
-            } else {
-                $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
-            }
+                return $data->fetchAll();
+            });
+        }
+        return $cache->cache(['articles', $this->getLastUpdated()], function () use ($limit) {
 
+            $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
             return $data->fetchAll();
         });
     }
@@ -127,6 +132,22 @@ class ArticleDAO implements iDAO
 
     }
 
+    public function getLastUpdated()
+    {
+        $req = $this->db->prepare('SELECT updated_at FROM articles ORDER BY updated_at DESC LIMIT 1');
+        $req->execute();
+
+        return $req->fetch(\PDO::FETCH_OBJ);
+    }
+
+    public function getUpdatedAt($id)
+    {
+        $req = $this->db->prepare('SELECT updated_at FROM articles WHERE id = :id');
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
+        $req->execute();
+
+        return $req->fetch(\PDO::FETCH_OBJ);
+    }
     public function delete($id)
     {
         $req = $this->db->prepare("DELETE FROM articles WHERE id = :id");

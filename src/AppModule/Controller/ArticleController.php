@@ -38,11 +38,6 @@ class ArticleController extends Controller
         $commentDAO = new CommentDAO();
         $articleDAO = new ArticleDAO();
 
-        $client = new Client(array(
-            'host' => 'redis'
-        ));
-
-
         $article = $articleDAO->getPublished($id);
         $comments = $commentDAO->getAllWithChildren($id);
         $messages = $session->getFlashBag()->all() ?? null;

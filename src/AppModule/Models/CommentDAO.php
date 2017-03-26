@@ -73,39 +73,39 @@ class CommentDAO implements iDAO
         return $req->fetchAll(\PDO::FETCH_OBJ);
     }
 
-    public function getLast($limit) {
+    public function getLast($limit)
+    {
+        $req = $this->db->prepare
+        ("SELECT comments.*, user.pseudo, user.role
+            FROM comments  
+            LEFT JOIN user 
+            ON comments.id_user = user.id 
+            LIMIT {$limit}");
+        $req->execute();
 
-        $cache = new RedisCache();
-
-        $cache->remember('comments.last', 60 * 60, function () use ($limit) {
-            $req = $this->db->prepare
-            ("SELECT comments.*, user.pseudo, user.role
-                FROM comments  
-                LEFT JOIN user 
-                ON comments.id_user = user.id 
-                LIMIT {$limit}");
-            $req->execute();
-
-            return $req->fetchAll(\PDO::FETCH_OBJ);
-        });
+        return $req->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getAllWithChildren($idArticle)
     {
-        $comments = $this->getAll($idArticle);
-        $comments_by_id = [];
+        $cache = new RedisCache();
 
-        foreach ($comments as $comment) {
-            $comments_by_id[$comment->id] = $comment;
-        }
+        return $cache->cache(['comments', $this->getLastUpdated($idArticle)], function () use ($idArticle) {
+            $comments = $this->getAll($idArticle);
+            $comments_by_id = [];
 
-        foreach ($comments as $k => $comment) {
-            if($comment->id_parent !== null) {
-                $comments_by_id[$comment->id_parent]->children[] = $comment;
-                unset($comments[$k]);
+            foreach ($comments as $comment) {
+                $comments_by_id[$comment->id] = $comment;
             }
-        }
-        return $comments;
+
+            foreach ($comments as $k => $comment) {
+                if($comment->id_parent !== null) {
+                    $comments_by_id[$comment->id_parent]->children[] = $comment;
+                    unset($comments[$k]);
+                }
+            }
+            return $comments;
+        });
     }
     public function getCountComment($idArticle = null)
     {   $number = null;
@@ -127,6 +127,24 @@ class CommentDAO implements iDAO
         $req->bindValue(':content', $comment->getContent());
 
         return $req->execute();
+    }
+
+    public function getLastUpdated($idArticle)
+    {
+        $req = $this->db->prepare('SELECT updated_at FROM comments WHERE id_article = :id_article ORDER BY updated_at DESC LIMIT 1');
+        $req->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
+        $req->execute();
+
+        return $req->fetch(\PDO::FETCH_OBJ);
+    }
+
+    public function getUpdatedAt($id)
+    {
+        $req = $this->db->prepare('SELECT updated_at FROM comments WHERE id = :id');
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
+        $req->execute();
+
+        return $req->fetch(\PDO::FETCH_OBJ);
     }
 
     public function delete($id)

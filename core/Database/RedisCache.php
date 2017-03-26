@@ -4,21 +4,48 @@ namespace Core\Database;
 use Predis\Client;
 
 class RedisCache {
-    private $client;
+    private $redis;
 
     public function __construct()
     {
-        $this->client = new Client(array('host' => 'redis'));
+        $this->redis = new Client(array('host' => 'redis'));
     }
 
-    public function remember($key, $minutes, Callable $callback)
+    public function hashKeys($keys)
     {
-        if ($value = $this->client->get($key)) {
-            return unserialize($value);
+        if(is_array($keys)) {
+            $key = [];
+
+            foreach ($keys as $k) {
+                array_push($key, $this->hashKey($k));
+            }
+            return implode('-', $key);
+
+        } else {
+            return $this->hashKey($keys);
+        }
+    }
+    public function hashKey($key)
+    {
+        if(is_object($key)) {
+            return get_class($key). '_' . $key->id . '_' . strtotime($key->updated_at);
+        } else {
+            return $key;
+        }
+    }
+
+    public function cache($keys, Callable $callback)
+    {
+        $key = $this->hashKeys($keys);
+
+        if($value = $this->redis->get($key)) {
+            return unserialize($this->redis->get($key));
         }
 
-        $this->client->setex($key, $minutes, $value = serialize($callback()));
+        $value = $callback();
+        $this->redis->setex($key,  60 * 60 * 96,serialize($value));
 
-        return unserialize($value);
+        return $value;
     }
+
 }
