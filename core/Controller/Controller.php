@@ -35,7 +35,6 @@ class Controller
 
         $response->setPublic();
         $response->setPrivate();
-        $response->setExpires($date);
         $response->setMaxAge(600);
         $response->setSharedMaxAge(3600);
         $response->headers->addCacheControlDirective('must-revalidate', true);
