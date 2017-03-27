@@ -122,10 +122,10 @@ class CommentDAO implements iDAO
     }
 
     /**
-     * @param iModel $comment
+     * @param $comment
      * @return bool
      */
-    public function update(iModel $comment)
+    public function update($comment)
     {
         $req = $this->db->prepare("UPDATE comments SET content = :content, updated_at = NOW() WHERE id = {$comment->getId()}");
         $req->bindValue(':content', $comment->getContent());

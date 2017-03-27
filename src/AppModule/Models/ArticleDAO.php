@@ -123,11 +123,11 @@ class ArticleDAO implements iDAO
     }
 
     /**
-     * @param iModel $article
+     * @param $article
      * @return bool
      */
 
-    public function update(iModel $article)
+    public function update($article)
     {
         if($article->getPublished() == 0) {
             $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, updated_at = NOW(), published = :published WHERE id = {$article->getId()}");
