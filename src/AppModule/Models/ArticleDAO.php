@@ -76,7 +76,7 @@ class ArticleDAO implements iDAO
                 return $data->fetchAll();
             });
         }
-        return $cache->cache(['articles', $this->getLastUpdated()], function () use ($limit) {
+        return $cache->cache(['articles', $this->getLastUpdated()->updated_at], function () use ($limit) {
 
             $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
             return $data->fetchAll();
@@ -150,6 +150,11 @@ class ArticleDAO implements iDAO
     }
     public function delete($id)
     {
+        $cache = new RedisCache();
+
+        $cache->del(['articles', $this->getLastUpdated()->updated_at]);
+        $cache->del(['last_article', $this->getLastUpdated()->updated_at]);
+
         $req = $this->db->prepare("DELETE FROM articles WHERE id = :id");
         $req->bindValue(':id', $id, \PDO::PARAM_INT);
 

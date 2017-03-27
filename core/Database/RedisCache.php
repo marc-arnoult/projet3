@@ -25,6 +25,7 @@ class RedisCache {
             return $this->hashKey($keys);
         }
     }
+
     public function hashKey($key)
     {
         if(is_object($key)) {
@@ -48,4 +49,10 @@ class RedisCache {
         return $value;
     }
 
+    public function del($key)
+    {
+        $key = $this->hashKeys($key);
+
+        $this->redis->del($key);
+    }
 }
