@@ -37,7 +37,7 @@ class AuthController extends Controller
 
             $session
                 ->getFlashBag()
-                ->set('success', 'Inscription terminé, merci.');
+                ->set('success', 'Inscription terminée, merci.');
 
             self::signInAction($request);
         } else {
@@ -45,7 +45,7 @@ class AuthController extends Controller
 
             $session
                 ->getFlashBag()
-                ->set('error', 'Pseudo et/ou adresse email déjà utilisé');
+                ->set('error', 'Pseudo et/ou adresse email déjà pris');
             header('Location: /');
         }
     }
