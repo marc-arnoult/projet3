@@ -3,3 +3,4 @@
 vendor/
 data/
 tmp/
+/node_modules/
