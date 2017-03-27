@@ -16,6 +16,8 @@ db:
   - $PWD/data:/var/lib/mysql
  environment:
   MYSQL_ROOT_PASSWORD: root
+ expose:
+  - "3306"
 redis:
   image: redis
   ports:

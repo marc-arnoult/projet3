@@ -6,16 +6,12 @@ var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = {
     entry: {
         app: [
-            './public/js/app.js',
-            './public/js/home.js',
-            './public/js/comment.js',
-            './public/js/comment_edit.js',
-            './public/css/app.css'
+            './public/js/home.js'
         ]
     },
     output: {
         path: __dirname + '/public/dist',
-        filename: 'app.min.js'
+        filename: '[name].bundle.js'
     },
     module: {
         loaders: [
@@ -30,6 +26,6 @@ module.exports = {
             cssProcessorOptions: { discardComments: {removeAll: true } },
             canPrint: true
         }),
-        new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
+        new webpack.optimize.UglifyJsPlugin()
     ]
 };

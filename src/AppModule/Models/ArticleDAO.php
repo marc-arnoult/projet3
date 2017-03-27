@@ -11,6 +11,7 @@ namespace AppModule\Model;
 
 use Core\Database\Database;
 use Core\Database\RedisCache;
+use AppModule\Model\Article;
 
 class ArticleDAO implements iDAO
 {
@@ -101,6 +102,9 @@ class ArticleDAO implements iDAO
         return $number->fetch();
     }
 
+    /**
+     * @return array
+     */
     public function getAllByDate()
     {
         $data = $this->db->query("SELECT id, title, created_at FROM articles WHERE published = true ORDER BY created_at");
@@ -117,7 +121,13 @@ class ArticleDAO implements iDAO
 
         return $articlesByDate;
     }
-    public function update($article)
+
+    /**
+     * @param iModel $article
+     * @return bool
+     */
+
+    public function update(iModel $article)
     {
         if($article->getPublished() == 0) {
             $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, updated_at = NOW(), published = :published WHERE id = {$article->getId()}");
@@ -148,6 +158,7 @@ class ArticleDAO implements iDAO
 
         return $req->fetch(\PDO::FETCH_OBJ);
     }
+
     public function delete($id)
     {
         $cache = new RedisCache();

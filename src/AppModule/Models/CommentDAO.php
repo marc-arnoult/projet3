@@ -121,7 +121,11 @@ class CommentDAO implements iDAO
         return $number->fetch(\PDO::FETCH_OBJ);
     }
 
-    public function update($comment)
+    /**
+     * @param iModel $comment
+     * @return bool
+     */
+    public function update(iModel $comment)
     {
         $req = $this->db->prepare("UPDATE comments SET content = :content, updated_at = NOW() WHERE id = {$comment->getId()}");
         $req->bindValue(':content', $comment->getContent());

@@ -13,7 +13,7 @@ interface iDAO
 
     public function getAll($id);
 
-    public function update($model);
+    public function update(iModel $model);
 
     public function delete($id);
 
