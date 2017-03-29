@@ -76,7 +76,7 @@ class AuthController extends Controller
         if($user->getRole() === 'administrateur') {
             $session
                 ->getFlashBag()
-                ->add('success', 'Vous êtes maintenant connecté en tant que administrateur');
+                ->add('success', 'Vous êtes maintenant connectée en tant que administrateur');
 
             header('Location: /admin');
         } else if (!empty($user->getRole())) {
