@@ -56,7 +56,7 @@ $routes->add('admin/comments', new Route('/admin/comments', array(
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('admin/users', new Route('/admin/users', array(
-    '_controller' => 'AppModule\\Controller\\AdminController::usersShowAction'
+    '_controller' => 'AppModule\\Controller\\UserController::usersShowAction'
 ), array(), array(), '', array(), array('GET')));
 
 
