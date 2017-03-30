@@ -82,7 +82,7 @@ class AuthController extends Controller
         } else if (!empty($user->getRole())) {
             $session
                 ->getFlashBag()
-                ->add('success', 'Vous êtes maintenant connecté');
+                ->add('success', 'Vous êtes maintenant connectée');
 
             header('Location: /');
         }
