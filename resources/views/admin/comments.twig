@@ -182,7 +182,9 @@
                 $content = $(this).text();
             });
 
-            $(form).submit(function () {
+            $(form).submit(function (e) {
+                e.preventDefault();
+
                 var $value = $(this).find('textarea').val();
                 if(method !== 'POST') {
                     $.ajax({

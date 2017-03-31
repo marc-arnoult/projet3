@@ -133,6 +133,13 @@ class CommentDAO implements iDAO
         return $req->execute();
     }
 
+    public function deleteReportedComment($idComment)
+    {
+        $req = $this->db->query("DELETE FROM reporting_comment WHERE id_comment = ${idComment}");
+
+        return $req->execute();
+    }
+
     public function getLastUpdated($idArticle)
     {
         $req = $this->db->prepare('SELECT updated_at FROM comments WHERE id_article = :id_article ORDER BY updated_at DESC LIMIT 1');

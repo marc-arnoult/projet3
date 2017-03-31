@@ -25,7 +25,6 @@ class CommentController extends Controller
         $session = new Session();
         $commentDAO = new CommentDAO();
 
-        $comments = $commentDAO->getAll();
         $reportedComments = $commentDAO->getAllWithReport();
 
         $messages = $session->getFlashBag()->all() ?? null;
@@ -152,26 +151,39 @@ class CommentController extends Controller
         if($this->userRoleIs($user, 'administrateur') || $comment->id_user == $user->getId()) {
             $result = $commentDAO->update($newComment);
 
+            if($this->userRoleIs($user, 'administrateur')) {
+                $moderated = $commentDAO->deleteReportedComment($data['id']);
+
+                if($moderated) {
+                    $session
+                        ->getFlashBag()
+                        ->add('success', 'Commentaire modéré');
+
+                    return new Response('Commentaire modéré');
+                }
+            }
+
+
             if($result) {
                 $session
                     ->getFlashBag()
                     ->add('success', 'Commentaire bien modifié');
 
                 return new Response('Commentaire bien modifié');
-            } else {
-                $session
-                    ->getFlashBag()
-                    ->add('error', 'Erreur lors de la modification du commentaire');
-
-                return new Response('Erreur lors de la modification du commentaire');
             }
-        } else {
+
             $session
                 ->getFlashBag()
-                ->add('error', 'Vous ne pouvez pas éditer le commentaire');
+                ->add('error', 'Erreur lors de la modification du commentaire');
 
-            return new Response('Vous ne pouvez pas éditer le commentaire');
+            return new Response('Erreur lors de la modification du commentaire');
         }
+
+        $session
+            ->getFlashBag()
+            ->add('error', 'Vous ne pouvez pas éditer le commentaire');
+
+        return new Response('Vous ne pouvez pas éditer le commentaire');
     }
 
     public function reportAction (Request $request)
@@ -186,7 +198,8 @@ class CommentController extends Controller
             $session
                 ->getFlashBag()
                 ->add('error', 'Vous avez déjà signalé ce commentaire');
-            return new JsonResponse('Erreur');
+
+            return new Response('Vous avez déjà signalé ce commentaire');
         } else {
             $commentDAO = new CommentDAO();
 
