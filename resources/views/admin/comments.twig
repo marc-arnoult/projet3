@@ -19,53 +19,71 @@
         </div>
     <!-- /.box-header -->
         <div class="box-body table-responsive">
-            <table class="table table-bordered">
-                <tr>
-                    <th class="hidden-xs">ID</th>
-                    <th>Auteur</th>
-                    <th>Contenu</th>
-                    <th class="hidden-xs">Ajouté le</th>
-                    <th class="hidden-xs">Edité le</th>
-                    <th>Signalement</th>
-                    <th>Répondre</th>
-                    <th>Modérer</th>
-                    <th>Supprimer</th>
-                </tr>
-                {% for comment in comments %}
-                    <tr id="comment#{{ comment.id }}" data-id="{{ comment.id }}" data-article="{{ comment.id_article }}">
-                        <td class="hidden-xs">{{ comment.id }}</td>
-                        <td>{{ comment.pseudo }}</td>
-                        <td name="content">
-                            <p>{{ comment.content }}</p>
-                        </td>
-                        <td class="hidden-xs">{{ comment.created_at | date('d M Y à H:i:s') }}</td>
-                        <td class="hidden-xs">
-                            {% if comment.updated_at == null %}
-                                {{ comment.updated_at }}
-                            {% else %}
-                                {{ comment.updated_at | date('d M Y à H:i:s') }}
-                            {% endif %}
-                        </td>
-                        <td><span class="label label-danger">{{ comment.nbr_report }}</span></td>
-                        {% if user and comment.depth < 3 %}
-                            <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-success">Répondre</button></a></td>
-                        {% else %}
-                            <td><p class="text-danger">Vous ne pouvez pas répondre à la suite de ce commantaire</p></td>
-                        {% endif %}
-                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-primary">Modérer</button></a></td>
-                        <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-danger">Suppression</button></a></td>
+            <table id="table-comment" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="hidden-xs">ID</th>
+                        <th>Auteur</th>
+                        <th>Contenu</th>
+                        <th class="hidden-xs">Ajouté le</th>
+                        <th class="hidden-xs">Edité le</th>
+                        <th>Signalement</th>
+                        <th>Répondre</th>
+                        <th>Modérer</th>
+                        <th>Supprimer</th>
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                        <tr id="comment#{{ comment.id }}" data-id="{{ comment.id }}" data-article="{{ comment.id_article }}">
+                            <td class="hidden-xs">{{ comment.id }}</td>
+                            <td>{{ comment.pseudo }}</td>
+                            <td name="content">
+                                <p>{{ comment.content }}</p>
+                            </td>
+                            <td class="hidden-xs">{{ comment.created_at | date('d M Y à H:i:s') }}</td>
+                            <td class="hidden-xs">
+                                {% if comment.updated_at == null %}
+                                    {{ comment.updated_at }}
+                                {% else %}
+                                    {{ comment.updated_at | date('d M Y à H:i:s') }}
+                                {% endif %}
+                            </td>
+                            <td><span class="label label-danger">{{ comment.nbr_report }}</span></td>
+                            {% if user and comment.depth < 3 %}
+                                <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-success">Répondre</button></a></td>
+                            {% else %}
+                                <td><p class="text-danger">Vous ne pouvez pas répondre à la suite de ce commantaire</p></td>
+                            {% endif %}
+                            <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-primary">Modérer</button></a></td>
+                            <td><a href="#"><button data-id="{{ comment.id }}" class="btn btn-danger">Suppression</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
     <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/resources/views/admin/dist/js/app.min.js"></script>
-
     <script>
+        $(function () {
+            $.extend( $.fn.dataTable.defaults, {
+                searching: false,
+                ordering:  true
+            });
+
+            $('#table-comment').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/French.json"
+                },
+                "order": [[5, "desc"]]
+            });
+        });
+
         $(function () {
             var form = document.createElement('form');
             var textarea = document.createElement('textarea');
@@ -192,8 +210,7 @@
                         window.location.reload();
                     });
                 }
-            })
-
+            });
         });
     </script>
 {% endblock %}

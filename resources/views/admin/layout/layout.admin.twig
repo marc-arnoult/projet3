@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/resources/views/admin/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -35,37 +36,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script>tinymce.init({ selector:'textarea' });</script>
     <![endif]-->
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
 
-    <!-- Main Header -->
     <header class="main-header">
 
-        <!-- Logo -->
         <a href="/admin" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-mini"><b>J</b>F</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>Admin</b></span>
         </a>
@@ -80,13 +59,6 @@ desired effect
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <!-- /.messages-menu -->
-
-                    <!-- Notifications Menu -->
-
-                    <!-- Tasks Menu -->
-
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
@@ -103,11 +75,11 @@ desired effect
 
                                 <p>
                                     Bonjour {{ user.getPseudo() }}
-                                    <!--<small>Member since Nov. 2012</small>-->
+                                    <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
-                            <!--<li class="user-body">
+                            <li class="user-body">
                                 <div class="row">
                                     <div class="col-xs-4 text-center">
                                         <a href="#">Followers</a>
@@ -119,13 +91,12 @@ desired effect
                                         <a href="#">Friends</a>
                                     </div>
                                 </div>
-                                /.row
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <!--<div class="pull-left">
+                                <div class="pull-left">
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>-->
+                                </div>-
                                 <div class="pull-right">
                                     <a href="/deconnexion" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
@@ -153,20 +124,9 @@ desired effect
                 <div class="pull-left info">
                     <p>{{ user.getPseudo() }}</p>
                     <!-- Status -->
-                    <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-
-            <!-- search form (Optional) -->
-            <!--<form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                    </button>
-                  </span>
-                </div>
-            </form>-->
             <!-- /.search form -->
 
             <!-- Sidebar Menu -->
@@ -206,6 +166,7 @@ desired effect
         </section>
         <!-- /.sidebar -->
     </aside>
+
     <div class="content-wrapper">
         {% block content %}{% endblock %}
     </div>
