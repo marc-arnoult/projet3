@@ -57,52 +57,29 @@
                                     <span class="label label-warning">{{ published }}</span>
                                 {% endif %}
                             </td>
-                            <td><a href="/admin/edition/article/{{ article.id }}"><button data-id={{ article.id }} class="btn btn-primary">Edition</button></a></td>
+                            <td><a href="/admin/edition/article/{{ article.id }}"><button data-id="{{ article.id }}" class="btn btn-primary">Edition</button></a></td>
                             <td><a href="#"><button data-id="{{ article.id }}" class="btn btn-danger">Suppression</button></a></td>
                         </tr>
                     {% endfor %}
                 </table>
             </div>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
-
-    <!-- Main Footer -->
-
-    <!-- Control Sidebar -->
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-    <!-- ./wrapper -->
-
-    <!-- REQUIRED JS SCRIPTS -->
-
-    <!-- jQuery 2.2.3 -->
-    <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="/resources/views/admin/dist/js/app.min.js"></script>
+{% endblock %}
+{% block script %}
     <script>
         $(function() {
 
-         $('#crudArticle .btn-danger').click(function() {
-                 $.ajax({
-                     url: '/admin/articles',
-                     type: 'DELETE',
-                     data: {
-                         id: this.getAttribute('data-id')
-                     }
-                 }).done(function () {
-                     window.location.reload();
-                 });
+            $('#crudArticle .btn-danger').click(function() {
+                $.ajax({
+                    url: '/admin/articles',
+                    data: {
+                        id: this.getAttribute('data-id')
+                    },
+                    type: 'DELETE'
+                }).done(function () {
+                    window.location.reload();
+                });
             })
         })
     </script>
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-         Both of these plugins are recommended to enhance the
-         user experience. Slimscroll is required when using the
-         fixed layout. -->
-    </body>
-    </html>
 {% endblock %}
