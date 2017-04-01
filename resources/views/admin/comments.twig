@@ -22,7 +22,7 @@
             <table id="table-comment" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="hidden-xs">Id article</th>
+                        <th class="hidden-xs">Lien vers le commentaire</th>
                         <th>Auteur</th>
                         <th>Contenu</th>
                         <th class="hidden-xs">Ajouté le</th>
@@ -36,7 +36,7 @@
                 <tbody>
                     {% for comment in comments %}
                         <tr id="comment#{{ comment.id }}" data-id="{{ comment.id }}" data-article="{{ comment.id_article }}">
-                            <td class="hidden-xs"><a href="/article/{{ comment.id_article }}#comment{{ comment.id }}">{{ comment.id }}</a></td>
+                            <td class="hidden-xs"><a href="/article/{{ comment.id_article }}#comment{{ comment.id }}">Voir la conversation</a></td>
                             <td>{{ comment.pseudo }}</td>
                             <td name="content">
                                 <p>{{ comment.content }}</p>

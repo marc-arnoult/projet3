@@ -178,11 +178,16 @@ class CommentDAO implements iDAO
      * @param $idArticle
      * @return mixed
      */
-    public function getLastUpdated($idArticle)
+    public function getLastUpdated($idArticle = null)
     {
-        $req = $this->db->prepare('SELECT updated_at FROM comments WHERE id_article = :id_article ORDER BY updated_at DESC LIMIT 1');
-        $req->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
-        $req->execute();
+        if($idArticle) {
+            $req = $this->db->prepare('SELECT updated_at FROM comments WHERE id_article = :id_article ORDER BY updated_at DESC LIMIT 1');
+            $req->bindValue(':id_article', $idArticle, \PDO::PARAM_INT);
+            $req->execute();
+        } else {
+            $req = $this->db->prepare('SELECT updated_at FROM comments ORDER BY updated_at DESC LIMIT 1');
+            $req->execute();
+        }
 
         return $req->fetch(\PDO::FETCH_OBJ);
     }
@@ -208,6 +213,8 @@ class CommentDAO implements iDAO
     {
         $req = $this->db->prepare("DELETE FROM comments WHERE id = :id");
         $req->bindValue(':id', $id, \PDO::PARAM_INT);
+
+        $this->cache->del(['comments', $this->getLastUpdated()]);
 
         return $req->execute();
     }
