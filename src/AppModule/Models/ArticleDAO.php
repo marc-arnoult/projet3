@@ -16,10 +16,12 @@ use AppModule\Model\Article;
 class ArticleDAO implements iDAO
 {
     private $db;
+    private $cache;
 
-    public function __construct()
+    public function __construct(Database $db, RedisCache $cache)
     {
-        $this->db = new Database();
+        $this->cache = $cache;
+        $this->db = $db;
     }
 
     public function add(iModel $article)
@@ -53,10 +55,9 @@ class ArticleDAO implements iDAO
 
     public function getPublished($id)
     {
-        $cache = new RedisCache();
         $updatedAt = $this->getUpdatedAt($id)->updated_at;
 
-        return $cache->cache("article_{$id}_{$updatedAt}", function () use ($id) {
+        return $this->cache->cache("article_{$id}_{$updatedAt}", function () use ($id) {
 
             $data = $this->db->prepare("SELECT * FROM articles WHERE id = :id AND published = true");
             $data->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -69,15 +70,14 @@ class ArticleDAO implements iDAO
 
     public function getAllPublished($limit = null)
     {
-        $cache = new RedisCache();
 
         if($limit) {
-            return $cache->cache(['last_article', $this->getLastUpdated()->updated_at] , function () use ($limit) {
+            return $this->cache->cache(['last_article', $this->getLastUpdated()->updated_at] , function () use ($limit) {
                 $data = $this->db->query("SELECT * FROM articles WHERE published = true ORDER BY created_at DESC LIMIT $limit", \PDO::FETCH_OBJ);
                 return $data->fetchAll();
             });
         }
-        return $cache->cache(['articles', $this->getLastUpdated()->updated_at], function () use ($limit) {
+        return $this->cache->cache(['articles', $this->getLastUpdated()->updated_at], function () use ($limit) {
 
             $data = $this->db->query("SELECT articles.*, user.pseudo FROM articles LEFT JOIN user ON articles.id_user = user.id WHERE published = true ORDER BY id DESC", \PDO::FETCH_OBJ);
             return $data->fetchAll();

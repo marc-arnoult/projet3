@@ -23,7 +23,7 @@ class CommentController extends Controller
     public function indexAction (Request $request)
     {
         $session = new Session();
-        $commentDAO = new CommentDAO();
+        $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $reportedComments = $commentDAO->getAllWithReport();
 
@@ -40,7 +40,7 @@ class CommentController extends Controller
     public function postAction (Request $request)
     {
         $session = new Session();
-        $commentDAO = new CommentDAO();
+        $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
         $data = $request->request->all();
@@ -74,7 +74,7 @@ class CommentController extends Controller
     public function responseAction (Request $request)
     {
         $session = new Session();
-        $commentDAO = new CommentDAO();
+        $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
         $data = $request->request->all();
@@ -108,7 +108,7 @@ class CommentController extends Controller
     public function deleteAction (Request $request)
     {
         $session = new Session();
-        $commentDAO = new CommentDAO();
+        $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
         $idComment = $request->request->get('id');
@@ -139,7 +139,7 @@ class CommentController extends Controller
     public function editAction (Request $request)
     {
         $session = new Session();
-        $commentDAO = new CommentDAO();
+        $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
         $data = $request->request->all();
@@ -201,7 +201,7 @@ class CommentController extends Controller
 
             return new Response('Vous avez déjà signalé ce commentaire');
         } else {
-            $commentDAO = new CommentDAO();
+            $commentDAO = new CommentDAO(self::$db, self::$cache);
 
             $result = $commentDAO->addReport($idComment);
 

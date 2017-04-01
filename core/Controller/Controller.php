@@ -3,6 +3,8 @@
 namespace Core\Controller;
 
 use AppModule\Model\User;
+use Core\Database\Database;
+use Core\Database\RedisCache;
 use DateTime;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Twig_Environment;
@@ -11,6 +13,20 @@ use Twig_Loader_Filesystem;
 
 class Controller
 {
+    protected static $db;
+    protected static $cache;
+
+    public function __construct()
+    {
+        if (empty(self::$cache)) {
+           self::$cache = new RedisCache();
+        }
+
+        if (empty(self::$db)) {
+            self::$db = new Database();
+        }
+    }
+
     public function render(Request $request) : Response
     {
         $loader = new Twig_Loader_Filesystem(array(

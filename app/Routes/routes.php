@@ -1,21 +1,24 @@
 <?php
 
+use AppModule\Controller\{
+    ArticleController, AuthController, CommentController, IndexController, AdminController, UserController
+};
 use Symfony\Component\Routing\{RouteCollection, Route};
 
 $routes = new RouteCollection();
 
 $routes->add('home', new Route('/', array(
-    '_controller' => 'AppModule\\Controller\\IndexController::indexAction'
+    '_controller' => array(new IndexController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
 
 $routes->add('articles_list', new Route('/articles', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::indexAction'
+    '_controller' => array(new ArticleController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('article', new Route('/article/{id}', array(
     'id' => 'id',
-    '_controller' => 'AppModule\\Controller\\ArticleController::showAction'
+    '_controller' => array(new ArticleController(), 'showAction')
 ), array(), array(), '', array(), array('GET')));
 
 /********************
@@ -23,40 +26,40 @@ $routes->add('article', new Route('/article/{id}', array(
  ********************/
 
 $routes->add('admin/index', new Route('/admin', array(
-    '_controller' => 'AppModule\\Controller\\AdminController::indexAction'
+    '_controller' => array(new AdminController(),'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('admin/articles', new Route('/admin/articles', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::showArticleAction'
+    '_controller' => array(new ArticleController(),'showArticleAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('admin/article', new Route('/admin/article', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::addShowAction'
+    '_controller' => array(new ArticleController(), 'addShowAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('#admin/article/post#', new Route('/admin/articles', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::postAction'
+    '_controller' => array(new ArticleController(), 'postAction')
 ), array(), array(), '', array(), array('POST')));
 
 $routes->add('#admin/article/delete#', new Route('/admin/articles', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::deleteAction'
+    '_controller' => array(new ArticleController(), 'deleteAction')
 ), array(), array(), '', array(), array('DELETE')));
 
 $routes->add('admin/article.edition', new Route('/admin/edition/article/{id}', array(
     'id' => 'id',
-    '_controller' => 'AppModule\\Controller\\ArticleController::editShowAction'
+    '_controller' => array(new ArticleController() ,'editShowAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('#admin/article.edition#', new Route('/admin/edition/article', array(
-    '_controller' => 'AppModule\\Controller\\ArticleController::editAction'
+    '_controller' => array(new ArticleController(), 'editAction')
 ), array(), array(), '', array(), array('PUT')));
 
 $routes->add('admin/comments', new Route('/admin/comments', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::indexAction'
+    '_controller' => array(new CommentController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('admin/users', new Route('/admin/users', array(
-    '_controller' => 'AppModule\\Controller\\UserController::usersShowAction'
+    '_controller' => array(new UserController(), 'usersShowAction')
 ), array(), array(), '', array(), array('GET')));
 
 
@@ -65,7 +68,7 @@ $routes->add('admin/users', new Route('/admin/users', array(
  ********************/
 
 $routes->add('sign_out', new Route('/deconnexion', array(
-    '_controller' => 'AppModule\\Controller\\AuthController::signOutAction'
+    '_controller' => array(new AuthController(), 'signOutAction')
 ), array(), array(), '', array(), array('GET')));
 
 /********************
@@ -73,11 +76,11 @@ $routes->add('sign_out', new Route('/deconnexion', array(
  ********************/
 
 $routes->add('sign_up', new Route('/inscription', array(
-    '_controller' => 'AppModule\\Controller\\AuthController::signUpShowAction'
+    '_controller' => array(new AuthController(), 'signUpShowAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('#sign_up#', new Route('/inscription', array(
-    '_controller' => 'AppModule\\Controller\\AuthController::signUpAction'
+    '_controller' => array(new AuthController(), 'signUpAction')
 ), array(), array(), '', array(), array('POST')));
 
 /********************
@@ -85,11 +88,11 @@ $routes->add('#sign_up#', new Route('/inscription', array(
  ********************/
 
 $routes->add('sign_in', new Route('/connexion', array(
-    '_controller' => 'AppModule\\Controller\\AuthController::signInShowAction'
+    '_controller' => array(new AuthController(), 'signInShowAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('#sign_in#', new Route('/connexion', array(
-    '_controller' => 'AppModule\\Controller\\AuthController::signInAction'
+    '_controller' => array(new AuthController(), 'signInAction')
 ), array(), array(), '', array(), array('POST')));
 
 /********************
@@ -97,23 +100,23 @@ $routes->add('#sign_in#', new Route('/connexion', array(
  ********************/
 
 $routes->add('comments', new Route('/comments', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::postAction'
+    '_controller' => array(new CommentController(), 'postAction')
 ), array(), array(), '', array(), array('POST')));
 
 $routes->add('#response#', new Route('/comment-response', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::responseAction'
+    '_controller' => array(new CommentController(), 'responseAction')
 ), array(), array(), '', array(), array('POST')));
 
 $routes->add('#delete#', new Route('/comment', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::deleteAction'
+    '_controller' => array(new CommentController(), 'deleteAction')
 ), array(), array(), '', array(), array('DELETE')));
 
 $routes->add('#edit#', new Route('/comment', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::editAction'
+    '_controller' => array(new CommentController(), 'editAction')
 ), array(), array(), '', array(), array('PUT')));
 
 $routes->add('#reporting#', new Route('/reporting-comment', array(
-    '_controller' => 'AppModule\\Controller\\CommentController::reportAction'
+    '_controller' => array(new CommentController(), 'reportAction')
 ), array(), array(), '', array(), array('POST')));
 
 return $routes;

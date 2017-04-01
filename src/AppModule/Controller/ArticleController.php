@@ -18,8 +18,8 @@ class ArticleController extends Controller
     {
         $session = new Session();
 
-        $articleDAO = new ArticleDAO();
-        $commentDAO = new CommentDAO();
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
+        $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $articles = $articleDAO->getAllPublished();
         $articlesByDates = $articleDAO->getAllByDate();
@@ -35,8 +35,8 @@ class ArticleController extends Controller
     public function showAction(Request $request, $id)
     {
         $session = new Session();
-        $commentDAO = new CommentDAO();
-        $articleDAO = new ArticleDAO();
+        $commentDAO = new CommentDAO(self::$db, self::$cache);
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
         $article = $articleDAO->getPublished($id);
         $comments = $commentDAO->getAllWithChildren($id);
@@ -59,9 +59,9 @@ class ArticleController extends Controller
     }
     public function addShowAction(Request $request)
     {
-        $session = new Session();
+        $session = new Session(self::$db, self::$cache);
         $userDAO = new UserDAO();
-        $articleDAO = new ArticleDAO();
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
         $messages = $session->getFlashBag()->all() ?? null;
         $nbUser = $userDAO->getCountUser()->nbUser;
@@ -76,7 +76,7 @@ class ArticleController extends Controller
     }
 
     public function showArticleAction(Request $request) {
-        $articleDAO = new ArticleDAO();
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
         $session = new Session();
 
         $articles = $articleDAO->getAll();
@@ -103,7 +103,7 @@ class ArticleController extends Controller
             $data['idUser'] = $user->getId();
 
             $article = new Article($data);
-            $articleDAO = new ArticleDAO();
+            $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
             $result = $articleDAO->add($article);
 
@@ -139,7 +139,7 @@ class ArticleController extends Controller
         if($this->userRoleIs($user, 'administrateur')) {
             $id = $request->request->get('id');
 
-            $articleDAO = new ArticleDAO();
+            $articleDAO = new ArticleDAO(self::$db, self::$cache);
             $result = $articleDAO->delete($id);
 
             if($result) {
@@ -164,7 +164,7 @@ class ArticleController extends Controller
         $session = new Session();
         $user = $session->get('user');
 
-        $articleDAO = new ArticleDAO();
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
         $article = $articleDAO->get($id);
         $messages = $session->getFlashBag()->all() ?? null;
 
@@ -192,7 +192,7 @@ class ArticleController extends Controller
         $data['idUser'] = $user->getId();
 
         $article = new Article($data);
-        $articleDAO = new ArticleDAO();
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
         $result = $articleDAO->update($article);
 

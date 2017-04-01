@@ -15,10 +15,12 @@ use Core\Database\RedisCache;
 class CommentDAO implements iDAO
 {
     private $db;
+    private $cache;
 
-    public function __construct()
+    public function __construct(Database $db, RedisCache $cache)
     {
-        $this->db = new Database();
+        $this->cache = $cache;
+        $this->db = $db;
     }
 
     public function add(iModel $comment)
@@ -88,9 +90,7 @@ class CommentDAO implements iDAO
 
     public function getAllWithChildren($idArticle)
     {
-        $cache = new RedisCache();
-
-        return $cache->cache(['comments', $this->getLastUpdated($idArticle)], function () use ($idArticle) {
+        return $this->cache->cache(['comments', $this->getLastUpdated($idArticle)], function () use ($idArticle) {
             $comments = $this->getAll($idArticle);
             $comments_by_id = [];
 
