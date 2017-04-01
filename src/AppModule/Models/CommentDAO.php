@@ -17,12 +17,21 @@ class CommentDAO implements iDAO
     private $db;
     private $cache;
 
+    /**
+     * CommentDAO constructor.
+     * @param Database $db
+     * @param RedisCache $cache
+     */
     public function __construct(Database $db, RedisCache $cache)
     {
         $this->cache = $cache;
         $this->db = $db;
     }
 
+    /**
+     * @param iModel $comment
+     * @return bool
+     */
     public function add(iModel $comment)
     {
         $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at, updated_at)
@@ -31,7 +40,7 @@ class CommentDAO implements iDAO
         $req->bindValue(':id_article', $comment->getId_article(), \PDO::PARAM_INT);
         $req->bindValue(':content', $comment->getContent(), \PDO::PARAM_STR);
 
-        if ($comment->getId_parent() != null) {
+        if ($comment->getId_parent() !== null) {
             $parentId = $comment->getId_parent();
             $depth = $this->get($parentId)->depth + 1;
             $req->bindValue(':id_parent', $comment->getId_parent(), \PDO::PARAM_INT);
@@ -43,6 +52,10 @@ class CommentDAO implements iDAO
         return $req->execute();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function get($id)
     {
         $req = $this->db->prepare("SELECT * FROM comments WHERE id = :id");
@@ -52,6 +65,10 @@ class CommentDAO implements iDAO
         return $req->fetch(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param null $idArticle
+     * @return array
+     */
     public function getAll($idArticle = null)
     {
         if($idArticle != null) {
@@ -75,6 +92,10 @@ class CommentDAO implements iDAO
         return $req->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param $limit
+     * @return array
+     */
     public function getLast($limit)
     {
         $req = $this->db->prepare
@@ -88,6 +109,10 @@ class CommentDAO implements iDAO
         return $req->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param $idArticle
+     * @return mixed|string
+     */
     public function getAllWithChildren($idArticle)
     {
         return $this->cache->cache(['comments', $this->getLastUpdated($idArticle)], function () use ($idArticle) {
@@ -107,6 +132,11 @@ class CommentDAO implements iDAO
             return $comments;
         });
     }
+
+    /**
+     * @param null $idArticle
+     * @return mixed
+     */
     public function getCountComment($idArticle = null)
     {   $number = null;
 
@@ -128,11 +158,15 @@ class CommentDAO implements iDAO
     public function update($comment)
     {
         $req = $this->db->prepare("UPDATE comments SET content = :content, updated_at = NOW() WHERE id = {$comment->getId()}");
-        $req->bindValue(':content', $comment->getContent());
+        $req->bindValue(':content', $comment->getContent(), \PDO::PARAM_STR);
 
         return $req->execute();
     }
 
+    /**
+     * @param $idComment
+     * @return bool
+     */
     public function deleteReportedComment($idComment)
     {
         $req = $this->db->query("DELETE FROM reporting_comment WHERE id_comment = ${idComment}");
@@ -140,6 +174,10 @@ class CommentDAO implements iDAO
         return $req->execute();
     }
 
+    /**
+     * @param $idArticle
+     * @return mixed
+     */
     public function getLastUpdated($idArticle)
     {
         $req = $this->db->prepare('SELECT updated_at FROM comments WHERE id_article = :id_article ORDER BY updated_at DESC LIMIT 1');
@@ -149,6 +187,10 @@ class CommentDAO implements iDAO
         return $req->fetch(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getUpdatedAt($id)
     {
         $req = $this->db->prepare('SELECT updated_at FROM comments WHERE id = :id');
@@ -158,6 +200,10 @@ class CommentDAO implements iDAO
         return $req->fetch(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function delete($id)
     {
         $req = $this->db->prepare("DELETE FROM comments WHERE id = :id");
@@ -166,6 +212,10 @@ class CommentDAO implements iDAO
         return $req->execute();
     }
 
+    /**
+     * @param $id
+     * @return bool|string
+     */
     public function addReport($id)
     {
         $req = $this->db->prepare("SELECT * FROM reporting_comment WHERE id_comment = {$id}");
@@ -188,6 +238,9 @@ class CommentDAO implements iDAO
         }
     }
 
+    /**
+     * @return array
+     */
     public function getAllWithReport()
     {
         $req = $this->db->prepare('SELECT comments.*, user.pseudo, user.role, reporting_comment.nbr_report
@@ -202,6 +255,9 @@ class CommentDAO implements iDAO
         return $req->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param Database $db
+     */
     public function setDb(Database $db)
     {
         $this->db = $db;

@@ -6,7 +6,9 @@ use AppModule\Model\User;
 use Core\Database\Database;
 use Core\Database\RedisCache;
 use DateTime;
-use Symfony\Component\HttpFoundation\{Request, Response};
+use Symfony\Component\HttpFoundation\{
+    Request, Response, Session\Session
+};
 use Twig_Environment;
 use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
@@ -16,6 +18,9 @@ class Controller
     protected static $db;
     protected static $cache;
 
+    /**
+     * Controller constructor.
+     */
     public function __construct()
     {
         if (empty(self::$cache)) {
@@ -27,6 +32,12 @@ class Controller
         }
     }
 
+    /**
+     * Use twig for rendering the template with the twig associate to the request uri
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function render(Request $request) : Response
     {
         $loader = new Twig_Loader_Filesystem(array(
@@ -56,10 +67,36 @@ class Controller
         return $response;
     }
 
-    public function userRoleIs($user, string $role) {
-        if($user instanceof User && $user->getRole() === $role) {
+    /**
+     * @param Session $session
+     * @param $roles
+     * @return bool
+     */
+    public function userRoleIs(Session $session, $roles) {
+        $user = $session->get('user');
+
+        if (is_array($roles)) {
+            foreach ($roles as $role) {
+                if($user->getRole() == $role) {
+                    return true;
+                }
+            }
+
+            $session
+                ->getFlashBag()
+                ->add('error', 'Vous n\'êtes pas autorisé à faire ça');
+            header('Location: /');
+            exit();
+        }
+
+        if ($user instanceof User && $user->getRole() === $roles) {
             return true;
         }
-        return false;
+
+        $session
+            ->getFlashBag()
+            ->add('error', 'Vous n\'êtes pas autorisé à faire ça');
+        header('Location: /');
+        exit();
     }
 }

@@ -18,11 +18,18 @@ class User implements iModel
     private $role;
     private $createdAt;
 
+    /**
+     * User constructor. Use hydrate()
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->hydrate($data);
     }
 
+    /**
+     * @param array $data initialize each fields with the setter adapted to.
+     */
     public function hydrate(array $data)
     {
         if(!array_key_exists('role', $data)) {

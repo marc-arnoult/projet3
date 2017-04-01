@@ -10,11 +10,18 @@ class UserDAO implements iDAO
 {
     private $db;
 
+    /**
+     * UserDAO constructor.
+     */
     function __construct()
     {
         $this->db = new Database();
     }
 
+    /**
+     * @param iModel $model
+     * @return bool
+     */
     public function add(iModel $model)
     {
         $db = new Database();
@@ -26,16 +33,24 @@ class UserDAO implements iDAO
         return $req->execute();
     }
 
-    public function get($options)
+    /**
+     * @param $values
+     * @return mixed
+     */
+    public function get($values)
     {
         $data = $this->db->prepare("SELECT id, pseudo, email, role, created_at FROM user WHERE pseudo = :pseudo AND password = :password");
-        $data->bindValue(':pseudo', $options['pseudo']);
-        $data->bindValue(':password', $options['password']);
+        $data->bindValue(':pseudo', $values['pseudo']);
+        $data->bindValue(':password', $values['password']);
         $data->execute();
         $req = $data->fetch(\PDO::FETCH_ASSOC);
         return $req;
     }
 
+    /**
+     * @param null $cond
+     * @return array
+     */
     public function getAll($cond = null)
     {
         $req = null;
@@ -51,6 +66,9 @@ class UserDAO implements iDAO
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getCountUser()
     {
         $number = $this->db->query("SELECT COUNT(*) as nbUser FROM user", \PDO::FETCH_OBJ);
@@ -58,19 +76,35 @@ class UserDAO implements iDAO
         return $number->fetch();
     }
 
+    /**
+     * @param $user
+     * @return bool
+     */
     public function update($user)
     {
         $req = $this->db->prepare("UPDATE user SET pseudo = :pseudo, password = :password, email = :email, role = :role WHERE id = {$user->getId()}");
-        $req->bindValue(':title', $user->getTitle());
-        $req->bindValue(':content', $user->getContent());
+        $req->bindValue(':title', $user->getTitle(), \PDO::PARAM_STR);
+        $req->bindValue(':content', $user->getContent(), \PDO::PARAM_STR);
 
         return $req->execute();
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $req = $this->db->prepare("DELETE FROM user WHERE id = :id");
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
+
+        return $req->execute();
     }
+
+    /**
+     * @param Database $db
+     * @return mixed|void
+     */
 
     public function setDb(Database $db)
     {

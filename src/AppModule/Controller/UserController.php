@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function usersShowAction(Request $request)
     {
         $userDAO = new UserDAO();

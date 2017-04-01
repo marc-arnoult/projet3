@@ -14,6 +14,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class ArticleController extends Controller
 {
+    /**
+     * Return the page /articles
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function indexAction(Request $request)
     {
         $session = new Session();
@@ -32,6 +38,13 @@ class ArticleController extends Controller
         return $this->render($request);
     }
 
+    /**
+     * Return view associate with the $id (/article/$id)
+     *
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
     public function showAction(Request $request, $id)
     {
         $session = new Session();
@@ -57,9 +70,17 @@ class ArticleController extends Controller
 
         return $this->render($request);
     }
+
+    /**
+     * Return view for adding an article
+     *
+     * @param Request $request
+     * @return Response
+     */
+
     public function addShowAction(Request $request)
     {
-        $session = new Session(self::$db, self::$cache);
+        $session = new Session();
         $userDAO = new UserDAO();
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
@@ -74,6 +95,13 @@ class ArticleController extends Controller
         $request->setSession($session);
         return $this->render($request);
     }
+
+    /**
+     *
+     *
+     * @param Request $request
+     * @return Response
+     */
 
     public function showArticleAction(Request $request) {
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
@@ -90,87 +118,99 @@ class ArticleController extends Controller
         return $this->render($request);
     }
 
+    /**
+     * @param Request $request
+     */
     public function postAction(Request $request)
     {
         $session = new Session();
         $user = $session->get('user');
 
-        if($this->userRoleIs($user, 'administrateur')) {
-            $data = array();
-            $data['title'] = $request->request->get('title');
-            $data['content'] = $request->request->get('content');
-            $data['published'] = $request->request->get('published');
-            $data['idUser'] = $user->getId();
+        $this->userRoleIs($session, 'administrateur');
 
-            $article = new Article($data);
-            $articleDAO = new ArticleDAO(self::$db, self::$cache);
+        $data = array();
+        $data['title'] = $request->request->get('title');
+        $data['content'] = $request->request->get('content');
+        $data['published'] = $request->request->get('published');
+        $data['idUser'] = $user->getId();
 
-            $result = $articleDAO->add($article);
+        $article = new Article($data);
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
-            if($result) {
-                if($article->getPublished()) {
-                    $session
-                        ->getFlashBag()
-                        ->add('success', 'Article publié');
-                    header("Location: /admin/articles");
-                } else {
-                    $session
-                        ->getFlashBag()
-                        ->add('success', 'Article enregistré');
-                    header("Location: /admin/articles");
-                }
-            } else {
+        $result = $articleDAO->add($article);
+
+        if($result) {
+            if($article->getPublished()) {
                 $session
                     ->getFlashBag()
-                    ->add('error', 'Erreur lors de l\'enregistrement de l\'article');
+                    ->add('success', 'Article publié');
                 header("Location: /admin/articles");
+                exit();
             }
-        } else {
-            return new Response('Vous n\'êtes pas habilité pour faire ça');
+
+            $session
+                ->getFlashBag()
+                ->add('success', 'Article enregistré');
+            header("Location: /admin/articles");
+            exit();
         }
-        return false;
+
+        $session
+            ->getFlashBag()
+            ->add('error', 'Erreur lors de l\'enregistrement de l\'article');
+        header("Location: /admin/articles");
+        exit();
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function deleteAction (Request $request)
     {
         $session = new Session();
-        $user = $session->get('user');
 
-        if($this->userRoleIs($user, 'administrateur')) {
-            $id = $request->request->get('id');
+        $this->userRoleIs($session, 'administrateur');
 
-            $articleDAO = new ArticleDAO(self::$db, self::$cache);
-            $result = $articleDAO->delete($id);
+        $id = $request->request->get('id');
 
-            if($result) {
-                $session
-                    ->getFlashBag()
-                    ->add('success', 'Article supprimé');
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
+        $result = $articleDAO->delete($id);
 
-                return new Response('Article supprimé');
-            } else {
-                $session
-                    ->getFlashBag()
-                    ->add('error', 'Erreur lors de la suppresion de l\'article');
+        if ($result) {
+            $session
+                ->getFlashBag()
+                ->add('success', 'Article supprimé');
 
-                return new Response('Erreur lors de la suppresion de l\'article');
-            }
-
+            return new Response('Article supprimé');
         }
+
+        $session
+            ->getFlashBag()
+            ->add('error', 'Erreur lors de la suppresion de l\'article');
+
+        return new Response('Erreur lors de la suppresion de l\'article');
+
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
     public function editShowAction (Request $request, $id)
     {
         $session = new Session();
-        $user = $session->get('user');
+
+        $this->userRoleIs($session, 'administrateur');
 
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
         $article = $articleDAO->get($id);
         $messages = $session->getFlashBag()->all() ?? null;
 
-        if($article == false || !$this->userRoleIs($user, 'administrateur')) {
+        if($article == false) {
             header('Location: /admin/articles');
-            return false;
+            exit();
         }
 
         $request->attributes->set('messages', $messages);
@@ -179,15 +219,17 @@ class ArticleController extends Controller
         return $this->render($request);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function editAction (Request $request)
     {
         $session = new Session();
         $user = $session->get('user');
 
-        if(!$this->userRoleIs($user, 'administrateur')) {
-            header('Location: /');
-            return false;
-        }
+        $this->userRoleIs($session, 'administrateur');
+
         $data = $request->request->all();
         $data['idUser'] = $user->getId();
 
@@ -201,11 +243,12 @@ class ArticleController extends Controller
                 ->getFlashBag()
                 ->add('success', 'Article modifié');
             return new Response('Article modifié');
-        } else {
-            $session
-                ->getFlashBag()
-                ->add('error', 'Erreur lors de la modification de l\'article');
-            return new Response('Erreur lors de la modification de l\'article');
         }
+
+        $session
+            ->getFlashBag()
+            ->add('error', 'Erreur lors de la modification de l\'article');
+        return new Response('Erreur lors de la modification de l\'article');
+
     }
 }

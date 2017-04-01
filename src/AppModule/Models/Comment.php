@@ -15,11 +15,18 @@ class Comment implements iModel
     private $updated_at;
     private $depth;
 
+    /**
+     * Comment constructor.
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->hydrate($data);
     }
 
+    /**
+     * @param array $data
+     */
     public function hydrate(array $data)
     {
         foreach ($data as $key => $value)

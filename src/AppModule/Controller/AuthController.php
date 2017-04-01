@@ -14,15 +14,23 @@ use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class AuthController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function signUpShowAction(Request $request)
     {
         return $this->render($request);
     }
 
+    /**
+     * @param Request $request
+     */
     public function signUpAction(Request $request)
     {
         $data = $request->request->all();
@@ -49,11 +57,19 @@ class AuthController extends Controller
             header('Location: /');
         }
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function signInShowAction(Request $request)
     {
         return $this->render($request);
     }
 
+    /**
+     * @param Request $request
+     */
     public function signInAction(Request $request)
     {
         $session = new Session();
@@ -73,25 +89,32 @@ class AuthController extends Controller
         $user = new User($result);
         $session->set('user', $user);
 
-        if($user->getRole() === 'administrateur') {
+        if ($user->getRole() === 'administrateur') {
             $session
                 ->getFlashBag()
                 ->add('success', 'Vous êtes maintenant connectée en tant que administrateur');
 
             header('Location: /admin');
+            exit();
         } else if (!empty($user->getRole())) {
             $session
                 ->getFlashBag()
                 ->add('success', 'Vous êtes maintenant connectée');
 
             header('Location: /');
+            exit();
         }
     }
 
+    /**
+     * @param Request $request
+     */
     public function signOutAction(Request $request)
     {
         $session = new Session();
         $session->clear();
+
         header('Location: /');
+        exit();
     }
 }

@@ -13,6 +13,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class IndexController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request)
     {
         $session = new Session();
@@ -30,8 +34,8 @@ class IndexController extends Controller
         $request->attributes->set('articles', array_reverse($articles));
         $request->attributes->set('commentDAO', $commentDAO);
         $request->attributes->set('messages', $messages);
-        $request->setSession($session);
 
         return $this->render($request);
     }
+
 }

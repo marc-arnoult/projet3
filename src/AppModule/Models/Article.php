@@ -21,11 +21,19 @@ class Article implements iModel
     private $updatedAt;
     private $published;
 
+    /**
+     * Article constructor.
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->hydrate($data);
     }
 
+    /**
+     * @param array $data
+     * @return mixed|void
+     */
     public function hydrate(array $data)
     {
         foreach ($data as $key => $value)

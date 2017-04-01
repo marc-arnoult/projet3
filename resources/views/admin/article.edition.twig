@@ -2,6 +2,7 @@
 {% block content %}
     {% set article = request.attributes.get('article') %}
     {% set messages = request.attributes.get('messages') %}
+        <!-- Content Header (Page header) -->
         {% for key, message in messages %}
             <div class="alert alert-{{ key }}">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -14,6 +15,7 @@
             <h2>Mise à jour de l'article</h2>
         </section>
 
+        <!-- Main content -->
         <section class="content">
             <form action="/admin/articles" class="form-group">
                 <label for="title">Titre de l'article :</label>
@@ -24,62 +26,62 @@
             </form>
         </section>
 
-{% endblock %}
-{% block script %}
-    <script src="/public/js/tinymce/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea',  // change this value according to your HTML
-            plugin: 'a_tinymce_plugin',
-            a_plugin_option: true,
-            content_css : '/public/css/app.css',
-            height : 280,
-            a_configuration_option: 400
-        });
-
-        $(function() {
-            $('form').submit(function (e) {
-                e.preventDefault();
-            });
-            $('.content .btn-success').click(function (e) {
-                e.preventDefault();
-
-                var title = ($("form input[name='title']")[0].value);
-                var content = tinyMCE.activeEditor.getContent();
-
-                $.ajax({
-                    url: '/admin/edition/article',
-                    type: 'PUT',
-                    data: {
-                        content: content,
-                        title: title,
-                        id: {{ article.id }},
-                        published: 1
-                    }
-                }).done(function (response) {
-                    window.location.reload();
-                });
-
+        <script src="/public/js/tinymce/tinymce.min.js"></script>
+        {% block script %}
+        <script>
+            tinymce.init({
+                selector: 'textarea',  // change this value according to your HTML
+                plugin: 'a_tinymce_plugin',
+                a_plugin_option: true,
+                content_css : '/public/css/app.css',
+                height : 280,
+                a_configuration_option: 400
             });
 
-            $('.content .btn-primary').click(function (e) {
-                e.preventDefault();
-                var title = ($("form input[name='title']")[0].value);
-                var content = tinyMCE.activeEditor.getContent();
-
-                $.ajax({
-                    url: '/admin/edition/article',
-                    type: 'PUT',
-                    data: {
-                        content: content,
-                        title: title,
-                        id: {{ article.id }},
-                        published: 0
-                    }
-                }).done(function () {
-                    window.location.reload();
+            $(function() {
+                $('form').submit(function (e) {
+                    e.preventDefault();
                 });
+                $('.content .btn-success').click(function (e) {
+                    e.preventDefault();
+
+                    var title = ($("form input[name='title']")[0].value);
+                    var content = tinyMCE.activeEditor.getContent();
+
+                    $.ajax({
+                        url: '/admin/edition/article',
+                        type: 'PUT',
+                        data: {
+                            content: content,
+                            title: title,
+                            id: {{ article.id }},
+                            published: 1
+                        }
+                    }).done(function (response) {
+                        window.location.reload();
+                    });
+
+                });
+
+                $('.content .btn-primary').click(function (e) {
+                    e.preventDefault();
+                    var title = ($("form input[name='title']")[0].value);
+                    var content = tinyMCE.activeEditor.getContent();
+
+                    $.ajax({
+                        url: '/admin/edition/article',
+                        type: 'PUT',
+                        data: {
+                            content: content,
+                            title: title,
+                            id: {{ article.id }},
+                            published: 0
+                        }
+                    }).done(function () {
+                        window.location.reload();
+                    });
+                })
             })
-        })
-    </script>
+        </script>
+    {% endblock %}
 {% endblock %}

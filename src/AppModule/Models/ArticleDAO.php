@@ -18,12 +18,21 @@ class ArticleDAO implements iDAO
     private $db;
     private $cache;
 
+    /**
+     * ArticleDAO constructor.
+     * @param Database $db
+     * @param RedisCache $cache
+     */
     public function __construct(Database $db, RedisCache $cache)
     {
         $this->cache = $cache;
         $this->db = $db;
     }
 
+    /**
+     * @param iModel $article
+     * @return bool
+     */
     public function add(iModel $article)
     {
         $req = null;
@@ -44,6 +53,10 @@ class ArticleDAO implements iDAO
 
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function get($id)
     {
         $data = $this->db->prepare("SELECT * FROM articles WHERE id = :id");
@@ -53,6 +66,10 @@ class ArticleDAO implements iDAO
         return $data->fetch(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param $id
+     * @return mixed|string
+     */
     public function getPublished($id)
     {
         $updatedAt = $this->getUpdatedAt($id)->updated_at;
@@ -68,6 +85,10 @@ class ArticleDAO implements iDAO
 
     }
 
+    /**
+     * @param null $limit
+     * @return mixed|string
+     */
     public function getAllPublished($limit = null)
     {
 
@@ -84,6 +105,10 @@ class ArticleDAO implements iDAO
         });
     }
 
+    /**
+     * @param null $limit
+     * @return array
+     */
     public function getAll($limit = null)
     {
         if($limit) {
@@ -95,6 +120,9 @@ class ArticleDAO implements iDAO
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getCountArticles()
     {
         $number = $this->db->query("SELECT COUNT(*) as nbArticle FROM articles", \PDO::FETCH_OBJ);
@@ -134,14 +162,17 @@ class ArticleDAO implements iDAO
         } else {
             $req = $this->db->prepare("UPDATE articles SET title = :title, content = :content, created_at = NOW(), updated_at = NOW(), published = :published WHERE id = {$article->getId()}");
         }
-        $req->bindValue(':title', $article->getTitle());
-        $req->bindValue(':content', $article->getContent());
+        $req->bindValue(':title', $article->getTitle(), \PDO::PARAM_STR);
+        $req->bindValue(':content', $article->getContent(), \PDO::PARAM_STR);
         $req->bindValue(':published', $article->getPublished());
 
         return $req->execute();
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getLastUpdated()
     {
         $req = $this->db->prepare('SELECT updated_at FROM articles ORDER BY updated_at DESC LIMIT 1');
@@ -150,6 +181,10 @@ class ArticleDAO implements iDAO
         return $req->fetch(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getUpdatedAt($id)
     {
         $req = $this->db->prepare('SELECT updated_at FROM articles WHERE id = :id');
@@ -159,6 +194,10 @@ class ArticleDAO implements iDAO
         return $req->fetch(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function delete($id)
     {
         $cache = new RedisCache();
@@ -172,8 +211,19 @@ class ArticleDAO implements iDAO
         return $req->execute();
     }
 
+    /**
+     * @param Database $db
+     */
     public function setDb(Database $db)
     {
-        // TODO: Implement setDb() method.
+        $this->db = $db;
+    }
+
+    /**
+     * @param RedisCache $cache
+     */
+    public function setCache(RedisCache $cache)
+    {
+        $this->cache = $cache;
     }
 }

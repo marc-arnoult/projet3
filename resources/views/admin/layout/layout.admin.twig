@@ -96,33 +96,8 @@
     <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/resources/views/admin/dist/js/app.min.js"></script>
-        {% block script %}
-            <script src="/public/js/tinymce/tinymce.min.js"></script>
-            <script>
-                tinymce.init({
-                    selector: 'textarea',
-                    plugin: 'a_tinymce_plugin',
-                    content_css : '/public/css/app.css',
-                    height : 280,
-                    themes: "modern",
-                    a_plugin_option: true,
-                    a_configuration_option: 400
-                });
-
-                $('.content .btn-success').click(function () {
-                    $(this).attr({
-                        name: 'published',
-                        value: 1
-                    })
-                })
-                $('.content .btn-primary').click(function () {
-                    $(this).attr({
-                        name: 'published',
-                        value: 0
-                    })
-                })
-            </script>
-        {% endblock %}
+    {% block script %}
+    {% endblock %}
     </div>
     </body>
 </html>

@@ -6,11 +6,18 @@ use Predis\Client;
 class RedisCache {
     private $redis;
 
+    /**
+     * RedisCache constructor.
+     */
     public function __construct()
     {
         $this->redis = new Client(array('host' => 'redis'));
     }
 
+    /**
+     * @param $keys
+     * @return string
+     */
     public function hashKeys($keys)
     {
         if(is_array($keys)) {
@@ -26,6 +33,10 @@ class RedisCache {
         }
     }
 
+    /**
+     * @param $key
+     * @return string
+     */
     public function hashKey($key)
     {
         if(is_object($key)) {
@@ -35,6 +46,11 @@ class RedisCache {
         }
     }
 
+    /**
+     * @param $keys
+     * @param callable $callback
+     * @return mixed|string
+     */
     public function cache($keys, Callable $callback)
     {
         $key = $this->hashKeys($keys);
@@ -49,6 +65,9 @@ class RedisCache {
         return $value;
     }
 
+    /**
+     * @param $key
+     */
     public function del($key)
     {
         $key = $this->hashKeys($key);
