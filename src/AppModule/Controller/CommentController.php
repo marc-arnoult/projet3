@@ -133,7 +133,6 @@ class CommentController extends Controller
     public function deleteAction (Request $request)
     {
         $session = new Session();
-        $this->userRoleIs($session, 'administrateur');
 
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 
