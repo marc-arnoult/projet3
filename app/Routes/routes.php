@@ -71,9 +71,12 @@ $routes->add('admin/comments', new Route('/admin/comments', array(
  ***************************/
 
 $routes->add('admin/users', new Route('/admin/users', array(
-    '_controller' => array(new UserController(), 'usersShowAction')
+    '_controller' => array(new UserController(), 'showAction')
 ), array(), array(), '', array(), array('GET')));
 
+$routes->add('#admin/user/delete#', new Route('/admin/user', array(
+    '_controller' => array(new UserController(), 'deleteAction')
+), array(), array(), '', array(), array('DELETE')));
 
 /********************
  *     @SIGN-OUT    *

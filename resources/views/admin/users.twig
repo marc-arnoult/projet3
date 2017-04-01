@@ -1,7 +1,15 @@
 {% extends 'layout.admin.twig' %}
 {% block content %}
     {% set users = request.attributes.get('users') %}
-
+    {% set messages = request.attributes.get('messages') %}
+    {% for key, message in messages %}
+        <div data-dismiss="alert" class="alert alert-{{ key }}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="alert-text">{{ message[0] }}</span>
+        </div>
+    {% endfor %}
     <section class="content-header">
         <h1>
             Utilisateurs
@@ -20,9 +28,9 @@
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
                                 <li><a href="mailto:{{ user.email }}">{{ user.email }}</a></li>
-                                <li><a href="">{{ user.role }}</a></li>
-                                <li><a href="">Créé le : {{ user.created_at }}</a></li>
-                                <li><a href=""><span class="text-danger">Supprimer</span></a></li>
+                                <li><a href="#">{{ user.role }}</a></li>
+                                <li><a href="#">Créé le : {{ user.created_at }}</a></li>
+                                <li><a href="#"><span class="text-danger" data-user-id="{{ user.id }}">Supprimer</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -31,16 +39,21 @@
         </div>
     </div>
     <script>
-        console.log('Bonjour');
 
         $('a span.text-danger').click(function (e) {
             e.preventDefault();
 
-            $.ajax({
-                url: '',
-                method: '',
-                data: {}
-            })
+           var $id = $(this).data('user-id');
+
+           $.ajax({
+                url: '/admin/user',
+                method: 'DELETE',
+                data: {
+                    id: $id
+                }
+            }).done(function () {
+               window.location.reload();
+           })
         })
     </script>
 {% endblock %}

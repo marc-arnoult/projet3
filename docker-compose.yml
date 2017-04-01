@@ -18,6 +18,8 @@ db:
   MYSQL_ROOT_PASSWORD: root
  expose:
   - "3306"
+ ports:
+  - "3306:3306"
 redis:
   image: redis
   ports:

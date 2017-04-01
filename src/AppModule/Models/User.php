@@ -29,6 +29,7 @@ class User implements iModel
 
     /**
      * @param array $data initialize each fields with the setter adapted to.
+     * @return mixed|void
      */
     public function hydrate(array $data)
     {

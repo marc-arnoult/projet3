@@ -95,7 +95,7 @@ class UserDAO implements iDAO
      */
     public function delete($id)
     {
-        $req = $this->db->prepare("DELETE FROM user WHERE id = :id");
+        $req = $this->db->prepare("DELETE FROM user WHERE role != 'administrateur' AND  id = :id ");
         $req->bindValue(':id', $id, \PDO::PARAM_INT);
 
         return $req->execute();

@@ -26,6 +26,7 @@ class Comment implements iModel
 
     /**
      * @param array $data
+     * @return mixed|void
      */
     public function hydrate(array $data)
     {

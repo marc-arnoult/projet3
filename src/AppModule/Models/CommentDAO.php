@@ -257,6 +257,7 @@ class CommentDAO implements iDAO
 
     /**
      * @param Database $db
+     * @return mixed|void
      */
     public function setDb(Database $db)
     {
