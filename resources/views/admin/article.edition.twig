@@ -26,8 +26,10 @@
             </form>
         </section>
 
+        <script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="/resources/views/admin/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/resources/views/admin/dist/js/app.min.js"></script>
         <script src="/public/js/tinymce/tinymce.min.js"></script>
-        {% block script %}
         <script>
             tinymce.init({
                 selector: 'textarea',  // change this value according to your HTML
@@ -57,8 +59,8 @@
                             id: {{ article.id }},
                             published: 1
                         }
-                    }).done(function (response) {
-                        window.location.reload();
+                    }).done(function () {
+                        window.location = '/admin/articles'
                     });
 
                 });
@@ -78,10 +80,9 @@
                             published: 0
                         }
                     }).done(function () {
-                        window.location.reload();
+                        window.location = '/admin/articles'
                     });
                 })
             })
         </script>
-    {% endblock %}
 {% endblock %}

@@ -27,6 +27,8 @@ class CommentController extends Controller
     public function indexAction (Request $request)
     {
         $session = new Session();
+        $this->userRoleIs($session, 'administrateur');
+
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $reportedComments = $commentDAO->getAllWithReport();
@@ -131,6 +133,8 @@ class CommentController extends Controller
     public function deleteAction (Request $request)
     {
         $session = new Session();
+        $this->userRoleIs($session, 'administrateur');
+
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
@@ -223,8 +227,8 @@ class CommentController extends Controller
     public function reportAction (Request $request)
     {
         $session = new Session();
+
         $idComment = $request->request->get('id');
-        $idArticle = $request->request->get('idArticle');
 
         $hisReported = $request->cookies->get('Report'.$idComment);
 

@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Controller\{ControllerResolver, ArgumentResolve
 
 $request = Request::createFromGlobals();
 $routes  = include __DIR__ . '/app/Routes/routes.php';
-ini_set('display_errors', 1);
+
 $context = new RequestContext();
 $context->fromRequest($request);
 $matcher = new UrlMatcher($routes, $context);

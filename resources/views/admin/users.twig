@@ -30,4 +30,17 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        console.log('Bonjour');
+
+        $('a span.text-danger').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '',
+                method: '',
+                data: {}
+            })
+        })
+    </script>
 {% endblock %}

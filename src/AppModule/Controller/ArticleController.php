@@ -48,6 +48,7 @@ class ArticleController extends Controller
     public function showAction(Request $request, $id)
     {
         $session = new Session();
+
         $commentDAO = new CommentDAO(self::$db, self::$cache);
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
@@ -81,6 +82,8 @@ class ArticleController extends Controller
     public function addShowAction(Request $request)
     {
         $session = new Session();
+        $this->userRoleIs($session, 'administrateur');
+
         $userDAO = new UserDAO();
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
@@ -104,10 +107,12 @@ class ArticleController extends Controller
      */
 
     public function showArticleAction(Request $request) {
-        $articleDAO = new ArticleDAO(self::$db, self::$cache);
         $session = new Session();
+        $this->userRoleIs($session, 'administrateur');
 
+        $articleDAO = new ArticleDAO(self::$db, self::$cache);
         $articles = $articleDAO->getAll();
+
         $nbArticles = $articleDAO->getCountArticles();
         $messages = $session->getFlashBag()->all() ?? null;
 
@@ -249,6 +254,5 @@ class ArticleController extends Controller
             ->getFlashBag()
             ->add('error', 'Erreur lors de la modification de l\'article');
         return new Response('Erreur lors de la modification de l\'article');
-
     }
 }

@@ -22,12 +22,16 @@ $routes->add('article', new Route('/article/{id}', array(
 ), array(), array(), '', array(), array('GET')));
 
 /********************
- *      ADMIN       *
+ *      @ADMIN      *
  ********************/
 
 $routes->add('admin/index', new Route('/admin', array(
     '_controller' => array(new AdminController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
+
+/***************************
+ *      @ADMIN-ARTICLES    *
+ ***************************/
 
 $routes->add('admin/articles', new Route('/admin/articles', array(
     '_controller' => array(new ArticleController(),'showArticleAction')
@@ -48,15 +52,23 @@ $routes->add('#admin/article/delete#', new Route('/admin/articles', array(
 $routes->add('admin/article.edition', new Route('/admin/edition/article/{id}', array(
     'id' => 'id',
     '_controller' => array(new ArticleController() ,'editShowAction')
-), array(), array(), '', array(), array('GET')));
+), array('id' => '\d+'), array(), '', array(), array('GET')));
 
 $routes->add('#admin/article.edition#', new Route('/admin/edition/article', array(
     '_controller' => array(new ArticleController(), 'editAction')
 ), array(), array(), '', array(), array('PUT')));
 
+/***************************
+ *      @ADMIN-COMMENT     *
+ ***************************/
+
 $routes->add('admin/comments', new Route('/admin/comments', array(
     '_controller' => array(new CommentController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
+
+/***************************
+ *       @ADMIN-USERS      *
+ ***************************/
 
 $routes->add('admin/users', new Route('/admin/users', array(
     '_controller' => array(new UserController(), 'usersShowAction')
@@ -64,7 +76,7 @@ $routes->add('admin/users', new Route('/admin/users', array(
 
 
 /********************
- *     SIGN OUT      *
+ *     @SIGN-OUT    *
  ********************/
 
 $routes->add('sign_out', new Route('/deconnexion', array(
@@ -72,7 +84,7 @@ $routes->add('sign_out', new Route('/deconnexion', array(
 ), array(), array(), '', array(), array('GET')));
 
 /********************
- *     SIGN UP      *
+ *     @SIGN-UP     *
  ********************/
 
 $routes->add('sign_up', new Route('/inscription', array(
@@ -84,7 +96,7 @@ $routes->add('#sign_up#', new Route('/inscription', array(
 ), array(), array(), '', array(), array('POST')));
 
 /********************
- *     SIGN IN      *
+ *     @SIGN-IN     *
  ********************/
 
 $routes->add('sign_in', new Route('/connexion', array(
@@ -96,7 +108,7 @@ $routes->add('#sign_in#', new Route('/connexion', array(
 ), array(), array(), '', array(), array('POST')));
 
 /********************
- *      COMMENT     *
+ *      @COMMENT    *
  ********************/
 
 $routes->add('comments', new Route('/comments', array(
