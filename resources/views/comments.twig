@@ -1,4 +1,4 @@
-<div class="comments" style="margin-left: 22px">
+<div id="comment{{ comment.id }}" class="comments" style="margin-left: 22px">
     <div class="reply" data-id="{{ comment.id }}" data-article_id="{{ article.id }}">
         <p>Posté par <strong>{{ comment.pseudo }}</strong></p>
         <i> le : {{ comment.created_at|date('d/m/Y à H:i', 'Europe/Paris') }}</i>
