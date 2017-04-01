@@ -26,7 +26,7 @@ $routes->add('article', new Route('/article/{id}', array(
  ********************/
 
 $routes->add('admin/index', new Route('/admin', array(
-    '_controller' => array(new AdminController(),'indexAction')
+    '_controller' => array(new AdminController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
 $routes->add('admin/articles', new Route('/admin/articles', array(

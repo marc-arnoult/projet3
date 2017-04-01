@@ -36,8 +36,8 @@ class AdminController extends Controller
             return false;
         } else {
             $userDAO = new UserDAO();
-            $articleDAO = new ArticleDAO();
-            $commentDAO = new CommentDAO();
+            $articleDAO = new ArticleDAO(self::$db, self::$cache);
+            $commentDAO = new CommentDAO(self::$db, self::$cache);
 
             $nbUser = $userDAO->getCountUser()->nbUser;
             $nbArticle = $articleDAO->getCountArticles()->nbArticle;

@@ -26,7 +26,7 @@ class User implements iModel
     public function hydrate(array $data)
     {
         if(!array_key_exists('role', $data)) {
-            $data['role'] = 'contributeur';
+            $data['role'] = 'lecteur';
         }
         foreach ($data as $key => $value)
         {
