@@ -133,14 +133,13 @@ class CommentController extends Controller
     public function deleteAction (Request $request)
     {
         $session = new Session();
-
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
         $idComment = $request->request->get('id');
         $comment = $commentDAO->get($idComment);
 
-        if($this->userRoleIs($session, 'administrateur') || $comment->id_user == $user->getId()) {
+        if($user->getRole() == 'administrateur' || $comment->id_user == $user->getId()) {
             $result = $commentDAO->delete($idComment);
             if($result) {
                 $session
