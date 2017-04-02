@@ -10,7 +10,6 @@ web:
  links:
   - db:db
   - redis:redis
-  - postfix:postfix
 db:
  image: mysql
  volumes:
@@ -25,10 +24,3 @@ redis:
  image: redis
  ports:
   - "6379:6379"
-postfix:
- image: catatnight/postfix
- environment:
-  maildomain: mail.example.com
-  smtp_user: user:pwd
- ports:
-  - "225:25"
