@@ -42,7 +42,7 @@ class IndexController extends Controller
 
     public function sendMailAction(Request $request)
     {
-        /*ini_set('display_errors', 1);
+        ini_set('display_errors', 1);
 
         $mail = new \PHPMailer();
         $mail->IsMail();
@@ -55,7 +55,7 @@ class IndexController extends Controller
             echo 'Mailer error: ' . $mail->ErrorInfo;
         } else {
             echo 'Message has been sent.';
-        }*/
+        }
     }
 
 }
