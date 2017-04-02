@@ -59,9 +59,11 @@
     <section id="home-page-contact">
         <h3>Me contacter</h3>
         <hr>
-        <form action="#">
+        <form>
             <label for="email">Votre email :</label>
-            <input title="email" name="email" type="email">
+            <input name="email" type="email">
+            <label for="subject">Sujet :</label>
+            <input type="text" name="subject">
             <label for="message">Votre message :</label>
             <textarea name="message" id="message" cols="30" rows="10"></textarea>
             <input type="submit" value="Envoyer">
@@ -70,5 +72,26 @@
 {% endblock %}
 
 {% block script %}
+    <script>
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            var $email = $('form input[name=email]').val();
+            var $subject = $('form input[name=subject]').val();
+            var $message = $('form textarea[name=message]').val();
+
+            $.ajax({
+                method: 'POST',
+                url: '/send-email',
+                data: {
+                    from: $email,
+                    subject: $subject,
+                    message: $message
+                }
+            }).done(function (response) {
+                console.log(response);
+            });
+        })
+    </script>
     <script src="/public/js/home.js"></script>
 {% endblock %}

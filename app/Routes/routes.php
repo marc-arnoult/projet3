@@ -21,6 +21,11 @@ $routes->add('article', new Route('/article/{id}', array(
     '_controller' => array(new ArticleController(), 'showAction')
 ), array(), array(), '', array(), array('GET')));
 
+$routes->add('#send-email#', new Route('/send-email', array(
+    '_controller' => array(new IndexController(), 'sendMailAction')
+), array(), array(), '', array(), array('POST')));
+
+
 /********************
  *      @ADMIN      *
  ********************/

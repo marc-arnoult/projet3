@@ -2,6 +2,7 @@
 
 namespace AppModule\Controller;
 
+use AppModule\Mailer\Mailer;
 use AppModule\Model\ArticleDAO;
 use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
@@ -36,6 +37,13 @@ class IndexController extends Controller
         $request->setSession($session);
 
         return $this->render($request);
+    }
+
+    public function sendMailAction(Request $request)
+    {
+        $mail = new Mailer($request->request->all());
+        ini_set('display_errors', 1);
+        var_dump($request->request->all());
     }
 
 }
