@@ -50,6 +50,7 @@ class IndexController extends Controller
         $mail->setFrom($data['from']);
         $mail->addAddress('marc.arnoult@hotmail.fr');
 
+        $mail->Subject  = $data['subject'];
         $mail->Body     = $data['message'];
         if(!$mail->send()) {
             echo 'Message was not sent.';
