@@ -10,6 +10,7 @@ use Core\Controller\Controller;
 use Core\Database\Database;
 use Core\Database\RedisCache;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class IndexController extends Controller
@@ -41,9 +42,9 @@ class IndexController extends Controller
 
     public function sendMailAction(Request $request)
     {
-        $mail = new Mailer($request->request->all());
-        ini_set('display_errors', 1);
-        var_dump($request->request->all());
+        $data = $request->request->all();
+        mail('marc.arnoult@hotmail.fr', $data['subject'], $data['message']);
+        return new Response('Email envoyé');
     }
 
 }
