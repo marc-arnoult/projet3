@@ -43,10 +43,8 @@ class IndexController extends Controller
     public function sendMailAction(Request $request)
     {
         $data = $request->request->all();
-        ini_set('display_errors', 1);
 
         $mail = new \PHPMailer();
-        $mail->Host = 'mailer';
         $mail->isSendmail();
 
         $mail->setFrom('myapp.dev');
