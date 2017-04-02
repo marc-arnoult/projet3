@@ -42,6 +42,8 @@ class IndexController extends Controller
 
     public function sendMailAction(Request $request)
     {
+        $session = new Session();
+
         $data = $request->request->all();
 
         $mail = new \PHPMailer();
@@ -49,17 +51,24 @@ class IndexController extends Controller
 
         $mail->setFrom($data['from']);
         $mail->addAddress('marc.arnoult@hotmail.fr');
+
         $mail->ContentType = 'text/plain';
-        $mail->CharSet = 'iso-8859-1';
-        $mail->XMailer = 'PHP/7.0';
-        $mail->Subject  = $data['subject'];
-        $mail->Body     = $data['message'];
+        $mail->CharSet     = 'iso-8859-1';
+        $mail->XMailer     = 'PHP/7.0';
+        $mail->Subject     = $data['subject'];
+        $mail->Body        = $data['message'];
 
         if(!$mail->send()) {
-            echo 'Message was not sent.';
-            echo 'Mailer error: ' . $mail->ErrorInfo;
+            $session
+                ->getFlashBag()
+                ->add('error', 'Erreur lors de l\'envoi du mail');
+            return new Response('Erreur lors de l\'envoi du mail');
         } else {
-            return new Response('Message has been sent.');
+            $session
+                ->getFlashBag()
+                ->add('success', 'Email envoyé merci');
+
+            return new Response('Email envoyé merci');
         }
     }
 
