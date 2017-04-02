@@ -48,7 +48,8 @@ class IndexController extends Controller
             'Reply-To: webmaster@example.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-        $result = mail('marc.arnoult@hotmail.fr', $data['subject'], $data['message'], $headers);
+        $result = mail('marc.arnoult@hotmail.fr', 'azoejoaize', 'eoaeopaziepoiaze');
+
         if($result) {
             return new Response('Email envoyé');
         }
