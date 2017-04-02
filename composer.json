@@ -19,6 +19,7 @@
         "symfony/http-kernel": "^3.2",
         "twig/twig": "~1.0",
         "twig/extensions": "^1.4",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "phpmailer/phpmailer": "^5.2"
     }
 }

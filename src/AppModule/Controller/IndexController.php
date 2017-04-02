@@ -2,7 +2,6 @@
 
 namespace AppModule\Controller;
 
-use AppModule\Mailer\Mailer;
 use AppModule\Model\ArticleDAO;
 use AppModule\Model\CommentDAO;
 use Core\Controller\Controller;
@@ -20,7 +19,7 @@ class IndexController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request) : Response
     {
         $session = new Session();
 
@@ -43,17 +42,20 @@ class IndexController extends Controller
 
     public function sendMailAction(Request $request)
     {
-        $data = $request->request->all();
-        $headers = 'From: webmaster@example.com' . "\r\n" .
-            'Reply-To: webmaster@example.com' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
+        ini_set('display_errors', 1);
 
-        $result = mail('marc.arnoult@hotmail.fr', 'azoejoaize', 'eoaeopaziepoiaze');
-
-        if($result) {
-            return new Response('Email envoyé');
+        $mail = new \PHPMailer();
+        $mail->IsMail();
+        $mail->setFrom('from@example.com', 'Your Name');
+        $mail->addAddress('marc.arnoult@hotmail.fr');
+        $mail->Subject  = 'First PHPMailer Message';
+        $mail->Body     = 'Hi! This is my first e-mail sent through PHPMailer.';
+        if(!$mail->send()) {
+            echo 'Message was not sent.';
+            echo 'Mailer error: ' . $mail->ErrorInfo;
+        } else {
+            echo 'Message has been sent.';
         }
-        return new Response('Erreur');
     }
 
 }
