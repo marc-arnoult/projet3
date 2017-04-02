@@ -3,6 +3,7 @@ web:
  ports:
   - "8000:80"
   - "8443:443"
+  - "25:25"
  volumes:
   - $PWD:/var/www/html
   - $PWD/config/10-opcache.ini:/etc/php/7.0/apache2/conf.d/10-opcache.ini
