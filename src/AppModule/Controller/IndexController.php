@@ -42,19 +42,20 @@ class IndexController extends Controller
 
     public function sendMailAction(Request $request)
     {
+        $data = $request->request->all();
         ini_set('display_errors', 1);
 
         $mail = new \PHPMailer();
-        $mail->IsMail();
-        $mail->setFrom('from@example.com', 'Your Name');
+
+        $mail->setFrom($data['email']);
         $mail->addAddress('marc.arnoult@hotmail.fr');
-        $mail->Subject  = 'First PHPMailer Message';
-        $mail->Body     = 'Hi! This is my first e-mail sent through PHPMailer.';
+
+        $mail->Body     = $data['message'];
         if(!$mail->send()) {
             echo 'Message was not sent.';
             echo 'Mailer error: ' . $mail->ErrorInfo;
         } else {
-            echo 'Message has been sent.';
+            return new Response('Message has been sent.');
         }
     }
 
