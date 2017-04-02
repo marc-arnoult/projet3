@@ -43,8 +43,11 @@ class IndexController extends Controller
     public function sendMailAction(Request $request)
     {
         $data = $request->request->all();
-        mail('marc.arnoult@hotmail.fr', $data['subject'], $data['message']);
-        return new Response('Email envoyé');
+        $result = mail('marc.arnoult@hotmail.fr', $data['subject'], $data['message']);
+        if($result) {
+            return new Response('Email envoyé');
+        }
+        return new Response('Erreur');
     }
 
 }
