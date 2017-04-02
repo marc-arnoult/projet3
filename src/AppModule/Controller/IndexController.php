@@ -9,6 +9,7 @@ use Core\Controller\Controller;
 
 use Core\Database\Database;
 use Core\Database\RedisCache;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -43,7 +44,11 @@ class IndexController extends Controller
     public function sendMailAction(Request $request)
     {
         $data = $request->request->all();
-        $result = mail('marc.arnoult@hotmail.fr', $data['subject'], $data['message']);
+        $headers = 'From: webmaster@example.com' . "\r\n" .
+            'Reply-To: webmaster@example.com' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+
+        $result = mail('marc.arnoult@hotmail.fr', $data['subject'], $data['message'], $headers);
         if($result) {
             return new Response('Email envoyé');
         }
