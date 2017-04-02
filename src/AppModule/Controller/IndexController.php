@@ -45,7 +45,7 @@ class IndexController extends Controller
         $data = $request->request->all();
 
         $mail = new \PHPMailer();
-        $mail->isSMTP();
+        $mail->isSendmail();
 
         $mail->setFrom($data['from']);
         $mail->addAddress('marc.arnoult@hotmail.fr');
