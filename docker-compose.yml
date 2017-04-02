@@ -1,8 +1,9 @@
 web:
- image: silintl/php7
+ image: marc/php7-apache2-postfix
  ports:
   - "8000:80"
   - "8443:443"
+  - "225:25"
  volumes:
   - $PWD:/var/www/html
   - $PWD/config/10-opcache.ini:/etc/php/7.0/apache2/conf.d/10-opcache.ini
@@ -10,7 +11,9 @@ web:
  links:
   - db:db
   - redis:redis
-  - postfix:postfix
+ environment:
+  maildomain: mail.example.com
+  smtp_user: user:pwd
 db:
  image: mysql
  volumes:
@@ -25,10 +28,3 @@ redis:
  image: redis
  ports:
   - "6379:6379"
-postfix:
- image: catatnight/postfix
- environment:
-  maildomain: mail.example.com
-  smtp_user: user:pwd
- ports:
-  - "225:25"
