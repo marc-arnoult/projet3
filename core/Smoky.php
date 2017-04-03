@@ -44,8 +44,6 @@ class Smoky implements Smokyinterface
 
     public function handle(Request $request)
     {
-        $this->urlMatcher->getContext()->fromRequest($request);
-
         try {
             $request->attributes->add($this->urlMatcher->match($request->getPathInfo()));
 
