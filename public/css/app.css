@@ -31,13 +31,22 @@ body {
     margin: 0;
 }
 header nav {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     height: 90px;
     border-bottom: 1px solid #EBEBEB;
 }
 header nav div:nth-child(1) {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
+    -webkit-justify-content: center;
     align-items: center;
     width: 120px;
     background-color: #23adc2;
@@ -51,17 +60,32 @@ header nav .fa-bars {
     display: none;
 }
 header nav div i:hover {
-    transform: scale(2.8);
+    -webkit-transform:  scale(2.8);
+    -moz-transform:  scale(2.8);
+    -ms-transform:  scale(2.8);
+    -o-transform:  scale(2.8);
+    transform:  scale(2.8);
 }
 header nav div:nth-child(2) {
     width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
     align-items: center;
+    -webkit-align-items: center;
 }
 header nav ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
+    -webkit-justify-content: center;
 }
 header nav ul li {
     position: relative;
@@ -90,15 +114,27 @@ section {
     margin: 40px auto;
     padding: 30px 0;
     width: 86%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     flex-direction: column;
+    -ms-flex-direction: column;
     align-self: center;
+    -webkit-align-self: center;
 }
 section .bg-tiret {
     margin: 40px auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
     align-items: center;
+    -webkit-align-items: center;
 }
 section .tiret {
     display: block;
@@ -112,7 +148,13 @@ section .tiret {
     height: 100%;
 }
 #articles-list .article-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     width: 78%;
 }
@@ -166,8 +208,12 @@ section .tiret {
     list-style-type: circle;
 }
 #social-network {
-    justify-content: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
+    justify-content: center;
     margin-bottom: 20px;
     list-style-type: none;
 }
@@ -232,6 +278,10 @@ section article .round {
     letter-spacing: 1px;
     color: #23adc2;
     position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -248,10 +298,18 @@ section article .round {
     height: 500px;
     width: 100%;
     margin-bottom: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     align-items: center;
 }
 .comment-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     height: 70%;
     width: 100%;
@@ -270,6 +328,10 @@ section article .round {
     background-color: #333;
     width: 100%;
     height: 500px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     align-items: center;
 }
@@ -284,12 +346,13 @@ section article .round {
 }
 #home-page-contact form {
     margin-top: 40px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     width: 68%;
-}
-#a-propos {
-
 }
 #a-propos h2 {
     color: #23adc2;
@@ -298,6 +361,10 @@ section article .round {
     color: #fc4c02;
 }
 form {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     flex-direction: column;
 }
@@ -354,7 +421,13 @@ section article .content p {
     transform: scale(1.1);
 }
 .comment-response {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
     flex-direction: column;
     align-items: center;
     position: relative;
@@ -376,7 +449,10 @@ section article .content p {
 .comments {
     position: relative;
     align-items:center;
+    -webkit-align-items: center;
     flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
 }
 .comments:first-child {
     display: inline-block;
@@ -431,6 +507,10 @@ section article .content p {
     text-decoration: underline;
 }
 #article-comment .reply {
+    -webkit-transform: translateX(-200px);
+    -moz-transform: translateX(-200px);
+    -ms-transform: translateX(-200px);
+    -o-transform: translateX(-200px);
     transform: translateX(-200px);
     opacity: 0;
     width: 100%;
@@ -475,8 +555,14 @@ section article .content p {
     font-size: 0.9em;
 }
 .alert {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
     padding: 10px 46px;
     text-align: center;
     position: fixed;
@@ -538,6 +624,10 @@ footer {
     color: #FFF;
     padding: 2.5rem;
     justify-content: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
 }
 footer li {
@@ -617,8 +707,14 @@ footer a {
     }
     header nav ul{
         width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
         display: flex;
         flex-direction: column;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
         text-align: center;
     }
     header nav ul li {
