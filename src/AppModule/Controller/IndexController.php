@@ -48,8 +48,6 @@ class IndexController extends Controller
         $mail->addAddress('marc.arnoult@hotmail.fr');
 
         $mail->ContentType = 'text/plain';
-        $mail->CharSet     = 'iso-8859-1';
-        $mail->XMailer     = 'PHP/7.0';
         $mail->Subject     = $data['subject'];
         $mail->Body        = $data['message'];
 
