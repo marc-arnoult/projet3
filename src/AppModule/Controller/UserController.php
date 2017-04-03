@@ -24,7 +24,7 @@ class UserController extends Controller
 
         $messages = $session->getFlashBag()->all() ?? null;
 
-        $userDAO = new UserDAO();
+        $userDAO = new UserDAO(self::$db, self::$cache);
         $users = $userDAO->getAll();
 
         $request->attributes->set('users', $users);
@@ -39,7 +39,7 @@ class UserController extends Controller
         $this->userRoleIs($session, 'administrateur');
 
         $id = $request->request->get('id');
-        $userDAO = new UserDAO();
+        $userDAO = new UserDAO(self::$db, self::$cache);
 
         $result = $userDAO->delete($id);
 

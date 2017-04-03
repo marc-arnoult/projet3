@@ -4,18 +4,23 @@ namespace AppModule\Model;
 
 
 use Core\Database\Database;
+use Core\Database\RedisCache;
 
 
 class UserDAO implements iDAO
 {
     private $db;
+    private $cache;
 
     /**
      * UserDAO constructor.
+     * @param Database $db
+     * @param RedisCache $cache
      */
-    function __construct()
+    public function __construct(Database $db, RedisCache $cache)
     {
-        $this->db = new Database();
+        $this->cache = $cache;
+        $this->db = $db;
     }
 
     /**

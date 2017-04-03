@@ -4,9 +4,12 @@ namespace AppModule\Model;
 
 
 use Core\Database\Database;
+use Core\Database\RedisCache;
 
 interface iDAO
 {
+    public function __construct(Database $db, RedisCache $cache);
+
     /**
      * @param iModel $model
      * @return mixed

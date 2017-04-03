@@ -35,7 +35,7 @@ class AdminController extends Controller
         $request->attributes->set('messages', $messages);
 
 
-        $userDAO = new UserDAO();
+        $userDAO = new UserDAO(self::$db, self::$cache);
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 

@@ -35,7 +35,7 @@ class AuthController extends Controller
     {
         $data = $request->request->all();
 
-        $userDAO = new UserDAO();
+        $userDAO = new UserDAO(self::$db, self::$cache);
         $user = new User($data);
 
         $result = $userDAO->add($user);
@@ -76,7 +76,7 @@ class AuthController extends Controller
 
         $data = $request->request->all();
         $data['password'] = sha1($data['password']);
-        $userDAO = new UserDAO();
+        $userDAO = new UserDAO(self::$db, self::$cache);
         $result = $userDAO->get($data);
 
         if (!$result) {

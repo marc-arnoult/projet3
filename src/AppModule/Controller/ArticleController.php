@@ -6,8 +6,6 @@ use AppModule\Model\ArticleDAO;
 use AppModule\Model\CommentDAO;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
-use Predis\Client;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -84,7 +82,7 @@ class ArticleController extends Controller
         $session = new Session();
         $this->userRoleIs($session, 'administrateur');
 
-        $userDAO = new UserDAO();
+        $userDAO = new UserDAO(self::$db, self::$cache);
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
 
         $messages = $session->getFlashBag()->all() ?? null;
