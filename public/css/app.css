@@ -2,6 +2,21 @@
     font-family: "DIN-condensed";
     src: url('../fonts/DINCondensed-Bold.ttf')
 }
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway-Regular.ttf');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway-Bold.ttf');
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway-ExtraLight.ttf');
+    font-weight: 300;
+}
 body, html, ul {
     margin: 0;
     padding: 0;
@@ -62,6 +77,10 @@ header span {
 #responsive-menu a {
     color: #AFAFAF;
     text-decoration: none;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
     transition: 0.2s;
 }
 #responsive-menu a:hover {
@@ -180,10 +199,14 @@ section .tiret {
     text-align: center;
     font-weight: 300;
     color: #AFAFAF;
+    -webkit-animation: leftToRight 2.2s;
+    -o-animation: leftToRight 2.2s;
     animation: leftToRight 2.2s;
 }
 #home-page > p {
     text-align: center;
+    -webkit-animation: fadeIn 2.4s;
+    -o-animation: fadeIn 2.4s;
     animation: fadeIn 2.4s;
 }
 #home-page > p > a {
@@ -463,6 +486,8 @@ section article .content p {
     margin-left: -163px;
     top: 20px;
     background-color: rgba(4, 4, 4, 0.6);
+    -webkit-animation: fadeOut 1s;
+    -o-animation: fadeOut 1s;
     animation: fadeOut 1s;
 }
 .alert-success {
@@ -652,9 +677,17 @@ footer a {
 }   
 @keyframes leftToRight {
     from {
+        -webkit-transform: translateX(-150px);
+        -moz-transform: translateX(-150px);
+        -ms-transform: translateX(-150px);
+        -o-transform: translateX(-150px);
         transform: translateX(-150px);
         opacity: 0;
     } to {
+        -webkit-transform: translateX(0px);
+        -moz-transform: translateX(0px);
+        -ms-transform: translateX(0px);
+        -o-transform: translateX(0px);
         transform: translateX(0px);
         opacity: 1;
     }
@@ -662,10 +695,18 @@ footer a {
 @keyframes fadeOut {
     from {
         opacity: 0.2;
+        -webkit-transform: translateY(-60px);
+        -moz-transform: translateY(-60px);
+        -ms-transform: translateY(-60px);
+        -o-transform: translateY(-60px);
         transform: translateY(-60px);
     }
     to   {
         opacity: 1;
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
         transform: translateY(0px);
     }
 }
