@@ -32,4 +32,24 @@ $(function () {
             }
         });
     }
+
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var $email = $('form input[name=email]').val();
+        var $subject = $('form input[name=subject]').val();
+        var $message = $('form textarea[name=message]').val();
+
+        $.ajax({
+            method: 'POST',
+            url: '/send-email',
+            data: {
+                from: $email,
+                subject: $subject,
+                message: $message
+            }
+        }).done(function () {
+            window.location.reload();
+        });
+    });
 });

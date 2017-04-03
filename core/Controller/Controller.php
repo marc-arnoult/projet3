@@ -71,6 +71,8 @@ class Controller
     }
 
     /**
+     * Check is the the user can do something.
+     *
      * @param Session $session
      * @param $roles
      * @return bool

@@ -96,9 +96,9 @@ class Article implements iModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getContent()
+    public function getContent() : string
     {
         return $this->content;
     }

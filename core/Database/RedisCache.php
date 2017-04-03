@@ -47,6 +47,9 @@ class RedisCache {
     }
 
     /**
+     * Cache into redis instance with the key associte with it if the key exist it return the cache else this will
+     * be cached into redis.
+     *
      * @param $keys
      * @param callable $callback
      * @return mixed|string

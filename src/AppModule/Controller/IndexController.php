@@ -2,15 +2,10 @@
 
 namespace AppModule\Controller;
 
-use AppModule\Model\ArticleDAO;
-use AppModule\Model\CommentDAO;
+use AppModule\Model\{ArticleDAO, CommentDAO};
 use Core\Controller\Controller;
 
-use Core\Database\Database;
-use Core\Database\RedisCache;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request,Response};
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class IndexController extends Controller
