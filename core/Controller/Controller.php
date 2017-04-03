@@ -52,6 +52,7 @@ class Controller
         $twig = new Twig_Environment($loader, array(
             'cache' => __DIR__ .'/../../tmp/'
         ));
+        $twig->addExtension(new Twig_Extension_Debug());
         $twig->addExtension(new \Twig_Extensions_Extension_Text());
 
         extract($request->attributes->all(), EXTR_SKIP);
