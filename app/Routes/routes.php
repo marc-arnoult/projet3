@@ -1,7 +1,7 @@
 <?php
 
 use AppModule\Controller\{
-    ArticleController, AuthController, CommentController, IndexController, AdminController, UserController
+    AdminController, ArticleController, AuthController, CommentController, IndexController, UserController
 };
 use Symfony\Component\Routing\{RouteCollection, Route};
 
@@ -31,7 +31,7 @@ $routes->add('#send-email#', new Route('/send-email', array(
  *************************/
 
 $routes->add('admin/index', new Route('/admin', array(
-    '_controller' => 'AppModule\\Controller\\AdminController::indexAction'
+    '_controller' => array(new AdminController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
 /******************************
