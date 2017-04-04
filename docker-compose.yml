@@ -7,6 +7,7 @@ web:
   - $PWD:/var/www/html
   - $PWD/config/10-opcache.ini:/etc/php/7.0/apache2/conf.d/10-opcache.ini
   - $PWD/config/sites-enabled/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+  - $PWD/config/20-xdebug.ini:/etc/php/7.0/apache2/conf.d/20-xdebug.ini
  links:
   - db:db
   - redis:redis
