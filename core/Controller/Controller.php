@@ -62,7 +62,6 @@ class Controller
         $response = new Response(ob_get_clean());
 
         $response->setPublic();
-        $response->setPrivate();
 
         $response->setSharedMaxAge(3600);
         $response->headers->addCacheControlDirective('must-revalidate', true);
