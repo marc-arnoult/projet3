@@ -5,7 +5,6 @@ namespace Core\Controller;
 use AppModule\Model\User;
 use Core\Database\Database;
 use Core\Database\RedisCache;
-use DateTime;
 use Symfony\Component\HttpFoundation\{
     Request, Response, Session\Session
 };

@@ -111,7 +111,7 @@ $(function () {
         }
     });
 
-    $('.reply').each(function (e) {
+    $('.reply').each(function () {
         this.style.opacity = '0';
     });
 

@@ -1,5 +1,5 @@
 web:
- image: silintl/php7
+ image: marc/php7
  ports:
   - "8000:80"
   - "8443:443"
@@ -16,10 +16,12 @@ db:
   - $PWD/data:/var/lib/mysql
  environment:
   MYSQL_ROOT_PASSWORD: root
+ # This is for the connection with Phpstorm #
  expose:
   - "3306"
  ports:
   - "3306:3306"
+ # ---------------------------------------- #
 redis:
  image: redis
  ports:

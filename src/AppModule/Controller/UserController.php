@@ -6,7 +6,7 @@ namespace AppModule\Controller;
 
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;

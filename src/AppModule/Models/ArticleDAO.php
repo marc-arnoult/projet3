@@ -11,7 +11,6 @@ namespace AppModule\Model;
 
 use Core\Database\Database;
 use Core\Database\RedisCache;
-use AppModule\Model\Article;
 
 class ArticleDAO implements iDAO
 {
