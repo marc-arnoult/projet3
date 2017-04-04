@@ -23,7 +23,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function signUpShowAction(Request $request)
+    public function signUpShowAction(Request $request) : Response
     {
         return $this->render($request);
     }
@@ -33,7 +33,16 @@ class AuthController extends Controller
      */
     public function signUpAction(Request $request)
     {
+        $session = new Session();
         $data = $request->request->all();
+
+        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $session
+                ->getFlashBag()
+                ->add('error', 'Email incorrect');
+            header('Location: /');
+            exit();
+        }
 
         $userDAO = new UserDAO(self::$db, self::$cache);
         $user = new User($data);
@@ -41,11 +50,10 @@ class AuthController extends Controller
         $result = $userDAO->add($user);
 
         if($result) {
-            $session = new Session();
 
             $session
                 ->getFlashBag()
-                ->set('success', 'Inscription terminée, merci.');
+                ->add('success', 'Inscription terminée, merci.');
 
             self::signInAction($request);
         } else {
@@ -53,7 +61,7 @@ class AuthController extends Controller
 
             $session
                 ->getFlashBag()
-                ->set('error', 'Pseudo et/ou adresse email déjà pris');
+                ->add('error', 'Pseudo et/ou adresse email déjà pris');
             header('Location: /');
         }
     }
@@ -62,7 +70,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function signInShowAction(Request $request)
+    public function signInShowAction(Request $request) : Response
     {
         return $this->render($request);
     }
