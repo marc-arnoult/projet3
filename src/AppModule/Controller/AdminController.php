@@ -27,7 +27,6 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-
         $session = new Session();
         $this->userRoleIs($session, 'administrateur');
 
@@ -48,6 +47,7 @@ class AdminController extends Controller
         $request->attributes->set('nbComment', $nbComment);
 
         return $this->render($request);
+
     }
 
 }

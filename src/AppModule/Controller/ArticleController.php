@@ -18,7 +18,7 @@ class ArticleController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request) : Response
     {
         $session = new Session();
 
@@ -43,7 +43,7 @@ class ArticleController extends Controller
      * @param $id
      * @return Response
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, int $id) : Response
     {
         $session = new Session();
 
@@ -77,7 +77,7 @@ class ArticleController extends Controller
      * @return Response
      */
 
-    public function addShowAction(Request $request)
+    public function addShowAction(Request $request) : Response
     {
         $session = new Session();
         $this->userRoleIs($session, 'administrateur');
@@ -104,7 +104,8 @@ class ArticleController extends Controller
      * @return Response
      */
 
-    public function showArticleAction(Request $request) {
+    public function showArticleAction(Request $request) : Response
+    {
         $session = new Session();
         $this->userRoleIs($session, 'administrateur');
 
@@ -169,7 +170,7 @@ class ArticleController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function deleteAction (Request $request)
+    public function deleteAction (Request $request) : Response
     {
         $session = new Session();
 
@@ -201,7 +202,7 @@ class ArticleController extends Controller
      * @param $id
      * @return Response
      */
-    public function editShowAction (Request $request, $id)
+    public function editShowAction (Request $request, int $id) : Response
     {
         $session = new Session();
 
@@ -226,7 +227,7 @@ class ArticleController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function editAction (Request $request)
+    public function editAction (Request $request) : Response
     {
         $session = new Session();
         $user = $session->get('user');

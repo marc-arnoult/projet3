@@ -17,7 +17,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Request $request)
+    public function showAction(Request $request) : Response
     {
         $session = new Session();
         $this->userRoleIs($session, 'administrateur');
@@ -33,7 +33,7 @@ class UserController extends Controller
         return $this->render($request);
     }
 
-    public function deleteAction(Request $request)
+    public function deleteAction(Request $request) : Response
     {
         $session = new Session();
         $this->userRoleIs($session, 'administrateur');

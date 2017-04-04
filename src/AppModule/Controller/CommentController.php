@@ -24,7 +24,7 @@ class CommentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function indexAction (Request $request)
+    public function indexAction (Request $request) : Response
     {
         $session = new Session();
         $this->userRoleIs($session, 'administrateur');
@@ -45,8 +45,9 @@ class CommentController extends Controller
 
     /**
      * @param Request $request
+     * @return Response
      */
-    public function postAction (Request $request)
+    public function postAction (Request $request) : Response
     {
         $session = new Session();
         $commentDAO = new CommentDAO(self::$db, self::$cache);
@@ -90,7 +91,7 @@ class CommentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function responseAction (Request $request)
+    public function responseAction (Request $request) : Response
     {
         $session = new Session();
         $commentDAO = new CommentDAO(self::$db, self::$cache);
@@ -130,7 +131,7 @@ class CommentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function deleteAction (Request $request)
+    public function deleteAction (Request $request) : Response
     {
         $session = new Session();
         $commentDAO = new CommentDAO(self::$db, self::$cache);
@@ -165,7 +166,7 @@ class CommentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function editAction (Request $request)
+    public function editAction (Request $request) : Response
     {
         $session = new Session();
         $user = $session->get('user');
@@ -222,7 +223,7 @@ class CommentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function reportAction (Request $request)
+    public function reportAction (Request $request) : Response
     {
         $session = new Session();
 
