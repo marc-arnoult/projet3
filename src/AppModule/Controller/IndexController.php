@@ -41,15 +41,22 @@ class IndexController extends Controller
 
         $data = $request->request->all();
 
+        if(!filter_var($data['from'], FILTER_VALIDATE_EMAIL)) {
+            $session
+                ->getFlashBag()
+                ->add('error', 'Erreur email invalide');
+            return new Response('Erreur email invalide');
+        }
+
         $mail = new \PHPMailer();
         $mail->isSendmail();
 
-        $mail->setFrom($data['from']);
+        $mail->setFrom(htmlspecialchars($data['from']));
         $mail->addAddress('marc.arnoult@hotmail.fr');
 
         $mail->ContentType = 'text/plain';
-        $mail->Subject     = $data['subject'];
-        $mail->Body        = $data['message'];
+        $mail->Subject     = htmlspecialchars($data['subject']);
+        $mail->Body        = htmlspecialchars($data['message']);
 
         if(!$mail->send()) {
             $session
