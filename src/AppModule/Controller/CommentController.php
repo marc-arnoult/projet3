@@ -82,7 +82,6 @@ class CommentController extends Controller
 
         header("Location: {$http_referer}");
         exit();
-
     }
 
     /**
@@ -255,6 +254,6 @@ class CommentController extends Controller
             ->getFlashBag()
             ->add('error', 'Erreur lors du signalement.');
 
-        exit();
+        return new Response('Erreur lors du signalement.');
     }
 }

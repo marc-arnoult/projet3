@@ -30,6 +30,7 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
+     * @return Response
      */
     public function signUpAction(Request $request)
     {
@@ -63,6 +64,8 @@ class AuthController extends Controller
                 ->getFlashBag()
                 ->add('error', 'Pseudo et/ou adresse email déjà pris');
             header('Location: /');
+
+            exit();
         }
     }
 
@@ -77,6 +80,7 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
+     * @return Response
      */
     public function signInAction(Request $request)
     {
@@ -92,6 +96,8 @@ class AuthController extends Controller
                 ->getFlashBag()
                 ->set('error', 'Mauvais pseudo ou mot de passe');
             header('Location: /');
+
+            exit();
         }
 
         $user = new User($result);
@@ -103,6 +109,7 @@ class AuthController extends Controller
                 ->add('success', 'Vous êtes maintenant connectée en tant que administrateur');
 
             header('Location: /admin');
+
             exit();
         } else if (!empty($user->getRole())) {
             $session
@@ -110,17 +117,22 @@ class AuthController extends Controller
                 ->add('success', 'Vous êtes maintenant connectée');
 
             header('Location: /');
+
             exit();
         }
     }
 
     /**
      * @param Request $request
+     * @return Response
      */
     public function signOutAction(Request $request)
     {
         $session = new Session();
         $session->clear();
+        $session
+            ->getFlashBag()
+            ->add('success', 'Déconnection');
 
         header('Location: /');
         exit();

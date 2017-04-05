@@ -59,6 +59,7 @@ class ArticleController extends Controller
                 ->getFlashBag()
                 ->add('error', 'L\'article n\'existe pas');
             header('Location: /');
+
             exit();
         }
 
@@ -149,6 +150,7 @@ class ArticleController extends Controller
                     ->getFlashBag()
                     ->add('success', 'Article publié');
                 header("Location: /admin/articles");
+
                 exit();
             }
 
@@ -156,6 +158,7 @@ class ArticleController extends Controller
                 ->getFlashBag()
                 ->add('success', 'Article enregistré');
             header("Location: /admin/articles");
+
             exit();
         }
 
@@ -163,6 +166,7 @@ class ArticleController extends Controller
             ->getFlashBag()
             ->add('error', 'Erreur lors de l\'enregistrement de l\'article');
         header("Location: /admin/articles");
+
         exit();
     }
 
@@ -212,8 +216,9 @@ class ArticleController extends Controller
         $article = $articleDAO->get($id);
         $messages = $session->getFlashBag()->all() ?? null;
 
-        if($article == false) {
+        if(!$article) {
             header('Location: /admin/articles');
+
             exit();
         }
 
@@ -246,12 +251,14 @@ class ArticleController extends Controller
             $session
                 ->getFlashBag()
                 ->add('success', 'Article modifié');
-            return new Response('Article modifié');
+
+            exit();
         }
 
         $session
             ->getFlashBag()
             ->add('error', 'Erreur lors de la modification de l\'article');
-        return new Response('Erreur lors de la modification de l\'article');
+
+        exit();
     }
 }
