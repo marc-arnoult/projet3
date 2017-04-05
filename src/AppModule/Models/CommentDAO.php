@@ -71,7 +71,7 @@ class CommentDAO implements iDAO
      */
     public function getAll($idArticle = null)
     {
-        if($idArticle != null) {
+        if($idArticle !== null) {
             $req = $this->db->prepare
                     ("SELECT comments.*, user.pseudo, user.role
                     FROM comments  
