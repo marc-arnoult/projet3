@@ -12,7 +12,7 @@ namespace AppModule\Model;
 use Core\Database\Database;
 use Core\Database\RedisCache;
 
-class ArticleDAO implements iDAO
+class ArticleDAO implements DAOInterface
 {
     private $db;
     private $cache;
@@ -29,10 +29,10 @@ class ArticleDAO implements iDAO
     }
 
     /**
-     * @param iModel $article
+     * @param modelInterface $article
      * @return bool
      */
-    public function add(iModel $article)
+    public function add(modelInterface $article)
     {
         $req = null;
 

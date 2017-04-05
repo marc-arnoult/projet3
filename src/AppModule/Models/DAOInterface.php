@@ -6,15 +6,15 @@ namespace AppModule\Model;
 use Core\Database\Database;
 use Core\Database\RedisCache;
 
-interface iDAO
+interface DAOInterface
 {
     public function __construct(Database $db, RedisCache $cache);
 
     /**
-     * @param iModel $model
+     * @param modelInterface $model
      * @return mixed
      */
-    public function add(iModel $model);
+    public function add(modelInterface $model);
 
     /**
      * @param $options

@@ -3,7 +3,7 @@
 namespace AppModule\Model;
 
 
-class Comment implements iModel
+class Comment implements modelInterface
 {
 
     private $id;

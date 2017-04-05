@@ -3,7 +3,7 @@
 namespace AppModule\Model;
 
 
-interface iModel
+interface modelInterface
 {
     /**
      * @param array $array

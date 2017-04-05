@@ -12,7 +12,7 @@ namespace AppModule\Model;
 use Core\Database\Database;
 use Core\Database\RedisCache;
 
-class CommentDAO implements iDAO
+class CommentDAO implements DAOInterface
 {
     private $db;
     private $cache;
@@ -29,10 +29,10 @@ class CommentDAO implements iDAO
     }
 
     /**
-     * @param iModel $comment
+     * @param modelInterface $comment
      * @return bool
      */
-    public function add(iModel $comment)
+    public function add(modelInterface $comment)
     {
         $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at, updated_at)
                             VALUES (:id_user, :id_article, :content, :id_parent, :depth, NOW(), NOW())');
