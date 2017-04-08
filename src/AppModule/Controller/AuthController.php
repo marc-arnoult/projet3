@@ -132,7 +132,7 @@ class AuthController extends Controller
         $session->clear();
         $session
             ->getFlashBag()
-            ->add('success', 'Déconnection');
+            ->add('success', 'Vous êtes maintenant déconnectée');
 
         header('Location: /');
         exit();
