@@ -17,6 +17,7 @@ class RedisCache implements CacheInterface
     }
 
     /**
+     *
      * @param $keys
      * @return string
      */

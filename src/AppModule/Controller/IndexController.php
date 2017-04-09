@@ -59,14 +59,11 @@ class IndexController extends Controller
         $mail->Body        = htmlspecialchars($data['message']);
 
         if(!$mail->send()) {
-            $session
-                ->getFlashBag()
-                ->add('error', 'Erreur lors de l\'envoi du mail');
+            $session->getFlashBag()->add('error', 'Erreur lors de l\'envoi du mail');
+
             return new Response('Erreur lors de l\'envoi du mail');
         } else {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Email envoyé merci');
+            $session->getFlashBag()->add('success', 'Email envoyé merci');
 
             return new Response('Email envoyé merci');
         }

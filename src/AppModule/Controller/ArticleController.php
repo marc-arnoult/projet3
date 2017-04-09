@@ -28,10 +28,10 @@ class ArticleController extends Controller
         $articles = $articleDAO->getAllPublished();
         $articlesByDates = $articleDAO->getAllByDate();
 
-        $request->setSession($session);
         $request->attributes->set('articles', $articles);
         $request->attributes->set('commentDAO', $commentDAO);
         $request->attributes->set('articlesByDates', $articlesByDates);
+        $request->setSession($session);
 
         return $this->render($request);
     }
@@ -60,13 +60,13 @@ class ArticleController extends Controller
                 ->add('error', 'L\'article n\'existe pas');
             header('Location: /');
 
-            exit();
+            return null;
         }
 
-        $request->setSession($session);
         $request->attributes->set('messages', $messages);
         $request->attributes->set('article', $article);
         $request->attributes->set('comments', $comments);
+        $request->setSession($session);
 
         return $this->render($request);
     }
@@ -93,8 +93,8 @@ class ArticleController extends Controller
         $request->attributes->set('nbArticle', $nbArticle);
         $request->attributes->set('nbUser', $nbUser);
         $request->attributes->set('messages', $messages);
-
         $request->setSession($session);
+
         return $this->render($request);
     }
 
@@ -125,6 +125,7 @@ class ArticleController extends Controller
 
     /**
      * @param Request $request
+     * @return null
      */
     public function postAction(Request $request)
     {
@@ -151,7 +152,7 @@ class ArticleController extends Controller
                     ->add('success', 'Article publié');
                 header("Location: /admin/articles");
 
-                exit();
+                return null;
             }
 
             $session
@@ -159,7 +160,7 @@ class ArticleController extends Controller
                 ->add('success', 'Article enregistré');
             header("Location: /admin/articles");
 
-            exit();
+            return null;
         }
 
         $session
@@ -167,7 +168,7 @@ class ArticleController extends Controller
             ->add('error', 'Erreur lors de l\'enregistrement de l\'article');
         header("Location: /admin/articles");
 
-        exit();
+        return null;
     }
 
     /**
@@ -177,6 +178,7 @@ class ArticleController extends Controller
     public function deleteAction (Request $request) : Response
     {
         $session = $this->getSession();
+        $response = new Response();
 
         $this->userRoleIs($session, 'administrateur');
 
@@ -186,19 +188,16 @@ class ArticleController extends Controller
         $result = $articleDAO->delete($id);
 
         if ($result) {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Article supprimé');
+            $session->getFlashBag()->add('success', 'Article supprimé');
 
-            return new Response('Article supprimé');
+            $response->setStatusCode(Response::HTTP_OK);
+            return $response;
         }
 
-        $session
-            ->getFlashBag()
-            ->add('error', 'Erreur lors de la suppresion de l\'article');
+        $session->getFlashBag()->add('error', 'Erreur lors de la suppresion de l\'article');
 
-        return new Response('Erreur lors de la suppresion de l\'article');
-
+        $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        return $response;
     }
 
     /**
@@ -219,7 +218,7 @@ class ArticleController extends Controller
         if(!$article) {
             header('Location: /admin/articles');
 
-            exit();
+            return null;
         }
 
         $request->attributes->set('messages', $messages);
@@ -236,6 +235,7 @@ class ArticleController extends Controller
     {
         $session = $this->getSession();
         $user = $session->get('user');
+        $response = new Response();
 
         $this->userRoleIs($session, 'administrateur');
 
@@ -248,17 +248,15 @@ class ArticleController extends Controller
         $result = $articleDAO->update($article);
 
         if($result) {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Article modifié');
+            $session->getFlashBag()->add('success', 'Article modifié');
 
-            exit();
+            $response->setStatusCode(Response::HTTP_OK);
+            return $response;
         }
 
-        $session
-            ->getFlashBag()
-            ->add('error', 'Erreur lors de la modification de l\'article');
+        $session->getFlashBag()->add('error', 'Erreur lors de la modification de l\'article');
 
-        exit();
+        $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        return $response;
     }
 }

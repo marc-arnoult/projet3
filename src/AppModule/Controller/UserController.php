@@ -44,15 +44,11 @@ class UserController extends Controller
         $result = $userDAO->delete($id);
 
         if($result) {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Utilisateur supprimé');
+            $session->getFlashBag()->add('success', 'Utilisateur supprimé');
 
             return new Response('Utilisateur supprimé');
         }
-        $session
-            ->getFlashBag()
-            ->add('error', 'Erreur lors de la suppression de cet utilisateur');
+        $session->getFlashBag()->add('error', 'Erreur lors de la suppression de cet utilisateur');
 
         return new Response('Erreur lors de la suppression de cet utilisateur');
     }
