@@ -23,11 +23,11 @@ class Controller
      */
     public function __construct()
     {
-        if (empty(self::$cache)) {
+        if (!isset(self::$cache)) {
            self::$cache = new RedisCache();
         }
 
-        if (empty(self::$db)) {
+        if (!isset(self::$db)) {
             self::$db = new Database();
         }
     }
