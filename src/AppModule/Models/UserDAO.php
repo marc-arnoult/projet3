@@ -3,8 +3,9 @@
 namespace AppModule\Model;
 
 
+use AppModule\Cache\RedisCache;
+use Core\Database\CacheInterface;
 use Core\Database\Database;
-use Core\Database\RedisCache;
 
 
 class UserDAO implements DAOInterface
@@ -15,9 +16,9 @@ class UserDAO implements DAOInterface
     /**
      * UserDAO constructor.
      * @param Database $db
-     * @param RedisCache $cache
+     * @param CacheInterface|RedisCache $cache
      */
-    public function __construct(Database $db, RedisCache $cache)
+    public function __construct(Database $db, CacheInterface $cache)
     {
         $this->cache = $cache;
         $this->db = $db;

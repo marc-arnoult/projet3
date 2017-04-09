@@ -12,6 +12,7 @@ namespace AppModule\Controller;
 use AppModule\Model\User;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -95,9 +96,8 @@ class AuthController extends Controller
             $session
                 ->getFlashBag()
                 ->set('error', 'Mauvais pseudo ou mot de passe');
-            header('Location: /');
 
-            exit();
+            return new Response('Mauvais pseudo ou mot de passe');
         }
 
         $user = new User($result);
@@ -108,17 +108,13 @@ class AuthController extends Controller
                 ->getFlashBag()
                 ->add('success', 'Vous êtes maintenant connectée en tant que administrateur');
 
-            header('Location: /admin');
-
-            exit();
+            return new Response('Vous êtes maintenant connectée en tant que administrateur');
         } else if (!empty($user->getRole())) {
             $session
                 ->getFlashBag()
                 ->add('success', 'Vous êtes maintenant connectée');
 
-            header('Location: /');
-
-            exit();
+            return new Response('Vous êtes maintenant connectée');
         }
     }
 
