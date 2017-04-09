@@ -58,6 +58,9 @@ $(function () {
                 data: {
                     id: $(this).parent().data('id'),
                     idArticle: $(this).parent().data('article_id')
+                },
+                error: function () {
+                    window.location.reload();
                 }
             }).done(function () {
                 top.location.reload();
