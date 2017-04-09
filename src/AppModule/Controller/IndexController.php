@@ -16,7 +16,7 @@ class IndexController extends Controller
      */
     public function indexAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
 
         $commentDAO = new CommentDAO(self::$db, self::$cache);
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
@@ -37,7 +37,7 @@ class IndexController extends Controller
 
     public function sendMailAction(Request $request)
     {
-        $session = new Session();
+        $session = $this->getSession();
 
         $data = $request->request->all();
 

@@ -24,7 +24,7 @@ class CommentController extends Controller
      */
     public function indexAction (Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $commentDAO = new CommentDAO(self::$db, self::$cache);
@@ -43,11 +43,12 @@ class CommentController extends Controller
 
     /**
      * @param Request $request
-     * @return Response
+     * @return void
      */
-    public function postAction (Request $request) : Response
+    public function postAction (Request $request)
     {
-        $session = new Session();
+        $session = $this->getSession();
+
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
@@ -60,28 +61,22 @@ class CommentController extends Controller
             $result = $commentDAO->add($comment);
 
             if($result) {
-                $session
-                    ->getFlashBag()
-                    ->add('success', 'Commentaire bien ajouté');
+                $session->getFlashBag()->add('success', 'Commentaire bien ajouté');
 
                 header("Location: {$http_referer}");
-                exit();
+                return null;
             }
 
-            $session
-                ->getFlashBag()
-                ->add('error', 'Erreur lors de l\'ajout du commentaire');
+            $session->getFlashBag()->add('error', 'Erreur lors de l\'ajout du commentaire');
 
             header("Location: {$http_referer}");
-            exit();
+            return null;
         }
 
-        $session
-            ->getFlashBag()
-            ->add('error', 'Vous n\'êtes pas enregistré ou le commentaire est vide');
+        $session->getFlashBag()->add('error', 'Vous n\'êtes pas enregistré ou le commentaire est vide');
 
         header("Location: {$http_referer}");
-        exit();
+        return null;
     }
 
     /**
@@ -90,7 +85,8 @@ class CommentController extends Controller
      */
     public function responseAction (Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
+        $response = new Response();
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
@@ -102,26 +98,22 @@ class CommentController extends Controller
             $result = $commentDAO->add($comment);
 
             if($result) {
-                $session
-                    ->getFlashBag()
-                    ->add('success', 'Commentaire bien ajouté');
+                $session->getFlashBag()->add('success', 'Commentaire bien ajouté');
 
-                return new Response('Commentaire bien ajouté');
+                $response->setStatusCode(Response::HTTP_CREATED);
+                return $response;
             }
 
-            $session
-                ->getFlashBag()
-                ->add('error', 'Erreur lors de l\'ajout du commentaire');
+            $session->getFlashBag()->add('error', 'Erreur lors de l\'ajout du commentaire');
 
-            return new Response('Erreur lors de l\'ajout du commentaire');
-
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            return $response;
         }
 
-        $session
-            ->getFlashBag()
-            ->add('error', 'Erreur lors de l\'ajout du commentaire');
+        $session->getFlashBag()->add('error', 'Vous ne pouvez pas supprimer ce commentaire');
 
-        return new Response('Erreur lors de l\'ajout du commentaire');
+        $response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        return $response;
     }
 
     /**
@@ -130,7 +122,9 @@ class CommentController extends Controller
      */
     public function deleteAction (Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
+        $response = new Response();
+
         $commentDAO = new CommentDAO(self::$db, self::$cache);
 
         $user = $session->get('user');
@@ -140,23 +134,22 @@ class CommentController extends Controller
         if($user->getRole() == 'administrateur' || $comment->id_user == $user->getId()) {
             $result = $commentDAO->delete($idComment);
             if($result) {
-                $session
-                    ->getFlashBag()
-                    ->add('success', 'Commentaire supprimé');
-                return new Response('Commentaire supprimé');
+                $session->getFlashBag()->add('success', 'Commentaire supprimé');
+
+                $response->setStatusCode(Response::HTTP_OK);
+                return $response;
             }
 
-            $session
-                ->getFlashBag()
-                ->add('error', 'Erreur lors de la suppresion du commentaire');
-            return new Response('Erreur lors de la suppresion du commentaire');
+            $session->getFlashBag()->add('error', 'Erreur lors de la suppresion du commentaire');
+
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            return $response;
         }
 
-        $session
-            ->getFlashBag()
-            ->add('error', 'Vous ne pouvez pas supprimer ce commentaire');
+        $session->getFlashBag()->add('error', 'Vous ne pouvez pas supprimer ce commentaire');
 
-        return new Response('Vous ne pouvez pas supprimer ce commentaire\'');
+        $response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        return $response;
     }
 
     /**
@@ -165,7 +158,8 @@ class CommentController extends Controller
      */
     public function editAction (Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
+        $response = new Response();
         $user = $session->get('user');
 
         $this->userRoleIs($session, ['administrateur', 'lecteur']);
@@ -185,35 +179,31 @@ class CommentController extends Controller
                 $moderated = $commentDAO->deleteReportedComment($data['id']);
 
                 if($moderated) {
-                    $session
-                        ->getFlashBag()
-                        ->add('success', 'Commentaire modéré');
+                    $session->getFlashBag()->add('success', 'Commentaire modéré');
 
-                    return new Response('Commentaire modéré');
+                    $response->setStatusCode(Response::HTTP_OK);
+                    return $response;
                 }
             }
 
 
             if($result) {
-                $session
-                    ->getFlashBag()
-                    ->add('success', 'Commentaire bien modifié');
+                $session->getFlashBag()->add('success', 'Commentaire bien modifié');
 
-                return new Response('Commentaire bien modifié');
+                $response->setStatusCode(Response::HTTP_OK);
+                return $response;
             }
 
-            $session
-                ->getFlashBag()
-                ->add('error', 'Erreur lors de la modification du commentaire');
+            $session->getFlashBag()->add('error', 'Erreur lors de la modification du commentaire');
 
-            return new Response('Erreur lors de la modification du commentaire');
+            $response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+            return $response;
         }
 
-        $session
-            ->getFlashBag()
-            ->add('error', 'Vous ne pouvez pas éditer le commentaire');
+        $session->getFlashBag()->add('error', 'Vous ne pouvez pas éditer le commentaire');
 
-        return new Response('Vous ne pouvez pas éditer le commentaire');
+        $response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        return $response;
     }
 
     /**
@@ -222,18 +212,17 @@ class CommentController extends Controller
      */
     public function reportAction (Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
+        $response = new Response();
 
         $idComment = $request->request->get('id');
-
         $hisReported = $request->cookies->get('Report'.$idComment);
 
         if($hisReported) {
-            $session
-                ->getFlashBag()
-                ->add('error', 'Vous avez déjà signalé ce commentaire');
+            $session->getFlashBag()->add('error', 'Vous avez déjà signalé ce commentaire');
 
-            return new Response('Vous avez déjà signalé ce commentaire');
+            $response->setStatusCode(Response::HTTP_ALREADY_REPORTED);
+            return $response;
         }
 
         $commentDAO = new CommentDAO(self::$db, self::$cache);
@@ -241,19 +230,17 @@ class CommentController extends Controller
         $result = $commentDAO->addReport($idComment);
 
         if($result) {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Commentaire signalé, merci.');
-            $response = new Response();
-            $response->headers->setCookie(new Cookie('Report'.$idComment, true));
+            $session->getFlashBag()->add('success', 'Commentaire signalé, merci.');
 
+            $response = new Response();
+            $response->setStatusCode(Response::HTTP_OK);
+            $response->headers->setCookie(new Cookie('Report'.$idComment, true));
             return $response;
         }
 
-        $session
-            ->getFlashBag()
-            ->add('error', 'Erreur lors du signalement.');
+        $session->getFlashBag()->add('error', 'Erreur lors du signalement.');
 
-        return new Response('Erreur lors du signalement.');
+        $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        return $response;
     }
 }

@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function showAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $messages = $session->getFlashBag()->all() ?? null;
@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function deleteAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $id = $request->request->get('id');
