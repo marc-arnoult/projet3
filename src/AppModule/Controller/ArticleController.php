@@ -20,7 +20,7 @@ class ArticleController extends Controller
      */
     public function indexAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
 
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
         $commentDAO = new CommentDAO(self::$db, self::$cache);
@@ -45,7 +45,7 @@ class ArticleController extends Controller
      */
     public function showAction(Request $request, int $id) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
 
         $commentDAO = new CommentDAO(self::$db, self::$cache);
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
@@ -80,7 +80,7 @@ class ArticleController extends Controller
 
     public function addShowAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $userDAO = new UserDAO(self::$db, self::$cache);
@@ -107,7 +107,7 @@ class ArticleController extends Controller
 
     public function showArticleAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $articleDAO = new ArticleDAO(self::$db, self::$cache);
@@ -128,7 +128,7 @@ class ArticleController extends Controller
      */
     public function postAction(Request $request)
     {
-        $session = new Session();
+        $session = $this->getSession();
         $user = $session->get('user');
 
         $this->userRoleIs($session, 'administrateur');
@@ -176,7 +176,7 @@ class ArticleController extends Controller
      */
     public function deleteAction (Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
 
         $this->userRoleIs($session, 'administrateur');
 
@@ -208,7 +208,7 @@ class ArticleController extends Controller
      */
     public function editShowAction (Request $request, int $id) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
 
         $this->userRoleIs($session, 'administrateur');
 
@@ -234,7 +234,7 @@ class ArticleController extends Controller
      */
     public function editAction (Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $user = $session->get('user');
 
         $this->userRoleIs($session, 'administrateur');

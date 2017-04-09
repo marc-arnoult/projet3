@@ -13,9 +13,7 @@ use AppModule\Model\User;
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class AuthController extends Controller
 {
@@ -25,6 +23,7 @@ class AuthController extends Controller
      */
     public function signUpShowAction(Request $request) : Response
     {
+        $request->setSession($this->getSession());
         return $this->render($request);
     }
 
@@ -34,15 +33,16 @@ class AuthController extends Controller
      */
     public function signUpAction(Request $request)
     {
-        $session = new Session();
+        $session = $this->getSession();
+        $response = new Response();
+
         $data = $request->request->all();
 
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $session
-                ->getFlashBag()
-                ->add('error', 'Email incorrect');
-            header('Location: /');
-            exit();
+            $session->getFlashBag()->add('error', 'Email incorrect');
+
+            $response->setStatusCode(Response::HTTP_NOT_ACCEPTABLE);
+            return $response;
         }
 
         $userDAO = new UserDAO(self::$db, self::$cache);
@@ -50,23 +50,16 @@ class AuthController extends Controller
 
         $result = $userDAO->add($user);
 
-        if($result) {
+        if(!$result) {
+            $session->getFlashBag()->add('error', 'Pseudo et/ou adresse email déjà utilisé');
 
-            $session
-                ->getFlashBag()
-                ->add('success', 'Inscription terminée, merci.');
-
-            self::signInAction($request);
-        } else {
-            $session = new Session();
-
-            $session
-                ->getFlashBag()
-                ->add('error', 'Pseudo et/ou adresse email déjà pris');
-            header('Location: /');
-
-            exit();
+            $response->setStatusCode(Response::HTTP_NOT_ACCEPTABLE);
+            return $response;
         }
+
+        $session->getFlashBag()->add('success', 'Inscription terminée, merci.');
+
+        return static::signInAction($request);
     }
 
     /**
@@ -75,6 +68,8 @@ class AuthController extends Controller
      */
     public function signInShowAction(Request $request) : Response
     {
+        $request->setSession($this->getSession());
+
         return $this->render($request);
     }
 
@@ -84,57 +79,49 @@ class AuthController extends Controller
      */
     public function signInAction(Request $request)
     {
-        $session = new Session();
+        $session = $this->getSession();
+        $response = new Response();
 
         $data = $request->request->all();
         $data['password'] = sha1($data['password']);
+
         $userDAO = new UserDAO(self::$db, self::$cache);
         $result = $userDAO->get($data);
 
         if (!$result) {
-            $session
-                ->getFlashBag()
-                ->set('error', 'Mauvais pseudo ou mot de passe');
-            header('Location: /');
+            $session->getFlashBag()->set('error', 'Mauvais pseudo ou mot de passe');
 
-            exit();
+            $response->setStatusCode(401);
+            return $response;
         }
 
         $user = new User($result);
         $session->set('user', $user);
 
         if ($user->getRole() === 'administrateur') {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Vous êtes maintenant connectée en tant que administrateur');
+            $session->getFlashBag()->add('success', 'Vous êtes maintenant connectée en tant que administrateur');
 
-            header('Location: /admin');
-
-            exit();
+            $response->setStatusCode(Response::HTTP_OK);
         } else if (!empty($user->getRole())) {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Vous êtes maintenant connectée');
+            $session->getFlashBag()->add('success', 'Vous êtes maintenant connectée');
 
-            header('Location: /');
-
-            exit();
+            $response->setStatusCode(Response::HTTP_OK);
         }
+
+        return $response;
     }
 
     /**
      * @param Request $request
-     * @return Response
+     * @return void
      */
     public function signOutAction(Request $request)
     {
-        $session = new Session();
+        $session = $this->getSession();
         $session->clear();
-        $session
-            ->getFlashBag()
-            ->add('success', 'Vous êtes maintenant déconnectée');
+        $session->getFlashBag()->add('success', 'Vous êtes maintenant déconnectée');
 
         header('Location: /');
-        exit();
+        return null;
     }
 }

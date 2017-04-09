@@ -1,9 +1,11 @@
 <?php
-namespace Core\Database;
+namespace AppModule\Cache;
 
+use Core\Database\CacheInterface;
 use Predis\Client;
 
-class RedisCache {
+class RedisCache implements CacheInterface
+{
     private $redis;
 
     /**

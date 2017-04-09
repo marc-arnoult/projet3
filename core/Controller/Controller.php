@@ -2,9 +2,9 @@
 
 namespace Core\Controller;
 
+use AppModule\Cache\RedisCache;
 use AppModule\Model\User;
 use Core\Database\Database;
-use Core\Database\RedisCache;
 use Symfony\Component\HttpFoundation\{
     Request, Response, Session\Session
 };
@@ -16,17 +16,18 @@ class Controller
 {
     protected static $db;
     protected static $cache;
+    protected $session;
 
     /**
      * Controller constructor.
      */
     public function __construct()
     {
-        if (empty(self::$cache)) {
+        if (!isset(self::$cache)) {
            self::$cache = new RedisCache();
         }
 
-        if (empty(self::$db)) {
+        if (!isset(self::$db)) {
             self::$db = new Database();
         }
     }
@@ -49,7 +50,7 @@ class Controller
             __DIR__ .'/../../resources/views/admin/layout'
         ));
         $twig = new Twig_Environment($loader, array(
-            'cache' => __DIR__ .'/../../tmp/'
+            'cache' => false//__DIR__ .'/../../tmp/'
         ));
         $twig->addExtension(new Twig_Extension_Debug());
         $twig->addExtension(new \Twig_Extensions_Extension_Text());
@@ -101,5 +102,15 @@ class Controller
             ->add('error', 'Vous n\'êtes pas autorisé à faire ça');
         header('Location: /');
         exit();
+    }
+
+    public function getSession()
+    {
+        if (isset($this->session)) {
+            return $this->session;
+        }
+
+        $this->session = new Session();
+        return $this->session;
     }
 }

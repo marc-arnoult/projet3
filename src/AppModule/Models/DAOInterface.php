@@ -3,12 +3,12 @@
 namespace AppModule\Model;
 
 
+use Core\Database\CacheInterface;
 use Core\Database\Database;
-use Core\Database\RedisCache;
 
 interface DAOInterface
 {
-    public function __construct(Database $db, RedisCache $cache);
+    public function __construct(Database $db, CacheInterface $cache);
 
     /**
      * @param modelInterface $model

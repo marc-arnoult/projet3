@@ -27,7 +27,7 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $messages = $session->getFlashBag()->all() ?? null;
