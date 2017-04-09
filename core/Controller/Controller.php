@@ -16,6 +16,7 @@ class Controller
 {
     protected static $db;
     protected static $cache;
+    protected $session;
 
     /**
      * Controller constructor.
@@ -101,5 +102,15 @@ class Controller
             ->add('error', 'Vous n\'êtes pas autorisé à faire ça');
         header('Location: /');
         exit();
+    }
+
+    public function getSession()
+    {
+        if (isset($this->session)) {
+            return $this->session;
+        }
+
+        $this->session = new Session();
+        return $this->session;
     }
 }
