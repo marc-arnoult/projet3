@@ -3,7 +3,8 @@ namespace Core\Database;
 
 use Predis\Client;
 
-class RedisCache {
+class RedisCache implements CacheInterface
+{
     private $redis;
 
     /**
