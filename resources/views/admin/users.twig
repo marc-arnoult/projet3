@@ -50,6 +50,9 @@
                 method: 'DELETE',
                 data: {
                     id: $id
+                },
+                error: function () {
+                    window.location.reload();
                 }
             }).done(function () {
                window.location.reload();
