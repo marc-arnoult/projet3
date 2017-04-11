@@ -3,22 +3,25 @@
 namespace Core\Smoky;
 
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\HttpKernel\Controller\{ControllerResolver, ArgumentResolver};
+use Symfony\Component\HttpKernel\Controller\{
+    ArgumentResolverInterface, ControllerResolver, ArgumentResolver, ControllerResolverInterface
+};
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 interface Smokyinterface
 {
     /**
      *SmokyInterface constructor.
      *
-     * @param UrlMatcher $urlMatcher
-     * @param ControllerResolver $controllerResolver
-     * @param ArgumentResolver $argumentResolver
+     * @param UrlMatcher|UrlMatcherInterface $urlMatcher
+     * @param ControllerResolver|ControllerResolverInterface $controllerResolver
+     * @param ArgumentResolver|ArgumentResolverInterface $argumentResolver
      */
     public function __construct(
-        UrlMatcher $urlMatcher,
-        ControllerResolver $controllerResolver,
-        ArgumentResolver $argumentResolver
+        UrlMatcherInterface $urlMatcher,
+        ControllerResolverInterface $controllerResolver,
+        ArgumentResolverInterface $argumentResolver
     );
 
     /**

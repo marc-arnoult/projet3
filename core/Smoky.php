@@ -4,8 +4,11 @@ namespace Core\Smoky;
 
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\HttpKernel\Controller\{ArgumentResolver, ControllerResolver};
+use Symfony\Component\HttpKernel\Controller\{
+    ArgumentResolver, ArgumentResolverInterface, ControllerResolver, ControllerResolverInterface
+};
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 class Smoky implements Smokyinterface
 {
@@ -22,13 +25,12 @@ class Smoky implements Smokyinterface
     /**
      * Smoky constructor.
      *
-     * @param UrlMatcher $urlMatcher
-     * @param ControllerResolver $controllerResolver
-     * @param ArgumentResolver $argumentResolver
-     * @param ArgumentResolver $argumentResolver
+     * @param UrlMatcher|UrlMatcherInterface $urlMatcher
+     * @param ControllerResolver|ControllerResolverInterface $controllerResolver
+     * @param ArgumentResolver|ArgumentResolverInterface $argumentResolver
      */
 
-    public function __construct(UrlMatcher $urlMatcher, ControllerResolver $controllerResolver, ArgumentResolver $argumentResolver)
+    public function __construct(UrlMatcherInterface $urlMatcher, ControllerResolverInterface $controllerResolver, ArgumentResolverInterface $argumentResolver)
     {
         $this->urlMatcher = $urlMatcher;
         $this->controllerResolver = $controllerResolver;
