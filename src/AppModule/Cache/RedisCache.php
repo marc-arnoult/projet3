@@ -13,7 +13,10 @@ class RedisCache implements CacheInterface
      */
     public function __construct()
     {
-        $this->redis = new Client(array('host' => 'redis'));
+        $file = __DIR__ . '/../../../config/my_setting.ini';
+        if (!$settings = parse_ini_file($file, TRUE)) throw new \Exception('Unable to open ' . $file . '.');
+
+        $this->redis = new Client(array('host' => $settings['cache']['host']));
     }
 
     /**

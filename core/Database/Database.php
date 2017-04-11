@@ -14,7 +14,7 @@ class Database extends \PDO
      * @param string $file
      * @throws Exception
      */
-    public function __construct($file = 'my_setting.ini')
+    public function __construct($file = __DIR__ . '/../../config/my_setting.ini')
     {
         if (!$settings = parse_ini_file($file, TRUE)) throw new exception('Unable to open ' . $file . '.');
 
