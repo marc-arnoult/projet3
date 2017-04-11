@@ -17,7 +17,6 @@ class RedisCache implements CacheInterface
     }
 
     /**
-     *
      * @param $keys
      * @return string
      */
@@ -43,7 +42,8 @@ class RedisCache implements CacheInterface
     public function hashKey($key)
     {
         if(is_object($key)) {
-            return get_class($key). '_' . $key->id . '_' . strtotime($key->updated_at);
+            $id = $key->id ?? '1';
+            return get_class($key). '_' . $id . '_' . strtotime($key->updated_at);
         } else {
             return $key;
         }
