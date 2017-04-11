@@ -93,7 +93,7 @@ class Controller
             exit();
         }
 
-        if ($user->getRole() === $roles) {
+        if ($user instanceof User && $user->getRole() === $roles) {
             return true;
         }
 
