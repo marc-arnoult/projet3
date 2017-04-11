@@ -6,7 +6,7 @@ use AppModule\Cache\RedisCache;
 use AppModule\Model\User;
 use Core\Database\Database;
 use Symfony\Component\HttpFoundation\{
-    Request, Response, Session\Session
+    Request, Response, Session\Session, Session\SessionInterface
 };
 use Twig_Environment;
 use Twig_Extension_Debug;
@@ -72,11 +72,11 @@ class Controller
     /**
      * Check is the the user can do something.
      *
-     * @param Session $session
+     * @param Session|SessionInterface $session
      * @param $roles
      * @return bool
      */
-    public function userRoleIs(Session $session, $roles) {
+    public function userRoleIs(SessionInterface $session, $roles) {
         $user = $session->get('user');
 
         if (is_array($roles)) {
@@ -93,7 +93,7 @@ class Controller
             exit();
         }
 
-        if ($user instanceof User && $user->getRole() === $roles) {
+        if ($user->getRole() === $roles) {
             return true;
         }
 
