@@ -77,6 +77,9 @@ $(function () {
             },
             success: function () {
                 window.location.reload();
+            },
+            error: function () {
+                window.location.reload();
             }
         }).done(function () {
             window.location.reload();
@@ -91,6 +94,9 @@ $(function () {
             type: 'DELETE',
             data: {
                 id: this.parentNode.getAttribute('data-id')
+            },
+            error: function () {
+                window.location.reload();
             }
         }).done(function () {
             window.location.reload();
@@ -111,7 +117,7 @@ $(function () {
         }
     });
 
-    $('.reply').each(function (e) {
+    $('.reply').each(function () {
         this.style.opacity = '0';
     });
 

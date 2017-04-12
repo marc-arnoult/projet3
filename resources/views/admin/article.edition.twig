@@ -58,6 +58,9 @@
                             title: title,
                             id: {{ article.id }},
                             published: 1
+                        },
+                        error: function () {
+                            window.location.reload();
                         }
                     }).done(function () {
                         window.location = '/admin/articles'
@@ -78,6 +81,9 @@
                             title: title,
                             id: {{ article.id }},
                             published: 0
+                        },
+                        error: function () {
+                            window.location.reload();
                         }
                     }).done(function () {
                         window.location = '/admin/articles'

@@ -40,7 +40,7 @@
     </div>
     <script>
 
-        $('a span.text-danger').click(function (e) {
+        $('span.text-danger').click(function (e) {
             e.preventDefault();
 
            var $id = $(this).data('user-id');
@@ -50,6 +50,9 @@
                 method: 'DELETE',
                 data: {
                     id: $id
+                },
+                error: function () {
+                    window.location.reload();
                 }
             }).done(function () {
                window.location.reload();

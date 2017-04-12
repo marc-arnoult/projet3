@@ -9,10 +9,11 @@
 namespace AppModule\Model;
 
 
+use AppModule\Cache\RedisCache;
+use Core\Database\CacheInterface;
 use Core\Database\Database;
-use Core\Database\RedisCache;
 
-class CommentDAO implements iDAO
+class CommentDAO implements DAOInterface
 {
     private $db;
     private $cache;
@@ -20,19 +21,19 @@ class CommentDAO implements iDAO
     /**
      * CommentDAO constructor.
      * @param Database $db
-     * @param RedisCache $cache
+     * @param RedisCache|CacheInterface $cache
      */
-    public function __construct(Database $db, RedisCache $cache)
+    public function __construct(Database $db, CacheInterface $cache)
     {
         $this->cache = $cache;
         $this->db = $db;
     }
 
     /**
-     * @param iModel $comment
+     * @param modelInterface $comment
      * @return bool
      */
-    public function add(iModel $comment)
+    public function add(modelInterface $comment)
     {
         $req = $this->db->prepare('INSERT INTO comments (id_user, id_article, content, id_parent, depth, created_at, updated_at)
                             VALUES (:id_user, :id_article, :content, :id_parent, :depth, NOW(), NOW())');
@@ -71,7 +72,7 @@ class CommentDAO implements iDAO
      */
     public function getAll($idArticle = null)
     {
-        if($idArticle != null) {
+        if($idArticle !== null) {
             $req = $this->db->prepare
                     ("SELECT comments.*, user.pseudo, user.role
                     FROM comments  

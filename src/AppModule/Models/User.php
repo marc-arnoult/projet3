@@ -9,7 +9,7 @@
 namespace AppModule\Model;
 
 
-class User implements iModel
+class User implements modelInterface
 {
     private $id;
     private $pseudo;

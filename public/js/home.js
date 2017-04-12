@@ -47,6 +47,9 @@ $(function () {
                 from: $email,
                 subject: $subject,
                 message: $message
+            },
+            error: function () {
+                window.location.reload();
             }
         }).done(function () {
             window.location.reload();

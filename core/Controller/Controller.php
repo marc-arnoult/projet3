@@ -2,12 +2,11 @@
 
 namespace Core\Controller;
 
+use AppModule\Cache\RedisCache;
 use AppModule\Model\User;
 use Core\Database\Database;
-use Core\Database\RedisCache;
-use DateTime;
 use Symfony\Component\HttpFoundation\{
-    Request, Response, Session\Session
+    Request, Response, Session\Session, Session\SessionInterface
 };
 use Twig_Environment;
 use Twig_Extension_Debug;
@@ -17,17 +16,18 @@ class Controller
 {
     protected static $db;
     protected static $cache;
+    protected $session;
 
     /**
      * Controller constructor.
      */
     public function __construct()
     {
-        if (empty(self::$cache)) {
+        if (!isset(self::$cache)) {
            self::$cache = new RedisCache();
         }
 
-        if (empty(self::$db)) {
+        if (!isset(self::$db)) {
             self::$db = new Database();
         }
     }
@@ -50,7 +50,7 @@ class Controller
             __DIR__ .'/../../resources/views/admin/layout'
         ));
         $twig = new Twig_Environment($loader, array(
-            'cache' => __DIR__ .'/../../tmp/'
+            'cache' => false//__DIR__ .'/../../tmp/'
         ));
         $twig->addExtension(new Twig_Extension_Debug());
         $twig->addExtension(new \Twig_Extensions_Extension_Text());
@@ -62,7 +62,6 @@ class Controller
         $response = new Response(ob_get_clean());
 
         $response->setPublic();
-        $response->setPrivate();
 
         $response->setSharedMaxAge(3600);
         $response->headers->addCacheControlDirective('must-revalidate', true);
@@ -73,11 +72,11 @@ class Controller
     /**
      * Check is the the user can do something.
      *
-     * @param Session $session
+     * @param Session|SessionInterface $session
      * @param $roles
      * @return bool
      */
-    public function userRoleIs(Session $session, $roles) {
+    public function userRoleIs(SessionInterface $session, $roles) {
         $user = $session->get('user');
 
         if (is_array($roles)) {
@@ -103,5 +102,15 @@ class Controller
             ->add('error', 'Vous n\'êtes pas autorisé à faire ça');
         header('Location: /');
         exit();
+    }
+
+    public function getSession()
+    {
+        if (isset($this->session)) {
+            return $this->session;
+        }
+
+        $this->session = new Session();
+        return $this->session;
     }
 }

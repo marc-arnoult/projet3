@@ -71,6 +71,9 @@
                     data: {
                         id: this.getAttribute('data-id')
                     },
+                    error: function () {
+                        window.location.reload();
+                    },
                     type: 'DELETE'
                 }).done(function () {
                     window.location.reload();

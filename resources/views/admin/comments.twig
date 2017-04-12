@@ -154,6 +154,9 @@
                         type: method,
                         data: {
                             id: $id
+                        },
+                        error: function () {
+                            window.location.reload();
                         }
                     }).done(function () {
                         window.location.reload();
@@ -188,6 +191,9 @@
                             data: {
                                 content: $value,
                                 id: $id
+                            },
+                            error: function () {
+                                window.location.reload();
                             }
                         }).done(function () {
                             window.location.reload();
@@ -202,6 +208,9 @@
                                 content: $value,
                                 id_article: $idArticle,
                                 id_parent: $id
+                            },
+                            error: function () {
+                                window.location.reload();
                             }
                         }).done(function () {
                             window.location.reload();

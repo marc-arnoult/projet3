@@ -11,7 +11,7 @@ namespace AppModule\Model;
 
 use DateTimeZone;
 
-class Article implements iModel
+class Article implements modelInterface
 {
     private $id;
     private $idUser;

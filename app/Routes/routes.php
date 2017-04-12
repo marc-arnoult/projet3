@@ -1,7 +1,7 @@
 <?php
 
 use AppModule\Controller\{
-    ArticleController, AuthController, CommentController, IndexController, AdminController, UserController
+    AdminController, ArticleController, AuthController, CommentController, IndexController, UserController
 };
 use Symfony\Component\Routing\{RouteCollection, Route};
 
@@ -26,17 +26,17 @@ $routes->add('#send-email#', new Route('/send-email', array(
 ), array(), array(), '', array(), array('POST')));
 
 
-/********************
- *      @ADMIN      *
- ********************/
+/*************************
+ *      @Route Admin     *
+ *************************/
 
 $routes->add('admin/index', new Route('/admin', array(
     '_controller' => array(new AdminController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
-/***************************
- *      @ADMIN-ARTICLES    *
- ***************************/
+/******************************
+ *     @Route Admin/articles  *
+ ******************************/
 
 $routes->add('admin/articles', new Route('/admin/articles', array(
     '_controller' => array(new ArticleController(),'showArticleAction')
@@ -63,17 +63,17 @@ $routes->add('#admin/article.edition#', new Route('/admin/edition/article', arra
     '_controller' => array(new ArticleController(), 'editAction')
 ), array(), array(), '', array(), array('PUT')));
 
-/***************************
- *      @ADMIN-COMMENT     *
- ***************************/
+/******************************
+ *     @Route Admin/comments  *
+ ******************************/
 
 $routes->add('admin/comments', new Route('/admin/comments', array(
     '_controller' => array(new CommentController(), 'indexAction')
 ), array(), array(), '', array(), array('GET')));
 
-/***************************
- *       @ADMIN-USERS      *
- ***************************/
+/******************************
+ *     @Route Admin/users     *
+ ******************************/
 
 $routes->add('admin/users', new Route('/admin/users', array(
     '_controller' => array(new UserController(), 'showAction')
@@ -83,17 +83,17 @@ $routes->add('#admin/user/delete#', new Route('/admin/user', array(
     '_controller' => array(new UserController(), 'deleteAction')
 ), array(), array(), '', array(), array('DELETE')));
 
-/********************
- *     @SIGN-OUT    *
- ********************/
+/******************************
+ *     @Route for Sign-Out    *
+ ******************************/
 
 $routes->add('sign_out', new Route('/deconnexion', array(
     '_controller' => array(new AuthController(), 'signOutAction')
 ), array(), array(), '', array(), array('GET')));
 
-/********************
- *     @SIGN-UP     *
- ********************/
+/******************************
+ *     @Route for Sign-Up     *
+ ******************************/
 
 $routes->add('sign_up', new Route('/inscription', array(
     '_controller' => array(new AuthController(), 'signUpShowAction')
@@ -103,9 +103,9 @@ $routes->add('#sign_up#', new Route('/inscription', array(
     '_controller' => array(new AuthController(), 'signUpAction')
 ), array(), array(), '', array(), array('POST')));
 
-/********************
- *     @SIGN-IN     *
- ********************/
+/******************************
+ *     @Route for Sign-in     *
+ ******************************/
 
 $routes->add('sign_in', new Route('/connexion', array(
     '_controller' => array(new AuthController(), 'signInShowAction')
@@ -115,9 +115,9 @@ $routes->add('#sign_in#', new Route('/connexion', array(
     '_controller' => array(new AuthController(), 'signInAction')
 ), array(), array(), '', array(), array('POST')));
 
-/********************
- *      @COMMENT    *
- ********************/
+/*******************************
+ *      @Route for Comments    *
+ *******************************/
 
 $routes->add('comments', new Route('/comments', array(
     '_controller' => array(new CommentController(), 'postAction')

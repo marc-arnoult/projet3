@@ -3,11 +3,12 @@
 namespace AppModule\Model;
 
 
+use AppModule\Cache\RedisCache;
+use Core\Database\CacheInterface;
 use Core\Database\Database;
-use Core\Database\RedisCache;
 
 
-class UserDAO implements iDAO
+class UserDAO implements DAOInterface
 {
     private $db;
     private $cache;
@@ -15,19 +16,19 @@ class UserDAO implements iDAO
     /**
      * UserDAO constructor.
      * @param Database $db
-     * @param RedisCache $cache
+     * @param CacheInterface|RedisCache $cache
      */
-    public function __construct(Database $db, RedisCache $cache)
+    public function __construct(Database $db, CacheInterface $cache)
     {
         $this->cache = $cache;
         $this->db = $db;
     }
 
     /**
-     * @param iModel $model
+     * @param modelInterface $model
      * @return bool
      */
-    public function add(iModel $model)
+    public function add(modelInterface $model)
     {
         $db = new Database();
         $req = $db->prepare('INSERT INTO user (pseudo, password, email, role, created_at) VALUES (:pseudo, :password, :email, :role, NOW())');

@@ -21,5 +21,12 @@
         "twig/extensions": "^1.4",
         "predis/predis": "^1.1",
         "phpmailer/phpmailer": "^5.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.0",
+        "phpunit/phpunit-selenium": "~2.0",
+        "phpunit/dbunit": ">=1.2",
+        "guzzlehttp/guzzle": "~6.0",
+        "sebastian/comparator": "~1.0"
     }
 }

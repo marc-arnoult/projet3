@@ -75,6 +75,9 @@ if (replyAll) {
                 id_parent: commentId,
                 id_article: articleId,
                 content: content
+            },
+            error: function () {
+                window.location.reload();
             }
         }).done(function () {
             self.firstChild.value = '';

@@ -9,11 +9,11 @@
 namespace AppModule\Model;
 
 
+use Core\Database\CacheInterface;
 use Core\Database\Database;
-use Core\Database\RedisCache;
-use AppModule\Model\Article;
+use AppModule\Cache\RedisCache;
 
-class ArticleDAO implements iDAO
+class ArticleDAO implements DAOInterface
 {
     private $db;
     private $cache;
@@ -21,19 +21,19 @@ class ArticleDAO implements iDAO
     /**
      * ArticleDAO constructor.
      * @param Database $db
-     * @param RedisCache $cache
+     * @param RedisCache|CacheInterface $cache
      */
-    public function __construct(Database $db, RedisCache $cache)
+    public function __construct(Database $db, CacheInterface $cache)
     {
         $this->cache = $cache;
         $this->db = $db;
     }
 
     /**
-     * @param iModel $article
+     * @param modelInterface $article
      * @return bool
      */
-    public function add(iModel $article)
+    public function add(modelInterface $article)
     {
         $req = null;
 

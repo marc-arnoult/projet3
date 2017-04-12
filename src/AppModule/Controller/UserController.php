@@ -6,7 +6,7 @@ namespace AppModule\Controller;
 
 use AppModule\Model\UserDAO;
 use Core\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -17,9 +17,9 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Request $request)
+    public function showAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $messages = $session->getFlashBag()->all() ?? null;
@@ -33,9 +33,9 @@ class UserController extends Controller
         return $this->render($request);
     }
 
-    public function deleteAction(Request $request)
+    public function deleteAction(Request $request) : Response
     {
-        $session = new Session();
+        $session = $this->getSession();
         $this->userRoleIs($session, 'administrateur');
 
         $id = $request->request->get('id');
@@ -44,15 +44,11 @@ class UserController extends Controller
         $result = $userDAO->delete($id);
 
         if($result) {
-            $session
-                ->getFlashBag()
-                ->add('success', 'Utilisateur supprimé');
+            $session->getFlashBag()->add('success', 'Utilisateur supprimé');
 
             return new Response('Utilisateur supprimé');
         }
-        $session
-            ->getFlashBag()
-            ->add('error', 'Erreur lors de la suppression de cet utilisateur');
+        $session->getFlashBag()->add('error', 'Erreur lors de la suppression de cet utilisateur');
 
         return new Response('Erreur lors de la suppression de cet utilisateur');
     }

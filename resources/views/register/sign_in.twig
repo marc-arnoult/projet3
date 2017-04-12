@@ -10,8 +10,17 @@
 </head>
 
 <body>
+    {% for key, messages in request.getSession.getFlashbag.all() %}
+        <div class="alert alert-{{ key }}">
+            {% for message in messages %}
+                <span class="alert-text">{{ message }}</span>
+            {% endfor %}
+            <span class="alert-remove">x</span>
+        </div>
+    {% endfor %}
+
     <div class="sign">
-        <form id="form" action="/connexion" method="post">
+        <form id="form" method="post">
             Pseudo :
             <input type="text" name="pseudo" required>
             Password :
@@ -20,4 +29,29 @@
         </form>
     </div>
 </body>
+
+<script src="/resources/views/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/public/js/app.js"></script>
+<script >
+    $(function () {
+        $('#form').submit(function (e) {
+            e.preventDefault();
+            var dataForm = {
+                pseudo: $(this).find('input[name=pseudo]').val(),
+                password: $(this).find('input[name=password]').val()
+            };
+
+            $.ajax({
+                method: "POST",
+                url: '/connexion',
+                data: dataForm,
+                error: function () {
+                    window.location.reload();
+                }
+            }).done(function () {
+                window.location = '/'
+            })
+        })
+    })
+</script>
 

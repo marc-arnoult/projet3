@@ -19,5 +19,4 @@ $argumentResolver = new ArgumentResolver();
 $smoky = new \Core\Smoky\Smoky($matcher, $controllerResolver, $argumentResolver);
 $response = $smoky->handle($request);
 
-
 $response->send();
