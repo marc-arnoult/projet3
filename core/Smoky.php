@@ -54,9 +54,13 @@ class Smoky implements Smokyinterface
 
             return call_user_func_array($controller, $arguments);
         } catch (ResourceNotFoundException $e) {
-            return new Response('Not Found', 404);
+            ob_start();
+            include __DIR__.'/../resources/views/not-found/404.html';
+            $response = new Response(ob_get_clean());
+            $response->setStatusCode(Response::HTTP_NOT_FOUND);
+            return $response;
         } catch (\Exception $e) {
-            return new Response('An error occurred', 500);
+            return new Response('An error occurred', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
