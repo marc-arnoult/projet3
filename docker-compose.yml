@@ -1,6 +1,6 @@
 web:
- image: marc/php7 # For Develop
- # images: silintl/php7 # For Production
+ #image: marc/php7 # For Develop
+ image: silintl/php7 # For Production
  ports:
   - "8000:80"
   - "8443:443"
@@ -8,7 +8,7 @@ web:
   - $PWD:/var/www/html
   - $PWD/config/10-opcache.ini:/etc/php/7.0/apache2/conf.d/10-opcache.ini
   - $PWD/config/sites-enabled/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-  - $PWD/config/20-xdebug.ini:/etc/php/7.0/apache2/conf.d/20-xdebug.ini # For develop
+ # - $PWD/config/20-xdebug.ini:/etc/php/7.0/apache2/conf.d/20-xdebug.ini # For develop
  links:
   - db:db
   - redis:redis
